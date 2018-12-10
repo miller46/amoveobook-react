@@ -1,0 +1,18 @@
+body {
+}
+
+:global(.left) {
+  float: left;
+}
+
+:global(.right) {
+  float: right;
+}
+
+:global(.clear) {
+  clear:both;
+}
+
+:global(.clearfix) {
+  overflow: auto;
+}
