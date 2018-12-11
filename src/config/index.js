@@ -1,3 +1,5 @@
+export {languages} from './languages'
+
 const isTestnet = true;
 
 export const CONTRACT_ADDRESS = isTestnet
