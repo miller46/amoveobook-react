@@ -15,25 +15,61 @@ export default class NavBar extends Component {
 		super(props);
 	}
 
+	burgerToggle() {
+		let linksEl = document.getElementById('narrow-links');
+		if (linksEl.style.display === 'block') {
+			linksEl.style.display = 'none';
+		} else {
+			linksEl.style.display = 'block';
+		}
+	}
+
 	render() {
 		return (
-			<div styleName="NavBar">
-				<div styleName="NavBarLeft">
-					<Logo />
+			<nav styleName="NavBar">
+				<div styleName="NavWide">
+					<div styleName="WideDiv">
+						<div styleName="NavBarLeft">
+							<Logo />
+						</div>
+
+						<div styleName="NavBarRight">
+							<Help />
+
+							<LanguagePicker />
+
+							<VeoPrice />
+
+							<AmoveoExchangeLink />
+						</div>
+
+						<div className="clear"></div>
+					</div>
 				</div>
+				<div styleName="NavNarrow">
+					<i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+					<div className="right">
+						<Logo />
+					</div>
+					<div id="narrow-links" styleName="NarrowLinks">
+						<div>
+							<VeoPrice />
+						</div>
 
-				<div styleName="NavBarRight">
-					<Help />
+						<div>
+							<AmoveoExchangeLink />
+						</div>
 
-					<LanguagePicker />
+						<div>
+							<Help />
+						</div>
 
-					<VeoPrice />
-
-					<AmoveoExchangeLink />
+						<div>
+							<LanguagePicker />
+						</div>
+					</div>
 				</div>
-
-				<div className="clear"></div>
-			</div>
+			</nav>
 		)
 	}
 }

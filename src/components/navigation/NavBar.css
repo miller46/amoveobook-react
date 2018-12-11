@@ -1,7 +1,12 @@
 .NavBar {
     background-color: #000000;
     padding: 8px;
-    color: #FFFFFF
+    color: #FFFFFF;
+    overflow: hidden;
+}
+
+.NavBar a:visited {
+    color: #ffffff;
 }
 
 .NavBarLeft {
@@ -22,4 +27,56 @@
     float: right;
     margin-left: 16px;
     margin-right: 16px;
+}
+
+.NavWide {
+    display: none;
+    margin: 0 auto;
+}
+
+.NavWide .WideDiv {
+    text-align: center;
+}
+
+.NavWide .WideDiv a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.NavNarrow i {
+    float: left;
+    cursor: pointer;
+    color: #fff;
+    padding-top: 4px;
+    padding-left: 8px;
+}
+
+.NavNarrow .NarrowLinks {
+    display: none;
+}
+
+.NarrowLinks div {
+    width: 100%;
+    float: left;
+}
+
+.NarrowLinks p {
+    margin-bottom: 4px;
+}
+
+.NavNarrow .NarrowLinks a {
+    text-decoration: none;
+    display: block;
+    float: left;
+    clear: left;
+    padding: 0.5em 0;
+}
+
+@media (min-width: 480px) {
+    .NavWide {
+        display: block;
+    }
+    .NavNarrow {
+        display: none;
+    }
 }
