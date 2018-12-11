@@ -1,0 +1,25 @@
+.NavBar {
+    background-color: #000000;
+    padding: 8px;
+    color: #FFFFFF
+}
+
+.NavBarLeft {
+    float: left;
+}
+
+.NavBarLeft div {
+    float: left;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.NavBarRight {
+    float: right;
+}
+
+.NavBarRight div {
+    float: right;
+    margin-left: 16px;
+    margin-right: 16px;
+}

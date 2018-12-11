@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import CSSModules from 'react-css-modules'
+import styles from './App.css'
+import NavBar from '../components/navigation/NavBar'
 
+@CSSModules(styles)
 export default class App extends Component {
 
 	constructor(props) {
@@ -9,8 +13,13 @@ export default class App extends Component {
 	render() {
 		return (
 			<div>
-				<h1>App</h1>
-				<div>{this.props.children}</div>
+				<div>
+					<NavBar />
+				</div>
+
+				<div>
+					{this.props.children}
+				</div>
 			</div>
 		)
 	}

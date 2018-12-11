@@ -1,0 +1,12 @@
+.Logo img {
+    height: 42px;
+    float: left;
+    margin-right: 8px;
+}
+
+.Logo p {
+    color: #FFEB3B !important;
+    font-size: 24px;
+    text-shadow: unset;
+    float: left;
+}

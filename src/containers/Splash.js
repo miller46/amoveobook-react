@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NewTodo from "../components/VeoPrice";
+import NewTodo from "../components/navigation/VeoPrice";
 
 export default class Splash extends Component {
 
@@ -10,7 +10,7 @@ export default class Splash extends Component {
 	render() {
 		return (
 			<div>
-				<NewTodo />
+				<p>Splash</p>
 			</div>
 		)
 	}

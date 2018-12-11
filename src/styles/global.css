@@ -1,4 +1,9 @@
 body {
+
+}
+
+p {
+  margin-bottom: 0;
 }
 
 :global(.left) {
