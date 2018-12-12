@@ -73,7 +73,8 @@ export default class VeoPrice extends Component {
 		const currencyId = this.props.currencyId || "usd"
 		const selectedCurrency = currencies[currencyId]
 
-		const veoPrice = veoPrices[currencyId] * veoPrices.last || "--";
+		const veoPrice = veoPrices[currencyId] * veoPrices.last;
+		const veoPriceDisplay = veoPrice ? veoPrice.toFixed(2) : "--";
 		let display;
 		if (loading) {
 			display = <p>Loading...</p>
@@ -107,7 +108,7 @@ export default class VeoPrice extends Component {
 			display = <div>
 				<div styleName="Selected" onClick={() => this.toggle()}>
 					<div styleName="SelectedRow">
-						<p>1 VEO ≈ {selectedCurrency.symbol}{veoPrice.toFixed(2)} <small> ▼</small></p>
+						<p>1 VEO ≈ {selectedCurrency.symbol}{veoPriceDisplay} <small> ▼</small></p>
 					</div>
 				</div>
 				<div styleName="Unselected">
