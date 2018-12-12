@@ -29,12 +29,16 @@
     margin-top: 46px;
 }
 
+.Unselected > div {
+    width: 134px;
+}
+
 .UnselectedRow {
     padding: 8px;
     background: #000000;
-    width: 134px;
     margin-left: -9px;
     float: left;
+    width: 134px;
 }
 
 .Hidden {

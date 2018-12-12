@@ -1,3 +1,8 @@
 .VeoPrice {
-    margin-top: 8px;
+
+}
+
+.VeoPrice:hover {
+    color: #FFEB3B;
+    cursor: pointer;
 }

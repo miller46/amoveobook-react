@@ -8,6 +8,12 @@ import {
 	SET_LANGUAGE_SUCCESS,
 	SET_LANGUAGE_FAILURE,
 	SET_LANGUAGE_STARTED,
+	GET_CURRENCY_SUCCESS,
+	GET_CURRENCY_FAILURE,
+	GET_CURRENCY_STARTED,
+	SET_CURRENCY_SUCCESS,
+	SET_CURRENCY_FAILURE,
+	SET_CURRENCY_STARTED,
 } from '../actions/types';
 
 const initialState = {
@@ -70,6 +76,44 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				languageId: action.payload.languageId
 			};
 		case SET_LANGUAGE_FAILURE:
+			return {
+				...state,
+				loading: false,
+				error: action.payload.error
+			};
+		case GET_CURRENCY_STARTED:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case GET_CURRENCY_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				currencyId: action.payload.currencyId
+			};
+		case GET_CURRENCY_FAILURE:
+			return {
+				...state,
+				loading: false,
+				error: action.payload.error
+			};
+		case SET_CURRENCY_STARTED:
+			return {
+				...state,
+				error: null,
+				loading: true
+			};
+		case SET_CURRENCY_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				currencyId: action.payload.currencyId
+			};
+		case SET_CURRENCY_FAILURE:
 			return {
 				...state,
 				loading: false,

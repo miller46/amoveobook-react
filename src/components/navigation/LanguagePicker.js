@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => {
 		getLanguage: () => {
 			dispatch(getLanguage());
 		},
-		setLanguage: (languageId) => {
+		setCurrency: (languageId) => {
 			dispatch(setLanguage(languageId));
 		}
 	};
@@ -51,7 +51,7 @@ export default class LanguagePicker extends Component {
 	}
 
 	selectLanguageAndClose(id) {
-		this.props.setLanguage(id);
+		this.props.setCurrency(id);
 		this.setState({showing: false})
 	}
 
