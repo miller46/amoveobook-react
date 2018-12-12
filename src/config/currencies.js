@@ -3,15 +3,15 @@ export const currencies = {
 		displayName: "US Dollar",
 		symbol: "$",
 	},
-	"rby": {
+	"rub": {
 		displayName: "рубль",
 		symbol: "₽",
 	},
-	"ren": {
+	"cny": {
 		displayName: "人民币",
 		symbol: "¥",
 	},
-	"euro": {
+	"eur": {
 		displayName: "Euro",
 		symbol: "€",
 	},

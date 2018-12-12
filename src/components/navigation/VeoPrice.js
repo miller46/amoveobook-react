@@ -3,28 +3,25 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules'
 const ClickOutHandler = require('react-onclickout');
 
-import styles from './VeoPrice.css'
 import styles2 from './LanguagePicker.css'
-import { getVeoPrice, setCurrency, getCurrency } from '../../actions/index';
+import { getVeoPrices, setCurrency, getCurrency } from '../../actions/index';
 
 
-const mergedStyles = {...styles, ...styles2 }
-
-import {currencies, languages} from '../../config'
+import {currencies} from '../../config'
 
 const mapStateToProps = (state) => {
 	return {
 		loading: state.default.loading,
 		currencyId: state.default.currencyId,
-		veoPrice: state.default.veoPrice,
+		veoPrices: state.default.veoPrices,
 		error: state.default.error,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getVeoPrice: () => {
-			dispatch(getVeoPrice());
+		getVeoPrices: () => {
+			dispatch(getVeoPrices());
 		},
 		getCurrency: () => {
 			dispatch(getCurrency());
@@ -53,7 +50,7 @@ export default class VeoPrice extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getVeoPrice();
+		this.props.getVeoPrices();
 		this.props.getCurrency();
 	}
 
@@ -72,10 +69,11 @@ export default class VeoPrice extends Component {
 
 	render() {
 		const {showing} = this.state;
-		const {loading, veoPrice, error} = this.props;
+		const {loading, veoPrices, error} = this.props;
 		const currencyId = this.props.currencyId || "usd"
 		const selectedCurrency = currencies[currencyId]
 
+		const veoPrice = veoPrices[currencyId] * veoPrices.last || "--";
 		let display;
 		if (loading) {
 			display = <p>Loading...</p>
@@ -106,7 +104,7 @@ export default class VeoPrice extends Component {
 				</ClickOutHandler>
 			}
 
-			display = <div styleName="LanguagePicker">
+			display = <div>
 				<div styleName="Selected" onClick={() => this.toggle()}>
 					<div styleName="SelectedRow">
 						<p>1 VEO ≈ {selectedCurrency.symbol}{veoPrice.toFixed(2)} <small> ▼</small></p>
@@ -119,7 +117,7 @@ export default class VeoPrice extends Component {
 		}
 
 		return (
-			<div>
+			<div styleName="LanguagePicker">
 				{display}
 			</div>
 		)

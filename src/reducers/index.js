@@ -18,7 +18,7 @@ import {
 
 const initialState = {
 	loading: true,
-	veoPrice: 0,
+	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	error: null
 };
 
@@ -35,7 +35,7 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				...state,
 				loading: false,
 				error: null,
-				veoPrice: action.payload.veoPrice
+				veoPrices: action.payload.veoPrices
 			};
 		case GET_VEO_PRICE_FAILURE:
 			return {

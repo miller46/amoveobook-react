@@ -1,4 +1,4 @@
-export { getVeoPrice } from './getVeoPrice'
+export { getVeoPrices } from './getVeoPrices'
 export { getLanguage } from './getLanguage'
 export { setLanguage } from './setLanguage'
 export { getCurrency } from './getCurrency'

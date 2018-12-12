@@ -4,7 +4,7 @@ import {
 	GET_VEO_PRICE_STARTED
 } from '../actions/types';
 
-export const getVeoPrice = () => {
+export const getVeoPrices = () => {
 	return (dispatch, getState) => {
 		dispatch(getVeoStarted());
 
@@ -14,9 +14,17 @@ export const getVeoPrice = () => {
 		})
 		.then(function(json) {
 			const btcUsdPrice = json["USD"]
-			const veoBtcPrice = json["last"]
-			const veoUsdPrice = btcUsdPrice * veoBtcPrice;
-			dispatch(getVeoSuccess(veoUsdPrice));
+			const btcEuroPrice = json["EUR"]
+			const btcCnyPrice = json["CNY"]
+			const btcRubPrice = json["RUB"]
+			const lastVeoBtcPrice = json["last"]
+			dispatch(getVeoSuccess({
+				usd: btcUsdPrice,
+				eur: btcEuroPrice,
+				cny: btcCnyPrice,
+				rub: btcRubPrice,
+				last: lastVeoBtcPrice,
+			}));
 		})
 		.catch(err => {
 			dispatch(getVeoFailure(err.message));
@@ -24,10 +32,10 @@ export const getVeoPrice = () => {
 	};
 };
 
-const getVeoSuccess = veoPrice => ({
+const getVeoSuccess = veoPrices => ({
 	type: GET_VEO_PRICE_SUCCESS,
 	payload: {
-		veoPrice
+		veoPrices
 	}
 });
 
