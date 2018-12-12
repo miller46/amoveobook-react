@@ -23,7 +23,7 @@
     float: right;
 }
 
-.NavBarRight div {
+.NavBarRight > div {
     float: right;
     margin-left: 16px;
     margin-right: 16px;

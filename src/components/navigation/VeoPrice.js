@@ -28,7 +28,6 @@ export default class VeoPrice extends Component {
 		super(props);
 
 		this.state = {
-			price: 0,
 			loading: true,
 		}
 	}

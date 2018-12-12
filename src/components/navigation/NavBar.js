@@ -61,11 +61,11 @@ export default class NavBar extends Component {
 						</div>
 
 						<div>
-							<Help />
+							<LanguagePicker />
 						</div>
 
 						<div>
-							<LanguagePicker />
+							<Help />
 						</div>
 					</div>
 				</div>
