@@ -1,5 +1,6 @@
 export {languages} from './languages'
 export {currencies} from './currencies'
+export {api} from './api'
 
 const isTestnet = true;
 

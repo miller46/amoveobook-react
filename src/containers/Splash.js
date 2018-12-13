@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import NewTodo from "../components/navigation/VeoPrice";
+
+import MarketsList from "../components/markets/MarketsList";
+import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 
 export default class Splash extends Component {
 
@@ -10,7 +12,9 @@ export default class Splash extends Component {
 	render() {
 		return (
 			<div>
-				<p>Splash</p>
+				<MarketsList />
+
+				<ExpiredMarketsList />
 			</div>
 		)
 	}
