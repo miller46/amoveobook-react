@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import CSSModules from 'react-css-modules'
 import {connect} from "react-redux";
 import {getActiveMarkets} from "../../actions";
 import Loading from "../Loading";
-
+import styles from './Markets.css'
+import MarketRow from './MarketRow'
 
 const mapStateToProps = (state) => {
 	return {
@@ -51,9 +53,10 @@ export default class MarketsList extends Component {
 						{
 							activeMarkets.map(function(market, index) {
 								return (
-									<div key={index}>
-										{market.question}
-									</div>
+									<MarketRow
+										key={index}
+										market={market}
+									/>
 								)
 							})
 						}
