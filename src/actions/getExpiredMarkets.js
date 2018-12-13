@@ -8,10 +8,9 @@ import {api} from "../config"
 
 export const getExpiredMarkets = (options) => {
 	return (dispatch, getState) => {
-		const a = getState();
 		dispatch(getExpiredMarketsStarted());
 
-		const url = api.expiredMarketsUrl;
+		const url = getUrlFromOptions(options);
 		fetch(url)
 		.then(function(response) {
 			return response.json();
@@ -31,6 +30,14 @@ export const getExpiredMarkets = (options) => {
 		});
 	};
 };
+
+function getUrlFromOptions(options) {
+	let url = api.expiredMarketsUrl;
+	if ("limit" in options) {
+		url += "&limit=" + options["limit"]
+	}
+	return url;
+}
 
 const getExpiredMarketsSuccess = expiredMarkets => ({
 	type: GET_EXPIRED_MARKETS_SUCCESS,

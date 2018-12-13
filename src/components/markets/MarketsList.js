@@ -5,6 +5,7 @@ import {getActiveMarkets} from "../../actions";
 import Loading from "../Loading";
 import styles from './MarketsList.css'
 import MarketRow from './MarketRow'
+import SectionLabel from "./SectionLabel";
 
 const mapStateToProps = (state) => {
 	return {
@@ -46,9 +47,7 @@ export default class MarketsList extends Component {
 		} else {
 			return (
 				<div styleName="List">
-					<div styleName="Title">
-						<p>Active Markets</p>
-					</div>
+					<SectionLabel titleText={"Active Markets"} />
 
 					<div>
 						{

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import {getExpiredMarkets} from "../../actions";
 import Loading from "../Loading";
+import SectionLabel from "./SectionLabel";
 
 
 const mapStateToProps = (state) => {
@@ -28,7 +29,7 @@ export default class ExpiredMarketsList extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getExpiredMarkets();
+		this.props.getExpiredMarkets({limit: 3});
 	}
 
 	render() {
@@ -43,9 +44,7 @@ export default class ExpiredMarketsList extends Component {
 		} else {
 			return (
 				<div>
-					<div>
-						<p>Expired Markets List</p>
-					</div>
+					<SectionLabel titleText={"Expired Markets List"} />
 
 					<div>
 						{

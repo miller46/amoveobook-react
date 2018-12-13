@@ -33,9 +33,9 @@
 
 .LeftPanel {
     float: left;
-    width: 66%;
+    width: 75%;
     border-right: 2px solid white;
-    padding-right: 16px;
+    padding-right: 32px;
 }
 
 .LeftPanel label {
@@ -43,7 +43,7 @@
 }
 
 .RightPanel {
-    width: 33%;
+    width: 25%;
     float: right;
-    padding-left: 16px;
+    padding-left: 32px;
 }
