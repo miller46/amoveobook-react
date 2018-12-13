@@ -11,10 +11,10 @@ import {currencies} from '../../config'
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.default.loading,
+		loading: state.default.loading.veoPrices,
 		currencyId: state.default.currencyId,
 		veoPrices: state.default.veoPrices,
-		error: state.default.error,
+		error: state.default.error.veoPrices,
 	};
 };
 

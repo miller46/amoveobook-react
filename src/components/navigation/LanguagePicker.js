@@ -11,7 +11,7 @@ import { getLanguage, setLanguage } from '../../actions/index';
 const mapStateToProps = (state) => {
 	return {
 		languageId: state.default.languageId,
-		error: state.default.error,
+		error: state.default.error.language
 	};
 };
 

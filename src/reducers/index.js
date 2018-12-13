@@ -23,7 +23,11 @@ import {
 } from '../actions/types';
 
 const initialState = {
-	loading: true,
+	loading: {
+		veoPrices: true,
+		activeMarkets: true,
+		expiredMarkets: true,
+	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
 	expiredMarkets: [],
@@ -32,7 +36,13 @@ const initialState = {
 		"gj1S1jRvGn5HkscyHAQIcoGdIv0t5BdK94jYSDj7e5U=",
 		"ZYwRWHW74Xf9ZOH5TSKLeIyrSGjQJWd7ep9dCEWMj3I=",
 	],
-	error: null
+	error: {
+		veoPrices: null,
+		activeMarkets: null,
+		expiredMarkets: null,
+		language: null,
+		currency: null,
+	}
 };
 
 export default function getVeoPriceReducer(state = initialState, action) {
@@ -40,135 +50,216 @@ export default function getVeoPriceReducer(state = initialState, action) {
 		case GET_VEO_PRICE_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					veoPrice: null
+				},
+				loading: {
+					...state.loading,
+					veoPrice: true,
+				}
 			};
 		case GET_VEO_PRICE_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				error: null,
+				loading: {
+					...state.loading,
+					veoPrice: false,
+				},
+				error: {
+					...state.error,
+					veoPrice: null
+				},
 				veoPrices: action.payload.veoPrices
 			};
 		case GET_VEO_PRICE_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				loading: {
+					...state.loading,
+					veoPrice: false,
+				},
+				error: {
+					...state.error,
+					veoPrice: action.payload.error
+				}
 			};
 		case GET_LANGUAGE_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					language: null
+				},
 			};
 		case GET_LANGUAGE_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				error: null,
+				error: {
+					...state.error,
+					language: null
+				},
 				languageId: action.payload.languageId
 			};
 		case GET_LANGUAGE_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				error: {
+					...state.error,
+					language: action.payload.error
+				}
 			};
 		case SET_LANGUAGE_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					language: null
+				},
 			};
 		case SET_LANGUAGE_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				error: null,
+				error: {
+					...state.error,
+					language: null
+				},
 				languageId: action.payload.languageId
 			};
 		case SET_LANGUAGE_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				error: {
+					...state.error,
+					language: action.payload.error
+				}
 			};
 		case GET_CURRENCY_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					currency: null
+				},
 			};
 		case GET_CURRENCY_SUCCESS:
 			return {
 				...state,
+				error: {
+					...state.error,
+					currency: null
+				},
 				loading: false,
-				error: null,
 				currencyId: action.payload.currencyId
 			};
 		case GET_CURRENCY_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				error: {
+					...state.error,
+					currency: action.payload.error
+				}
 			};
 		case SET_CURRENCY_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				loading: true,
+				error: {
+					...state.error,
+					currency: null
+				}
 			};
 		case SET_CURRENCY_SUCCESS:
 			return {
 				...state,
+				error: {
+					...state.error,
+					currency: null
+				},
 				loading: false,
-				error: null,
 				currencyId: action.payload.currencyId
 			};
 		case SET_CURRENCY_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				error: {
+					...state.error,
+					currency: action.payload.error
+				}
 			};
 		case GET_ACTIVE_MARKETS_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					activeMarkets: null
+				},
+				loading: {
+					...state.loading,
+					activeMarkets: true,
+				}
 			};
 		case GET_ACTIVE_MARKETS_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				error: null,
+				loading: {
+					...state.loading,
+					activeMarkets: false,
+				},
+				error: {
+					...state.error,
+					activeMarkets: null
+				},
 				activeMarkets: action.payload.activeMarkets
 			};
 		case GET_ACTIVE_MARKETS_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				loading: {
+					...state.loading,
+					activeMarkets: false,
+				},
+				error: {
+					...state.error,
+					activeMarkets: action.payload.error
+				}
 			};
 		case GET_EXPIRED_MARKETS_STARTED:
 			return {
 				...state,
-				error: null,
-				loading: true
+				error: {
+					...state.error,
+					expiredMarkets: null
+				},
+				loading: {
+					...state.loading,
+					expiredMarkets: true,
+				}
 			};
 		case GET_EXPIRED_MARKETS_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				error: null,
+				loading: {
+					...state.loading,
+					expiredMarkets: false,
+				},
+				error: {
+					...state.error,
+					expiredMarkets: null
+				},
 				expiredMarkets: action.payload.expiredMarkets
 			};
 		case GET_EXPIRED_MARKETS_FAILURE:
 			return {
 				...state,
-				loading: false,
-				error: action.payload.error
+				loading: {
+					...state.loading,
+					expiredMarkets: false,
+				},
+				error: {
+					...state.error,
+					expiredMarkets: action.payload.error
+				}
 			};
 		default:
 			return state;

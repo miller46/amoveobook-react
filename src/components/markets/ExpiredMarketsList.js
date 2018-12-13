@@ -6,7 +6,8 @@ import Loading from "../Loading";
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.default.loading,
+		error: state.default.error.expiredMarkets,
+		loading: state.default.loading.expiredMarkets,
 		expiredMarkets: state.default.expiredMarkets,
 	};
 };
