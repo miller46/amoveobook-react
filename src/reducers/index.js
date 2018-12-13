@@ -48,7 +48,7 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				...state,
 				loading: false,
 				error: null,
-				veoPrice: action.payload.veoPric
+				veoPrices: action.payload.veoPrices
 			};
 		case GET_VEO_PRICE_FAILURE:
 			return {
