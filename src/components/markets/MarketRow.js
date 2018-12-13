@@ -24,24 +24,32 @@ export default class MarketRow extends Component {
 		return (
 			<div styleName="Card" onClick={() => this.goToDetails()}>
 				<div styleName="Market">
-					<div>
-						<p>{market.question}</p>
+					<div styleName="LeftPanel">
+						<div styleName="Question">
+							<h1>{market.question}</h1>
+						</div>
+						<div>
+							<label>Expires</label>
+							<p>{market.end_block}</p>
+						</div>
 					</div>
-					<div>
-						<p>{market.end_block}</p>
+					<div styleName="Separator">
 					</div>
-					<div>
-						<label>Volume</label>
-						<p>{market.end_block}</p>
+					<div styleName="RightPanel">
+						<div>
+							<label>Volume</label>
+							<p>{market.end_block}</p>
+						</div>
+						<div>
+							<label>Current Odds</label>
+							<p>{market.id}</p>
+						</div>
+						<div>
+							<label>Open Bets</label>
+							<p>{market.end_block}</p>
+						</div>
 					</div>
-					<div>
-						<label>Current Odds</label>
-						<p>{market.id}</p>
-					</div>
-					<div>
-						<label>Open Bets</label>
-						<p>{market.end_block}</p>
-					</div>
+					<div className="clear"></div>
 				</div>
 
 			</div>

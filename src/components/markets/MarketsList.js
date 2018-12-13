@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules'
 import {connect} from "react-redux";
 import {getActiveMarkets} from "../../actions";
 import Loading from "../Loading";
-import styles from './Markets.css'
+import styles from './MarketsList.css'
 import MarketRow from './MarketRow'
 
 const mapStateToProps = (state) => {
@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
+@CSSModules(styles)
 export default class MarketsList extends Component {
 
 	constructor(props) {
@@ -44,9 +45,9 @@ export default class MarketsList extends Component {
 			)
 		} else {
 			return (
-				<div>
-					<div>
-						<p>Markets List</p>
+				<div styleName="List">
+					<div styleName="Title">
+						<p>Active Markets</p>
 					</div>
 
 					<div>

@@ -2,8 +2,48 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.42);
     color: white;
     background: #0E0E0E;
+    margin: 0 auto 16px auto;
+    padding: 16px;
+    max-width: 800px;
+    border-radius: 4px;
 }
 
 .Market {
+}
 
+.Question h1 {
+    margin: 0;
+}
+
+.Market label {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.Market p {
+    font-size: 1.4rem;
+    color: #FFEB3B;
+}
+
+.Separator {
+
+}
+
+.LeftPanel {
+    float: left;
+    width: 66%;
+    border-right: 2px solid white;
+    padding-right: 16px;
+}
+
+.LeftPanel label {
+    margin-top: 16px;
+}
+
+.RightPanel {
+    width: 33%;
+    float: right;
+    padding-left: 16px;
 }
