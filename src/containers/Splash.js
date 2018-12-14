@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import MarketsList from "../components/markets/MarketsList";
 import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
+import RequestMarket from "../components/requestMarket/RequestMarket";
 
 export default class Splash extends Component {
 
@@ -15,6 +16,8 @@ export default class Splash extends Component {
 				<MarketsList />
 
 				<ExpiredMarketsList />
+
+				<RequestMarket />
 			</div>
 		)
 	}
