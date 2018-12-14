@@ -1,0 +1,68 @@
+.Footer {
+    background: #000;
+    position: absolute;
+    width: 100%;
+    min-height: 400px;
+    color: white;
+    text-align: center;
+}
+
+.Footer a {
+    color: #69c;
+}
+
+.Footer a:hover {
+    color: #98caff;
+}
+
+.Heading {
+    color: #a0a0a0;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.Footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.Brand {
+    width: 33%;
+    float: left;
+    margin-top: 64px;
+}
+
+.Brand > div {
+    margin: auto;
+}
+
+.Links {
+    width: 33%;
+    float: left;
+    margin-top: 32px
+}
+
+.Info {
+    width: 33%;
+    float: left;
+    margin-top: 32px
+}
+
+@media (max-width: 800px) {
+    .Brand {
+        width: 100%;
+        margin-top: 64px;
+    }
+
+    .Links {
+        width: 50%;
+        float: left;
+        margin-top: 32px
+    }
+
+    .Info {
+        width: 50%;
+        float: left;
+        margin-top: 32px
+    }
+}
