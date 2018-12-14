@@ -51,3 +51,19 @@
     float: right;
     padding-left: 32px;
 }
+
+
+@media (max-width: 680px) {
+    .QuestionCol {
+        width: 60%;
+        padding-right: 4px;
+    }
+
+    .ExpiredCol {
+        width: 20%;
+    }
+
+    .ResolutionCol {
+        width: 20%;
+    }
+}

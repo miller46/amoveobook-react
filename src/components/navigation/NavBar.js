@@ -52,19 +52,19 @@ export default class NavBar extends Component {
 						<Logo />
 					</div>
 					<div id="narrow-links" styleName="NarrowLinks">
-						<div>
+						<div styleName="LinkRowPad">
 							<VeoPrice />
 						</div>
 
-						<div>
+						<div styleName="LinkRow">
 							<AmoveoExchangeLink />
 						</div>
 
-						<div>
+						<div styleName="LinkRowPad">
 							<LanguagePicker />
 						</div>
 
-						<div>
+						<div styleName="LinkRow">
 							<Help />
 						</div>
 					</div>
