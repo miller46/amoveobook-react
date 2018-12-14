@@ -23,6 +23,9 @@ import {
 	GET_HEIGHT_STARTED,
 	GET_HEIGHT_SUCCESS,
 	GET_HEIGHT_FAILURE,
+	GET_MARKET_STARTED,
+	GET_MARKET_SUCCESS,
+	GET_MARKET_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -30,10 +33,12 @@ const initialState = {
 		veoPrices: true,
 		activeMarkets: true,
 		expiredMarkets: true,
+		marketDetails: {},
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
 	expiredMarkets: [],
+	marketDetails: {},
 	height: 45315,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
@@ -46,6 +51,7 @@ const initialState = {
 		expiredMarkets: null,
 		language: null,
 		currency: null,
+		marketDetails: {},
 	}
 };
 
@@ -288,6 +294,67 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				error: {
 					...state.error,
 					height: action.payload.error
+				}
+			};
+		case GET_MARKET_STARTED:
+			const oid = action.payload.oid;
+			const marketErrors = state.error.marketDetails;
+			marketErrors[oid] = null;
+
+			const marketLoading = state.loading;
+			marketLoading[oid] = true;
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					marketDetails: marketLoading
+				},
+				error: {
+					...state.error,
+					marketDetails: marketErrors
+				},
+			};
+		case GET_MARKET_SUCCESS:
+			const oid2 = action.payload.oid;
+			const market = action.payload.market;
+			const marketDetails = state.marketDetails;
+			marketDetails[oid2] = market;
+
+			const marketErrors2 = state.error.marketDetails;
+			marketErrors2[oid2] = null;
+
+			const marketLoading2 = state.loading;
+			marketLoading2[oid2] = false;
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					marketDetails: marketLoading2,
+				},
+				error: {
+					...state.error,
+					marketDetails: marketErrors2
+				},
+				marketDetails: marketDetails
+			};
+		case GET_MARKET_FAILURE:
+			const oid3 = action.payload.oid;
+
+			const error = action.payload.error;
+			const marketErrors3 = state.error.marketDetails;
+			marketErrors3[oid3] = error;
+
+			const marketLoading3 = state.loading.marketDetails;
+			marketLoading3[oid3] = false;
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					marketDetails: marketLoading3
+				},
+				error: {
+					...state.error,
+					marketDetails: marketErrors3
 				}
 			};
 		default:

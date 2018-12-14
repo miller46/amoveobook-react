@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './MarketRow.css'
 import {connect} from "react-redux";
-import {getHeight} from "../../actions";
+import {getHeight, getMarket} from "../../actions";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
 	return {
-		error: state.default.error.height,
+		heightError: state.default.error.height,
+		marketDetails: state.default.marketDetails[ownProps.market.oid],
 		loading: state.default.loading.height,
 		height: state.default.height,
 	};
@@ -16,6 +17,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		getHeight: () => {
 			dispatch(getHeight());
+		},
+		getMarket: (oid) => {
+			dispatch(getMarket(oid));
 		},
 	};
 };
@@ -35,6 +39,7 @@ export default class MarketRow extends Component {
 
 	componentDidMount() {
 		this.props.getHeight()
+		this.props.getMarket(this.state.market.oid)
 	}
 
 	goToDetails() {
@@ -42,7 +47,7 @@ export default class MarketRow extends Component {
 	}
 
 	render() {
-		const {height}= this.props;
+		const {height, marketDetails}= this.props;
 		const {market} = this.state;
 
 		var expires = new Date();
