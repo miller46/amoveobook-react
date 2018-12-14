@@ -1,3 +1,8 @@
+.Logo {
+    padding-top: 4px;
+    overflow: auto;
+}
+
 .Logo img {
     height: 42px;
     float: left;
@@ -9,4 +14,10 @@
     font-size: 24px;
     text-shadow: unset;
     float: left;
+}
+
+@media (max-width: 787px) {
+    .Logo {
+        padding-bottom: 8px;
+    }
 }
