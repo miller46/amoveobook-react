@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
+import PropTypes from 'prop-types';
 import styles from './MarketRow.css'
 import {connect} from "react-redux";
+import {Redirect} from 'react-router'
 import {getHeight, getMarket} from "../../actions";
 import {tokenDecimals, tokenUnit} from "../../config";
 
@@ -29,10 +31,15 @@ const mapDispatchToProps = dispatch => {
 @CSSModules(styles)
 export default class MarketRow extends Component {
 
+	static contextTypes = {
+		router: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			market: props.market,
+			goToDetails: false,
 		}
 
 		this.goToDetails = this.goToDetails.bind(this)
@@ -44,7 +51,7 @@ export default class MarketRow extends Component {
 	}
 
 	goToDetails() {
-
+		this.context.router.push("/" + encodeURIComponent(this.state.market.oid))
 	}
 
 	static getVolume(orders) {
@@ -86,17 +93,20 @@ export default class MarketRow extends Component {
 		return odds;
 	}
 
-	render() {
-		const {height, marketDetails}= this.props;
-		const {market} = this.state;
-
+	static getDisplayExpires(endBlock, height) {
 		let expires = new Date();
-		const diff = market.end_block - height;
+		const diff = endBlock - height;
 		const minutes = diff * 10;
 		expires.setMinutes(expires.getMinutes() + minutes);
 		const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-		const expiresText = expires.toLocaleDateString('en-US', options) + " (Block " + market.end_block + ")";
+		return expires.toLocaleDateString('en-US', options) + " (Block " + endBlock + ")";
+	}
 
+	render() {
+		const {height, marketDetails} = this.props;
+		const {market} = this.state;
+
+		const expiresText = MarketRow.getDisplayExpires(market.end_block, height);
 
 		let volume = "--"
 		let openInterest = "--"
