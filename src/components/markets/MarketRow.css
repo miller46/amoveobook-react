@@ -67,3 +67,34 @@
         width: 20%;
     }
 }
+
+@media (max-width: 870px) {
+    .Card {
+        margin: 0 16px;
+    }
+
+    .LeftPanel {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 2px solid white;
+        padding-right: 0;
+        padding-bottom: 16px;
+    }
+
+    .RightPanel {
+        width: 100%;
+        float: left;
+        padding-left: 0;
+    }
+
+    .Market label {
+        margin-top: 12px;
+        margin-right: 4px;
+    }
+
+    .RightPanel > div {
+        float: left;
+        width: 33%;
+        text-align: center;
+    }
+}

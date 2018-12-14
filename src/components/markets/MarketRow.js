@@ -151,7 +151,7 @@ export default class MarketRow extends Component {
 							<p>{volume} <small>{tokenUnit}</small></p>
 						</div>
 						<div>
-							<label>Current Odds</label>
+							<label>Odds</label>
 							<p>{odds}%</p>
 						</div>
 						<div>
