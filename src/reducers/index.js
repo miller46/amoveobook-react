@@ -20,6 +20,9 @@ import {
 	GET_EXPIRED_MARKETS_SUCCESS,
 	GET_EXPIRED_MARKETS_FAILURE,
 	GET_EXPIRED_MARKETS_STARTED,
+	GET_HEIGHT_STARTED,
+	GET_HEIGHT_SUCCESS,
+	GET_HEIGHT_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +34,7 @@ const initialState = {
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
 	expiredMarkets: [],
+	height: 45315,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
 		"gj1S1jRvGn5HkscyHAQIcoGdIv0t5BdK94jYSDj7e5U=",
@@ -259,6 +263,31 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				error: {
 					...state.error,
 					expiredMarkets: action.payload.error
+				}
+			};
+		case GET_HEIGHT_STARTED:
+			return {
+				...state,
+				error: {
+					...state.error,
+					height: null
+				},
+			};
+		case GET_HEIGHT_SUCCESS:
+			return {
+				...state,
+				error: {
+					...state.error,
+					height: null
+				},
+				height: action.payload.height
+			};
+		case GET_HEIGHT_FAILURE:
+			return {
+				...state,
+				error: {
+					...state.error,
+					height: action.payload.error
 				}
 			};
 		default:
