@@ -21,12 +21,14 @@ export default class RequestMarket extends Component {
 						<p>Have an idea for a market you would like to see? Let us know.</p>
 					</div>
 
-					<div styleName="InputText">
-						<input type="text" />
-					</div>
+					<div styleName="Form">
+						<div styleName="InputText">
+							<input type="text" />
+						</div>
 
-					<div styleName="Button">
-						<button>Send Request</button>
+						<div styleName="Button">
+							<button>Send</button>
+						</div>
 					</div>
 				</div>
 			</div>
