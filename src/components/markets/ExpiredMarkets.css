@@ -1,0 +1,31 @@
+.List {
+    background: #F7F7F7;
+    width: 1100px;
+    margin: auto;
+    padding: 32px;
+    margin-bottom: 64px;
+}
+
+.QuestionCol {
+    padding-right: 64px;
+    width: 80%;
+    float: left;
+}
+
+.ExpiredCol {
+    width: 10%;
+    float: left;
+}
+
+.ResolutionCol {
+    width: 10%;
+    float: left;
+}
+
+.TableHeader {
+    overflow: auto;
+    border-bottom: 1px solid black;
+    padding-bottom: 16px;
+    font-size: 0.9em;
+    color: #aaaaaa;
+}

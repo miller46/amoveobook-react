@@ -3,7 +3,9 @@ import {connect} from "react-redux";
 import {getExpiredMarkets} from "../../actions";
 import Loading from "../Loading";
 import SectionLabel from "./SectionLabel";
-
+import styles from './ExpiredMarkets.css'
+import CSSModules from "react-css-modules/dist/index";
+import ExpiredMarketsRow from "./ExpiredMarketRow";
 
 const mapStateToProps = (state) => {
 	return {
@@ -22,6 +24,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
+@CSSModules(styles)
 export default class ExpiredMarketsList extends Component {
 
 	constructor(props) {
@@ -43,16 +46,28 @@ export default class ExpiredMarketsList extends Component {
 			)
 		} else {
 			return (
-				<div>
-					<SectionLabel titleText={"Expired Markets List"} />
+				<div styleName="List">
+					<SectionLabel titleText={"Expired Markets"} />
 
 					<div>
+						<div styleName="TableHeader">
+							<div styleName="QuestionCol">
+								<p>Market</p>
+							</div>
+							<div styleName="ExpiredCol">
+								<p>Expired</p>
+							</div>
+							<div styleName="ResolutionCol">
+								<p>Outcome</p>
+							</div>
+						</div>
 						{
 							expiredMarkets.map(function(market, index) {
 								return (
-									<div key={index}>
-										{market.question}
-									</div>
+									<ExpiredMarketsRow
+										key={index}
+										market={market}
+									/>
 								)
 							})
 						}
