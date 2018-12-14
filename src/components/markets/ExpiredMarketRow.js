@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from './ExpiredMarketRow.css'
+import styles from './ExpiredMarkets.css'
 import CSSModules from "react-css-modules/dist/index";
 
 @CSSModules(styles)

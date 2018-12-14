@@ -1,6 +1,6 @@
 .List {
     background: #F7F7F7;
-    width: 1100px;
+    max-width: 1100px;
     margin: auto;
     padding: 32px;
     margin-bottom: 64px;
@@ -23,9 +23,32 @@
 }
 
 .TableHeader {
-    overflow: auto;
+    overflow: hidden;
     border-bottom: 1px solid black;
     padding-bottom: 16px;
     font-size: 0.9em;
     color: #aaaaaa;
+}
+
+.Row {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #444;
+    overflow: auto;
+    min-height: 81px;
+}
+
+@media (max-width: 680px) {
+    .QuestionCol {
+        width: 60%;
+        padding-right: 4px;
+    }
+
+    .ExpiredCol {
+        width: 20%;
+    }
+
+    .ResolutionCol {
+        width: 20%;
+    }
 }
