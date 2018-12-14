@@ -2,6 +2,9 @@ export {languages} from './languages'
 export {currencies} from './currencies'
 export {api} from './api'
 
+export const tokenDecimals = 100000000;
+export const tokenUnit = "VEO";
+
 const isTestnet = true;
 
 export const CONTRACT_ADDRESS = isTestnet
