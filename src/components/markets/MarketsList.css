@@ -2,3 +2,8 @@
     margin-top: 32px;
     margin-bottom: 64px;
 }
+
+.LoadingPlaceholder {
+    text-align: center;
+    margin-top: 64px;
+}

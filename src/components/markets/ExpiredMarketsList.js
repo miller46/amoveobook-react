@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
 import {getExpiredMarkets} from "../../actions";
-import Loading from "../Loading";
+import Loading from "../loading/Loading";
 import SectionLabel from "./SectionLabel";
 import styles from './ExpiredMarkets.css'
 import CSSModules from "react-css-modules/dist/index";
@@ -40,8 +40,8 @@ export default class ExpiredMarketsList extends Component {
 
 		if (loading) {
 			return (
-				<div>
-					<Loading />
+				<div styleName="LoadingPlaceholder">
+					<Loading lightMode={true} />
 				</div>
 			)
 		} else {

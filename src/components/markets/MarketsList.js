@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import {connect} from "react-redux";
 import {getActiveMarkets} from "../../actions";
-import Loading from "../Loading";
+import Loading from "../loading/Loading";
 import styles from './MarketsList.css'
 import MarketRow from './MarketRow'
 import SectionLabel from "./SectionLabel";
@@ -38,31 +38,33 @@ export default class MarketsList extends Component {
 	render() {
 		const {activeMarkets, loading} = this.props;
 
+		let display;
 		if (loading) {
-			return (
-				<div>
-					<Loading />
+			display = <div styleName="LoadingPlaceholder">
+					<Loading lightMode={true} />
 				</div>
-			)
 		} else {
-			return (
-				<div styleName="List">
-					<SectionLabel titleText={"Active Markets"} />
+			display = <div>
+				{
+					activeMarkets.map(function(market, index) {
+						return (
+							<MarketRow
+								key={index}
+								market={market}
+							/>
+						)
+					})
+				}
+			</div>
 
-					<div>
-						{
-							activeMarkets.map(function(market, index) {
-								return (
-									<MarketRow
-										key={index}
-										market={market}
-									/>
-								)
-							})
-						}
-					</div>
-				</div>
-			)
 		}
+
+		return (
+			<div styleName="List">
+				<SectionLabel titleText={"Active Markets"} />
+
+				{display}
+			</div>
+		)
 	}
 }

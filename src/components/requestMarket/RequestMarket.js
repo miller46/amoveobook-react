@@ -4,7 +4,7 @@ import CSSModules from "react-css-modules/dist/index";
 import styles from './RequestMarket.css'
 import {connect} from "react-redux";
 import {requestMarket} from "../../actions";
-import Loading from "../Loading";
+import Loading from "../loading/Loading";
 
 const mapStateToProps = (state) => {
 	return {
