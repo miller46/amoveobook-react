@@ -36,8 +36,10 @@ const initialState = {
 		veoPrices: true,
 		activeMarkets: true,
 		expiredMarkets: true,
-		requestMarket: false,
+		language: false,
+		currency: false,
 		marketDetails: {},
+		requestMarket: false,
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
@@ -153,6 +155,10 @@ export default function getVeoPriceReducer(state = initialState, action) {
 		case GET_CURRENCY_STARTED:
 			return {
 				...state,
+				loading: {
+					...state.loading,
+					currency: false,
+				},
 				error: {
 					...state.error,
 					currency: null
@@ -165,12 +171,19 @@ export default function getVeoPriceReducer(state = initialState, action) {
 					...state.error,
 					currency: null
 				},
-				loading: false,
+				loading: {
+					...state.loading,
+					currency: true,
+				},
 				currencyId: action.payload.currencyId
 			};
 		case GET_CURRENCY_FAILURE:
 			return {
 				...state,
+				loading: {
+					...state.loading,
+					currency: false,
+				},
 				error: {
 					...state.error,
 					currency: action.payload.error
@@ -179,7 +192,10 @@ export default function getVeoPriceReducer(state = initialState, action) {
 		case SET_CURRENCY_STARTED:
 			return {
 				...state,
-				loading: true,
+				loading: {
+					...state.loading,
+					currency: true,
+				},
 				error: {
 					...state.error,
 					currency: null
@@ -192,7 +208,10 @@ export default function getVeoPriceReducer(state = initialState, action) {
 					...state.error,
 					currency: null
 				},
-				loading: false,
+				loading: {
+					...state.loading,
+					currency: false,
+				},
 				currencyId: action.payload.currencyId
 			};
 		case SET_CURRENCY_FAILURE:
