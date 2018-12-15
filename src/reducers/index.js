@@ -26,6 +26,9 @@ import {
 	GET_MARKET_STARTED,
 	GET_MARKET_SUCCESS,
 	GET_MARKET_FAILURE,
+	SEND_REQUEST_STARTED,
+	SEND_REQUEST_SUCCESS,
+	SEND_REQUEST_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +36,7 @@ const initialState = {
 		veoPrices: true,
 		activeMarkets: true,
 		expiredMarkets: true,
+		requestMarket: false,
 		marketDetails: {},
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
@@ -40,6 +44,7 @@ const initialState = {
 	expiredMarkets: [],
 	marketDetails: {},
 	height: 45315,
+	requestMarket: false,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
 		"gj1S1jRvGn5HkscyHAQIcoGdIv0t5BdK94jYSDj7e5U=",
@@ -52,6 +57,7 @@ const initialState = {
 		language: null,
 		currency: null,
 		marketDetails: {},
+		requestMarket: null,
 	}
 };
 
@@ -355,6 +361,45 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				error: {
 					...state.error,
 					marketDetails: marketErrors3
+				}
+			};
+		case SEND_REQUEST_STARTED:
+			return {
+				...state,
+				requestMarket: false,
+				loading: {
+					...state.loading,
+					requestMarket: true
+				},
+				error: {
+					...state.error,
+					requestMarket: null
+				},
+			};
+		case SEND_REQUEST_SUCCESS:
+			return {
+				...state,
+				requestMarket: true,
+				loading: {
+					...state.loading,
+					requestMarket: false
+				},
+				error: {
+					...state.error,
+					requestMarket: null
+				},
+			};
+		case SEND_REQUEST_FAILURE:
+			return {
+				...state,
+				requestMarket: true,
+				loading: {
+					...state.loading,
+					requestMarket: false
+				},
+				error: {
+					...state.error,
+					requestMarket: action.payload.error
 				}
 			};
 		default:
