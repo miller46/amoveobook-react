@@ -70,11 +70,11 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				...state,
 				error: {
 					...state.error,
-					veoPrice: null
+					veoPrices: null
 				},
 				loading: {
 					...state.loading,
-					veoPrice: true,
+					veoPrices: true,
 				}
 			};
 		case GET_VEO_PRICE_SUCCESS:
@@ -82,11 +82,11 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				...state,
 				loading: {
 					...state.loading,
-					veoPrice: false,
+					veoPrices: false,
 				},
 				error: {
 					...state.error,
-					veoPrice: null
+					veoPrices: null
 				},
 				veoPrices: action.payload.veoPrices
 			};
@@ -95,11 +95,11 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				...state,
 				loading: {
 					...state.loading,
-					veoPrice: false,
+					veoPrices: false,
 				},
 				error: {
 					...state.error,
-					veoPrice: action.payload.error
+					veoPrices: action.payload.error
 				}
 			};
 		case GET_LANGUAGE_STARTED:
