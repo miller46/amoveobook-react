@@ -11,6 +11,11 @@
     margin-bottom: 0;
 }
 
+.AmoveoExchangeCTA:hover {
+    color: #FFEB3B;
+    cursor: pointer;
+}
+
 .AmoveoExchangeLogo {
     color: #20bcc5;
     cursor: default;

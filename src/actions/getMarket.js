@@ -31,6 +31,8 @@ export const getMarket = (oid) => {
 					expires: details[1][6],
 					buys: details[1][3],
 					sells: details[1][4],
+					oid: oid,
+					question: atob(details[2]),
 				}
 
 				dispatch(getMarketSuccess(oid, marketData));

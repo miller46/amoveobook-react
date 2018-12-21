@@ -1,0 +1,33 @@
+.Button {
+    padding: 16px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 400px;
+    overflow: auto;
+    margin: auto;
+}
+
+.Button:hover {
+    cursor: pointer;
+    font-weight: bold;
+    background: #fafafa
+}
+
+.Button img {
+    height: 80px;
+    float: left;
+    width: 50%;
+}
+
+.Button p {
+    float: right;
+    width: 50%;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.95rem;
+    padding-left: 16px;
+}
+
+.NoBold {
+    font-weight: normal !important;
+}

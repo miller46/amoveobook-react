@@ -5,3 +5,8 @@
 .Help a {
     color: #FFFFFF;
 }
+
+.Help a:hover {
+    color: #FFEB3B;
+    cursor: pointer;
+}

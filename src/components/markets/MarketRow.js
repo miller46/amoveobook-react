@@ -7,6 +7,8 @@ import {Redirect} from 'react-router'
 import {getHeight, getMarket} from "../../actions";
 import {tokenDecimals, tokenUnit} from "../../config";
 
+import {getDisplayExpires} from '../../utility'
+
 const mapStateToProps = (state, ownProps) => {
 	return {
 		heightError: state.default.error.height,
@@ -93,20 +95,11 @@ export default class MarketRow extends Component {
 		return odds;
 	}
 
-	static getDisplayExpires(endBlock, height) {
-		let expires = new Date();
-		const diff = endBlock - height;
-		const minutes = diff * 10;
-		expires.setMinutes(expires.getMinutes() + minutes);
-		const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-		return expires.toLocaleDateString('en-US', options) + " (Block " + endBlock + ")";
-	}
-
 	render() {
 		const {height, marketDetails} = this.props;
 		const {market} = this.state;
 
-		const expiresText = MarketRow.getDisplayExpires(market.end_block, height);
+		const expiresText = getDisplayExpires(market.end_block, height);
 
 		let volume = "--"
 		let openInterest = "--"
