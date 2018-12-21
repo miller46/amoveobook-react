@@ -40,17 +40,84 @@
 }
 
 .OrderType {
+    overflow: auto;
+    width: 216px;
+    margin: auto;
+    text-align: center;
+}
 
+.OrderType div {
+    width: 100px;
+}
+
+.OrderType div:hover {
+    border: 1px solid black;
+    border-radius: 4px;
+    background: #FCFCFC;
+    cursor: pointer;
+}
+
+.OrderTypeSelectedToggle {
+    border: 1px solid black;
+    border-radius: 4px;
 }
 
 .BuySellToggle {
+    overflow: auto;
+    width: 400px;
+    margin: auto;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.2rem;
+    margin-top: 16px;
+}
 
+.BuySellToggle div {
+    width: 50%;
+}
+
+.BuySellToggle div:hover {
+    border: 1px solid;
+    background: #FCFCFC;
+    cursor: pointer;
+}
+
+.BuySellSelectedToggle {
+    background: #FCFCFC;
+    border: 1px solid;
 }
 
 .OrderForm {
+    overflow: auto;
+    width: 400px;
+    margin: auto;
+    padding: 32px;
+}
 
+.OrderForm div {
+    padding: 8px;
+    overflow: auto;
+}
+
+.OrderForm input {
+    height: 32px;
+}
+
+.OrderFormButton {
+    margin: auto;
+    width: 164px;
+    margin-top: 16px;
+}
+
+.OrderFormButton button {
+    width: 100%;
 }
 
 .PayoutCalculator {
+    text-align: center;
+}
 
+.OrderContainer {
+    border: 1px solid;
+    margin: 16px;
 }

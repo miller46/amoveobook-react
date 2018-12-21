@@ -40,6 +40,8 @@ export default class Details extends Component {
 			oid: this.props.params.oid,
 			marketDetail: this.props.marketDetail,
 			height: this.props.height,
+			selectedOrderType: "market",
+			selectedBuySell: "buy",
 		}
 	}
 
@@ -55,8 +57,20 @@ export default class Details extends Component {
 		}
 	}
 
+	toggleOrderType() {
+		const {selectedOrderType} = this.state;
+		let newSelected = selectedOrderType === "market" ? "limit" : "market";
+		this.setState({selectedOrderType: newSelected})
+	}
+
+	toggleBuySell() {
+		const {selectedBuySell} = this.state;
+		let newSelected = selectedBuySell === "buy" ? "sell" : "buy";
+		this.setState({selectedBuySell: newSelected})
+	}
+
 	render() {
-		const {oid} = this.state;
+		const {oid, selectedOrderType, selectedBuySell} = this.state;
 		const {marketDetail, height} = this.props;
 
 		let expires = "--"
@@ -65,6 +79,14 @@ export default class Details extends Component {
 			expires = "Expires: " + getDisplayExpires(marketDetail.expires, height)
 			question = marketDetail.question;
 		}
+
+		const isMarketOrder = selectedOrderType === "market";
+		const marketStyleName = isMarketOrder ? "OrderTypeSelectedToggle" : ""
+		const limitStyleName = isMarketOrder ? "" : "OrderTypeSelectedToggle"
+
+		const isBuy = selectedBuySell === "buy";
+		const buyStyleName = isBuy ? "BuySellSelectedToggle" : ""
+		const sellStyleName = isBuy ? "" : "BuySellSelectedToggle"
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
@@ -95,30 +117,42 @@ export default class Details extends Component {
 				<div styleName="PanelRight">
 					<div>
 						<div styleName="OrderType">
-							<div>
+							<div className="left" styleName={marketStyleName} onClick={() => this.toggleOrderType()}>
 								<p>Market</p>
 							</div>
-							<div>
+							<div className="right" styleName={limitStyleName} onClick={() => this.toggleOrderType()}>
 								<p>Limit</p>
 							</div>
 						</div>
-						<div styleName="BuySellToggle">
-							<div>
-								<p>Buy</p>
+						<div styleName="OrderContainer">
+							<div styleName="BuySellToggle">
+								<div className="left" styleName={buyStyleName} onClick={() => this.toggleBuySell()}>
+									<p>Buy</p>
+								</div>
+								<div className="right" styleName={sellStyleName} onClick={() => this.toggleBuySell()}>
+									<p>Sell</p>
+								</div>
 							</div>
-							<div>
-								<p>Sell</p>
-							</div>
-						</div>
-						<div styleName="OrderForm">
-							<div>
-								<p>Amount</p>
-							</div>
-							<div>
-								<p>Price</p>
-							</div>
-							<div>
-								<button>Buy</button>
+							<div styleName="OrderForm">
+								<div>
+									<div className="left">
+										<p>Amount</p>
+									</div>
+									<div className="right">
+										<input type="text" />
+									</div>
+								</div>
+								<div>
+									<div className="left">
+										<p>Price</p>
+									</div>
+									<div className="right">
+										<input type="text" />
+									</div>
+								</div>
+								<div styleName="OrderFormButton">
+									<button>Buy</button>
+								</div>
 							</div>
 						</div>
 						<div styleName="PayoutCalculator">
@@ -131,6 +165,7 @@ export default class Details extends Component {
 								<p>Payout Calculator</p>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
