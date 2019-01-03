@@ -121,3 +121,28 @@
     border: 1px solid;
     margin: 16px;
 }
+
+@media (max-width: 510px) {
+    .OrderForm {
+        width: auto;
+    }
+
+    .BuySellToggle {
+        width: auto;
+    }
+
+
+}
+
+@media (max-width: 900px) {
+    .PanelLeft {
+        width: 100%;
+        padding-right: 0px;
+        padding-bottom: 32px;
+    }
+
+    .PanelRight {
+        width: 100%;
+    }
+
+}
