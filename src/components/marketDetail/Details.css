@@ -41,56 +41,87 @@
 
 .OrderType {
     overflow: auto;
-    width: 216px;
-    margin: auto;
     text-align: center;
-}
-
-.OrderType div {
-    width: 100px;
-}
-
-.OrderType div:hover {
-    border: 1px solid black;
-    border-radius: 4px;
-    background: #FCFCFC;
-    cursor: pointer;
-}
-
-.OrderTypeSelectedToggle {
-    border: 1px solid black;
-    border-radius: 4px;
+    padding: 0px !important;
+    margin-top: 4px;
 }
 
 .BuySellToggle {
     overflow: auto;
-    width: 400px;
     margin: auto;
-    text-align: center;
-    padding: 16px;
-    font-size: 1.2rem;
-    margin-top: 16px;
-}
-
-.BuySellToggle div {
-    width: 50%;
+    max-width: 200px;
 }
 
 .BuySellToggle div:hover {
-    border: 1px solid;
-    background: #FCFCFC;
     cursor: pointer;
 }
 
 .BuySellSelectedToggle {
+    text-decoration: underline;
+    color: #0D47A1;
+}
+
+.OrderType div {
+    width: 100px;
+    padding: 0 !important;
+}
+
+.OrderType div:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.OrderTypeSelectedToggle {
+    font-size: 0.9rem;
+    text-decoration: underline;
+    color: #0D47A1;
+}
+
+.OrderTypeToggle {
+    font-size: 0.9rem;
+}
+
+.LongShortToggle {
+    overflow: auto;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.2rem;
+}
+
+.LongShortToggle div {
+    width: 50%;
+    border-radius: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border: 1px solid transparent;
+}
+
+.LongShortToggle div:hover {
+    background: #f3f3f3;
+    cursor: pointer;
+}
+
+.LongToggle {
+
+}
+
+.SellToggle {
+
+}
+
+.LongSelectedToggle {
     background: #FCFCFC;
-    border: 1px solid;
+    border: 1px solid #5cb85c !important;
+}
+
+.ShortSelectedToggle {
+    background: #FCFCFC;
+    border: 1px solid #dc3545 !important;
 }
 
 .OrderForm {
     overflow: auto;
-    width: 400px;
-    margin: auto;
+    background: #F7F7F7;
     padding: 32px;
 }
 
@@ -101,6 +132,13 @@
 
 .OrderForm input {
     height: 32px;
+    padding-left: 4px;
+    width: 200px;
+}
+
+.FormRow {
+    max-width: 320px;
+    margin: auto;
 }
 
 .OrderFormButton {
@@ -118,8 +156,30 @@
 }
 
 .OrderContainer {
-    border: 1px solid;
+    border: 2px solid #eeeeee;
     margin: 16px;
+}
+
+.Hidden {
+    display: none;
+}
+
+.OrderForm button {
+    height: 40px;
+    color: #fff;
+    background-color: #5cb85c;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 12px;
+}
+
+@media (max-width: 422px) {
+    .OrderContainer  input {
+        width: 100px;
+    }
 }
 
 @media (max-width: 510px) {
@@ -131,7 +191,13 @@
         width: auto;
     }
 
+    .OrderContainer {
+        margin: 0;
+    }
 
+    .LongShortToggle {
+        width: auto;
+    }
 }
 
 @media (max-width: 900px) {
@@ -145,4 +211,9 @@
         width: 100%;
     }
 
+    .OrderContainer {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

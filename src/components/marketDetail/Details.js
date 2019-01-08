@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import {getHeight, getMarket} from "../../actions";
+import {getHeight, getMarket, getActiveMarkets} from "../../actions";
 import {connect} from "react-redux";
 import styles from './Details.css'
 import styles2 from '../markets/MarketRow.css'
@@ -12,6 +12,7 @@ import GoToAdvancedView from "./GoToAdvancedView";
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
 	return {
+		activeMarkets: state.default.activeMarkets,
 		marketDetail: state.default.marketDetails[oid],
 		loading: state.default.loading.marketDetails[oid],
 		height: state.default.height,
@@ -25,6 +26,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		getMarket: (oid) => {
 			dispatch(getMarket(oid));
+		},
+		getActiveMarkets: () => {
+			dispatch(getActiveMarkets());
 		},
 	};
 };
@@ -40,13 +44,19 @@ export default class Details extends Component {
 			oid: this.props.params.oid,
 			marketDetail: this.props.marketDetail,
 			height: this.props.height,
+			activeMarkets: this.props.activeMarkets,
 			selectedOrderType: "market",
 			selectedBuySell: "buy",
+			selectedSide: "long",
+			bestPrice: 0,
+			price: 0,
+			amount: 0,
+			userShares: 1,
 		}
 	}
 
 	componentDidMount() {
-		const {oid, marketDetail, height} = this.state;
+		const {oid, marketDetail, height, activeMarkets} = this.state;
 
 		if (!height) {
 			this.props.getHeight();
@@ -55,12 +65,30 @@ export default class Details extends Component {
 		if (!marketDetail) {
 			this.props.getMarket(oid);
 		}
+
+		if (!activeMarkets) {
+			this.props.getActiveMarkets();
+		} else {
+			const i = 0;
+		}
+	}
+
+	handlePriceChange(e) {
+		this.setState({ price: e.target.value });
+	}
+
+	handleAmountChange(e) {
+		this.setState({ amount: e.target.value });
 	}
 
 	toggleOrderType() {
 		const {selectedOrderType} = this.state;
-		let newSelected = selectedOrderType === "market" ? "limit" : "market";
+		let newSelected = Details.isMarket(selectedOrderType) ? "limit" : "market";
 		this.setState({selectedOrderType: newSelected})
+	}
+
+	static isMarket(type) {
+		return type === "market";
 	}
 
 	toggleBuySell() {
@@ -69,8 +97,43 @@ export default class Details extends Component {
 		this.setState({selectedBuySell: newSelected})
 	}
 
+	toggleLongShort() {
+		const {selectedSide} = this.state;
+		let newSelected = selectedSide === "long" ? "short" : "long";
+		this.setState({selectedSide: newSelected})
+	}
+
+	submitOrder() {
+		const {oid, amount, price, bestPrice, selectedOrderType, selectedBuySell} = this.state;
+
+		let orderPrice;
+		if (Details.isMarket(selectedOrderType)) {
+			orderPrice = bestPrice;
+		} else {
+			orderPrice = price;
+		}
+
+		let side;
+		if (selectedBuySell === "buy") {
+			side = "true";
+		} else {
+			side = "false";
+		}
+
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			amoveo3.currentProvider.send(
+				{
+					opts: {
+						type: "market", price: price, amount: amount, side: side, oid: oid
+					}
+				}
+			);
+		}
+	}
+
 	render() {
-		const {oid, selectedOrderType, selectedBuySell} = this.state;
+		const {oid, selectedOrderType, selectedBuySell, price, amount, bestPrice, selectedSide, userShares} = this.state;
 		const {marketDetail, height} = this.props;
 
 		let expires = "--"
@@ -81,18 +144,24 @@ export default class Details extends Component {
 		}
 
 		const isMarketOrder = selectedOrderType === "market";
-		const marketStyleName = isMarketOrder ? "OrderTypeSelectedToggle" : ""
-		const limitStyleName = isMarketOrder ? "" : "OrderTypeSelectedToggle"
+		const marketStyleName = isMarketOrder ? "OrderTypeSelectedToggle" : "OrderTypeToggle"
+		const limitStyleName = isMarketOrder ? "OrderTypeToggle" : "OrderTypeSelectedToggle"
+
+		const isLong = selectedSide === "long";
+		const longStyleName = isLong ? "LongSelectedToggle" : ""
+		const shortStyleName = isLong ? "" : "ShortSelectedToggle"
 
 		const isBuy = selectedBuySell === "buy";
 		const buyStyleName = isBuy ? "BuySellSelectedToggle" : ""
 		const sellStyleName = isBuy ? "" : "BuySellSelectedToggle"
+
+		const buySellStyleName = userShares > 0 ? "BuySellToggle" : "Hidden";
+
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
 					<div styleName="DetailInfo">
 						<div styleName="Card">
-
 							<div>
 								<p>{expires}</p>
 							</div>
@@ -116,42 +185,61 @@ export default class Details extends Component {
 
 				<div styleName="PanelRight">
 					<div>
-						<div styleName="OrderType">
-							<div className="left" styleName={marketStyleName} onClick={() => this.toggleOrderType()}>
-								<p>Market</p>
+						<div styleName={buySellStyleName}>
+							<div className="left" styleName={buyStyleName} onClick={() => {if (selectedBuySell === "sell") this.toggleBuySell()}}>
+								<p>Buy Shares</p>
 							</div>
-							<div className="right" styleName={limitStyleName} onClick={() => this.toggleOrderType()}>
-								<p>Limit</p>
+							<div className="right" styleName={sellStyleName} onClick={() => {if (selectedBuySell === "buy") this.toggleBuySell()}}>
+								<p>Sell Shares</p>
 							</div>
 						</div>
+
 						<div styleName="OrderContainer">
-							<div styleName="BuySellToggle">
-								<div className="left" styleName={buyStyleName} onClick={() => this.toggleBuySell()}>
-									<p>Buy</p>
+							<div styleName="LongShortToggle">
+								<div className="left" styleName={longStyleName} onClick={() => {if (selectedSide === "short") this.toggleLongShort()}}>
+									<p>Long</p>
 								</div>
-								<div className="right" styleName={sellStyleName} onClick={() => this.toggleBuySell()}>
-									<p>Sell</p>
+								<div className="right" styleName={shortStyleName} onClick={() => {if (selectedSide === "long") this.toggleLongShort()}}>
+									<p>Short</p>
 								</div>
 							</div>
 							<div styleName="OrderForm">
-								<div>
+								<div styleName="FormRow">
 									<div className="left">
 										<p>Amount</p>
 									</div>
 									<div className="right">
-										<input type="text" />
+										<input
+											type="text"
+											value={amount}
+											onChange={this.handleAmountChange.bind(this)}
+										/>
 									</div>
 								</div>
-								<div>
+								<div styleName="FormRow">
 									<div className="left">
 										<p>Price</p>
 									</div>
 									<div className="right">
-										<input type="text" />
+										<input
+											disabled={isMarketOrder}
+											type="text"
+											value={isMarketOrder ? bestPrice : price}
+											onChange={this.handlePriceChange.bind(this)}
+										/>
+
+										<div styleName="OrderType">
+											<div className="left" styleName={marketStyleName} onClick={() => this.toggleOrderType()}>
+												<p>Best Price</p>
+											</div>
+											<div className="right" styleName={limitStyleName} onClick={() => this.toggleOrderType()}>
+												<p>Set Price</p>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div styleName="OrderFormButton">
-									<button>Buy</button>
+									<button onClick={this.submitOrder.bind(this)}>Buy</button>
 								</div>
 							</div>
 						</div>
