@@ -6,14 +6,6 @@
     padding-right: 32px;
 }
 
-.Error {
-    text-align: center;
-    color: #dc3545;
-    margin: 0;
-    padding: 0 !important;
-    margin-top: -16px;
-}
-
 .DetailInfo {
     margin-bottom: 32px;
 }
@@ -29,10 +21,6 @@
     float: right;
 }
 
-.DetailCard {
-
-}
-
 .Orders {
     text-align: center;
     margin-top: 32px;
@@ -45,184 +33,6 @@
     padding-bottom: 8px;
 }
 
-.Advanced {
-
-}
-
-.OrderType {
-    overflow: auto;
-    text-align: center;
-    padding: 0px !important;
-    margin-top: 4px;
-}
-
-.BuySellToggle {
-    overflow: auto;
-    margin: auto;
-    max-width: 200px;
-}
-
-.BuySellToggle div:hover {
-    cursor: pointer;
-}
-
-.BuySellSelectedToggle {
-    text-decoration: underline;
-    color: #0D47A1;
-}
-
-.OrderType div {
-    width: 100px;
-    padding: 0 !important;
-}
-
-.OrderType div:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.OrderTypeSelectedToggle {
-    font-size: 0.9rem;
-    text-decoration: underline;
-    color: #0D47A1;
-}
-
-.OrderTypeToggle {
-    font-size: 0.9rem;
-}
-
-.LongShortToggle {
-    overflow: auto;
-    text-align: center;
-    padding: 16px;
-    font-size: 1.2rem;
-}
-
-.LongShortToggle div {
-    width: 49%;
-    border-radius: 4px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border: 1px solid transparent;
-}
-
-.LongShortToggle div:hover {
-    background: #f3f3f3;
-    cursor: pointer;
-}
-
-.LongToggle {
-
-}
-
-.SellToggle {
-
-}
-
-.LongSelectedToggle {
-    background: #FCFCFC;
-    border: 1px solid #5cb85c !important;
-}
-
-.ShortSelectedToggle {
-    background: #FCFCFC;
-    border: 1px solid #dc3545 !important;
-}
-
-.OrderForm {
-    overflow: auto;
-    background: #F7F7F7;
-    padding: 32px;
-}
-
-.OrderForm div {
-    padding: 8px;
-    overflow: auto;
-}
-
-.OrderForm input {
-    height: 32px;
-    padding-left: 4px;
-    width: 200px;
-}
-
-.FormRow {
-    max-width: 320px;
-    margin: auto;
-}
-
-.OrderFormButton {
-    margin: auto;
-    width: 164px;
-    margin-top: 16px;
-}
-
-.OrderFormButton button {
-    width: 100%;
-}
-
-.PayoutCalculator {
-    text-align: center;
-}
-
-.OrderContainer {
-    max-width: 420px;
-    border: 2px solid #eeeeee;
-    margin: 16px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.Hidden {
-    display: none;
-}
-
-.OrderForm button {
-    height: 40px;
-    color: #fff;
-    background-color: #5cb85c;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 0 12px;
-}
-
-.OrderForm button:hover {
-    background-color: #419641;
-    border-color: #398439;
-}
-
-.OrderForm button:disabled {
-    background-color: rgba(65, 150, 65, 0.75);
-    border-color: #398439;
-}
-
-@media (max-width: 422px) {
-    .OrderContainer  input {
-        width: 100px;
-    }
-}
-
-@media (max-width: 510px) {
-    .OrderForm {
-        width: auto;
-    }
-
-    .BuySellToggle {
-        width: auto;
-    }
-
-    .OrderContainer {
-        margin: 0;
-    }
-
-    .LongShortToggle {
-        width: auto;
-    }
-}
-
 @media (max-width: 900px) {
     .PanelLeft {
         width: 100%;
@@ -232,10 +42,5 @@
 
     .PanelRight {
         width: 100%;
-    }
-
-    .OrderContainer {
-        margin-left: auto;
-        margin-right: auto;
     }
 }

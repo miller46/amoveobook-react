@@ -70,7 +70,12 @@ export default class Calculator extends Component {
 		let winnings = <div></div>
 		if (amount > 0 && price > 0) {
 			winnings = <div>
-				<p>{amount} VEO @ {price} <small>per share</small> = {veoWinnings} VEO ({currency.symbol}{veoPrice.toFixed(2)})</p>
+				<table>
+					<tbody>
+						<tr><td styleName="LeftColumn"><p>Buy:</p></td><td><p>{amount} VEO @ {price} <small>per share</small></p></td></tr>
+						<tr><td styleName="LeftColumn"><p>Pays out:</p></td><td><p>{veoWinnings} VEO ({currency.symbol}{(veoWinnings * veoPrice).toFixed(2)})</p></td></tr>
+					</tbody>
+				</table>
 			</div>
 		}
 

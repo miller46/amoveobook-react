@@ -2,3 +2,12 @@
     margin-top: 32px;
     margin-bottom: 32px;
 }
+
+.Calculator table {
+    text-align: left;
+    margin: auto;
+}
+
+.LeftColumn {
+    padding-right: 16px;
+}
