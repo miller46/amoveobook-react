@@ -17,6 +17,10 @@
     float: left;
 }
 
+.Logo a {
+    display: block;
+}
+
 @media (max-width: 787px) {
     .Logo {
         padding-bottom: 8px;

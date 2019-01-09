@@ -14,8 +14,10 @@ export default class Logo extends Component {
 	render() {
 		return (
 			<div styleName="Logo">
-				<img alt="" src={LOGO_URL} />
-				<p>AmoveoBook</p>
+				<a href="/">
+					<img alt="" src={LOGO_URL} />
+					<p>AmoveoBook</p>
+				</a>
 			</div>
 		)
 	}
