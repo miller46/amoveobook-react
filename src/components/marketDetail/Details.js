@@ -309,7 +309,7 @@ export default class Details extends Component {
 
 								<div styleName="OrderFormButton">
 									<button
-										disabled={!price || !amount || amountError || priceError}
+										disabled={!price || !amount || amount < 0 || amountError || priceError}
 										onClick={this.submitOrder.bind(this)}>Buy</button>
 								</div>
 							</div>
