@@ -1,7 +1,17 @@
 .DetailsContainer {
+    overflow: auto;
     margin-top: 64px;
+    margin-bottom: 64px;
     padding-left: 32px;
     padding-right: 32px;
+}
+
+.Error {
+    text-align: center;
+    color: #dc3545;
+    margin: 0;
+    padding: 0 !important;
+    margin-top: -16px;
 }
 
 .DetailInfo {
@@ -89,7 +99,7 @@
 }
 
 .LongShortToggle div {
-    width: 50%;
+    width: 49%;
     border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -156,8 +166,11 @@
 }
 
 .OrderContainer {
+    max-width: 420px;
     border: 2px solid #eeeeee;
     margin: 16px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .Hidden {
@@ -212,7 +225,6 @@
     }
 
     .OrderContainer {
-        max-width: 420px;
         margin-left: auto;
         margin-right: auto;
     }

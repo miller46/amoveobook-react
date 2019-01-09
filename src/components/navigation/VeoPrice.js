@@ -6,7 +6,6 @@ const ClickOutHandler = require('react-onclickout');
 import styles2 from './LanguagePicker.css'
 import { getVeoPrices, setCurrency, getCurrency } from '../../actions/index';
 
-
 import {currencies} from '../../config'
 
 const mapStateToProps = (state) => {

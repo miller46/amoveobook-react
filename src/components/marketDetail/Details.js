@@ -7,6 +7,7 @@ import styles2 from '../markets/MarketRow.css'
 
 import {getDisplayExpires} from '../../utility'
 import SectionLabel from "../markets/SectionLabel";
+import Calculator from "../payoutCalculator/Calculator";
 import GoToAdvancedView from "./GoToAdvancedView";
 
 const mapStateToProps = (state, ownProps) => {
@@ -48,10 +49,13 @@ export default class Details extends Component {
 			selectedOrderType: "market",
 			selectedBuySell: "buy",
 			selectedSide: "long",
+			amountError: "",
+			priceError: "",
 			bestPrice: 0,
 			price: 0,
-			amount: 0,
+			amount: -1,
 			userShares: 1,
+			maxOrderSize: 100,
 		}
 	}
 
@@ -74,11 +78,43 @@ export default class Details extends Component {
 	}
 
 	handlePriceChange(e) {
-		this.setState({ price: e.target.value });
+		let price = e.target.value;
+		if (isNaN(price) && price < 0) {
+			price = 0;
+		}
+
+		let priceError = "";
+		if (price > 1) {
+			priceError = "Price must be in between 0 and 1";
+		}
+
+		this.setState(
+			{
+				priceError: priceError,
+				price: price,
+			}
+		);
 	}
 
 	handleAmountChange(e) {
-		this.setState({ amount: e.target.value });
+		let {maxOrderSize} = this.state;
+
+		let amount = parseFloat(e.target.value);
+		if (isNaN(amount) && amount < 0) {
+			amount = 0;
+		}
+
+		let amountError = ""
+		if (amount > maxOrderSize) {
+			amountError = "Max order size is " + maxOrderSize
+		}
+
+		this.setState(
+			{
+				amount: amount,
+				amountError: amountError,
+			}
+		);
 	}
 
 	toggleOrderType() {
@@ -125,7 +161,7 @@ export default class Details extends Component {
 			amoveo3.currentProvider.send(
 				{
 					opts: {
-						type: "market", price: price, amount: amount, side: side, oid: oid
+						type: "market", price: orderPrice, amount: amount, side: side, oid: oid
 					}
 				}
 			);
@@ -133,7 +169,8 @@ export default class Details extends Component {
 	}
 
 	render() {
-		const {oid, selectedOrderType, selectedBuySell, price, amount, bestPrice, selectedSide, userShares} = this.state;
+		const {oid, selectedOrderType, selectedBuySell, price, amount, bestPrice,
+			selectedSide, userShares, amountError, priceError} = this.state;
 		const {marketDetail, height} = this.props;
 
 		let expires = "--"
@@ -210,12 +247,19 @@ export default class Details extends Component {
 									</div>
 									<div className="right">
 										<input
-											type="text"
-											value={amount}
+											type="number"
+											value={amount >= 0 ? amount : ''}
 											onChange={this.handleAmountChange.bind(this)}
 										/>
 									</div>
 								</div>
+
+								<div styleName="Error">
+									<small>
+										{amountError}
+									</small>
+								</div>
+
 								<div styleName="FormRow">
 									<div className="left">
 										<p>Price</p>
@@ -223,34 +267,40 @@ export default class Details extends Component {
 									<div className="right">
 										<input
 											disabled={isMarketOrder}
-											type="text"
+											type="number"
 											value={isMarketOrder ? bestPrice : price}
 											onChange={this.handlePriceChange.bind(this)}
 										/>
 
 										<div styleName="OrderType">
-											<div className="left" styleName={marketStyleName} onClick={() => this.toggleOrderType()}>
+											<div className="left" styleName={marketStyleName} onClick={() => {if (selectedOrderType === "limit") this.toggleOrderType()}}>
 												<p>Best Price</p>
 											</div>
-											<div className="right" styleName={limitStyleName} onClick={() => this.toggleOrderType()}>
+											<div className="right" styleName={limitStyleName} onClick={() => {if (selectedOrderType === "market") this.toggleOrderType()}}>
 												<p>Set Price</p>
 											</div>
 										</div>
 									</div>
 								</div>
+
+								<div styleName="Error">
+									<small>
+										{priceError}
+									</small>
+								</div>
+
 								<div styleName="OrderFormButton">
 									<button onClick={this.submitOrder.bind(this)}>Buy</button>
 								</div>
 							</div>
 						</div>
+
 						<div styleName="PayoutCalculator">
 							<div>
-								<SectionLabel
-									titleText="Payout Calculator"
+								<Calculator
+									amount={amount}
+									price={isMarketOrder ? bestPrice : price}
 								/>
-							</div>
-							<div>
-								<p>Payout Calculator</p>
 							</div>
 						</div>
 
