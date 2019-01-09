@@ -52,15 +52,15 @@ export default class Details extends Component {
 			amountError: "",
 			priceError: "",
 			bestPrice: 0,
-			price: 0,
+			price: 0.5,
 			amount: -1,
-			userShares: 1,
+			userShares: 0,
 			maxOrderSize: 100,
 		}
 	}
 
 	componentDidMount() {
-		const {oid, marketDetail, height, activeMarkets} = this.state;
+		const {oid, marketDetail, height, activeMarkets, bestPrice} = this.state;
 
 		if (!height) {
 			this.props.getHeight();
@@ -74,6 +74,16 @@ export default class Details extends Component {
 			this.props.getActiveMarkets();
 		} else {
 			const i = 0;
+		}
+
+		if (bestPrice === 0) {
+			this.setState({
+				selectedOrderType: "limit"
+			})
+		} else {
+			this.setState({
+				price: bestPrice
+			})
 		}
 	}
 
@@ -194,6 +204,18 @@ export default class Details extends Component {
 
 		const buySellStyleName = userShares > 0 ? "BuySellToggle" : "Hidden";
 
+		let priceToggle = <div></div>
+		if (bestPrice > 0) {
+			priceToggle = <div styleName="OrderType">
+				<div className="left" styleName={marketStyleName} onClick={() => {if (selectedOrderType === "limit") this.toggleOrderType()}}>
+					<p>Best Price</p>
+				</div>
+				<div className="right" styleName={limitStyleName} onClick={() => {if (selectedOrderType === "market") this.toggleOrderType()}}>
+					<p>Set Price</p>
+				</div>
+			</div>
+		}
+
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
@@ -266,20 +288,16 @@ export default class Details extends Component {
 									</div>
 									<div className="right">
 										<input
-											disabled={isMarketOrder}
+											disabled={isMarketOrder && bestPrice > 0}
 											type="number"
+											max="0"
+											min="0"
+											step="0.01"
 											value={isMarketOrder ? bestPrice : price}
 											onChange={this.handlePriceChange.bind(this)}
 										/>
 
-										<div styleName="OrderType">
-											<div className="left" styleName={marketStyleName} onClick={() => {if (selectedOrderType === "limit") this.toggleOrderType()}}>
-												<p>Best Price</p>
-											</div>
-											<div className="right" styleName={limitStyleName} onClick={() => {if (selectedOrderType === "market") this.toggleOrderType()}}>
-												<p>Set Price</p>
-											</div>
-										</div>
+										{priceToggle}
 									</div>
 								</div>
 
@@ -290,7 +308,9 @@ export default class Details extends Component {
 								</div>
 
 								<div styleName="OrderFormButton">
-									<button onClick={this.submitOrder.bind(this)}>Buy</button>
+									<button
+										disabled={!price || !amount || amountError || priceError}
+										onClick={this.submitOrder.bind(this)}>Buy</button>
 								</div>
 							</div>
 						</div>

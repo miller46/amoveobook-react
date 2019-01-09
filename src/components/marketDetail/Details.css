@@ -189,6 +189,16 @@
     padding: 0 12px;
 }
 
+.OrderForm button:hover {
+    background-color: #419641;
+    border-color: #398439;
+}
+
+.OrderForm button:disabled {
+    background-color: rgba(65, 150, 65, 0.75);
+    border-color: #398439;
+}
+
 @media (max-width: 422px) {
     .OrderContainer  input {
         width: 100px;
