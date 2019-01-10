@@ -68,7 +68,7 @@ export default class Details extends Component {
 			this.props.getMarket(oid);
 		}
 
-		if (!activeMarkets) {
+		if (activeMarkets.length === 0) {
 			this.props.getActiveMarkets();
 		} else {
 			const i = 0;
@@ -84,14 +84,27 @@ export default class Details extends Component {
 	}
 
 	render() {
-		const {price, amount, bestPrice} = this.state;
-		const {marketDetail, height} = this.props;
+		const {oid, price, amount, bestPrice} = this.state;
+		const {activeMarkets, marketDetail, height} = this.props;
 
 		let expires = "--"
-		let question = "--"
 		if (marketDetail) {
 			expires = "Expires: " + getDisplayExpires(marketDetail.expires, height)
-			question = marketDetail.question;
+
+		}
+
+		let market;
+		for (let i = 0; i < activeMarkets.length; i++) {
+			let activeMarket = activeMarkets[i];
+			if (activeMarket.oid === oid) {
+				market = activeMarket;
+				break;
+			}
+		}
+
+		let question = "--"
+		if (market) {
+			question = market.question;
 		}
 
 		return (

@@ -1,3 +1,5 @@
+import {isTestnet} from "./index";
+
 export const api = {
 	activeMarketUrl: "https://amoveobook-api.herokuapp.com/api/v1/market?filter_by=is_active&filter_by_value=true",
 	expiredMarketsUrl: "https://amoveobook-api.herokuapp.com/api/v1/market?filter_by=is_active&filter_by_value=false",
@@ -6,5 +8,6 @@ export const api = {
 	getIpUrl: "https://api.ipify.org/?format=json",
 	getIpDetailsUrl: "http://api.ipstack.com/$$$?access_key=4db6b276661ad034f44477078402a553&format=1",
 	replacementCharacter: "$$$",
-	defaultNodeUrl: "http://13.72.69.243:8080/",
+	defaultNodeUrl: isTestnet ? "127.0.0.1:8080/" : "http://40.117.196.55:8080/",
 }
+
