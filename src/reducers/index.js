@@ -29,6 +29,9 @@ import {
 	SEND_REQUEST_STARTED,
 	SEND_REQUEST_SUCCESS,
 	SEND_REQUEST_FAILURE,
+	GET_IP_STARTED,
+	GET_IP_SUCCESS,
+	GET_IP_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -40,12 +43,14 @@ const initialState = {
 		currency: false,
 		marketDetails: {},
 		requestMarket: false,
+		ip: false,
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
 	expiredMarkets: [],
 	marketDetails: {},
 	height: 45315,
+	ip: null,
 	requestMarket: false,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
@@ -60,6 +65,7 @@ const initialState = {
 		currency: null,
 		marketDetails: {},
 		requestMarket: null,
+		ip: null,
 	}
 };
 
@@ -419,6 +425,43 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				error: {
 					...state.error,
 					requestMarket: action.payload.error
+				}
+			};
+		case GET_IP_STARTED:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					ip: true
+				},
+				error: {
+					...state.error,
+					ip: null
+				},
+			};
+		case GET_IP_SUCCESS:
+			return {
+				...state,
+				ip: action.payload.ip,
+				loading: {
+					...state.loading,
+					ip: false
+				},
+				error: {
+					...state.error,
+					ip: null
+				},
+			};
+		case GET_IP_FAILURE:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					ip: false
+				},
+				error: {
+					...state.error,
+					ip: action.payload.error
 				}
 			};
 		default:

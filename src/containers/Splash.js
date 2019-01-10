@@ -9,6 +9,9 @@ export default class Splash extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			ipDisabled: false,
+		}
 	}
 
 	render() {

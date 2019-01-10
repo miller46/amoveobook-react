@@ -5,11 +5,12 @@ import AppContainer from './containers/App'
 import Splash from './containers/Splash'
 import Details from "./components/marketDetail/Details";
 import Advanced from "./containers/Advanced";
+import AppRouter from "./containers/AppRouter";
 
 
 const routes = (
   <Route component={AppContainer}>
-      <Route path='/' component={Splash} />
+      <Route path='/' component={AppRouter} />
 	  <Route path='/advanced' component={Advanced} />
       <Route path='/:oid' component={Details} />
   </Route>

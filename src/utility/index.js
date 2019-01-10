@@ -6,3 +6,4 @@ export function getDisplayExpires(endBlock, height) {
 	const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
 	return expires.toLocaleDateString('en-US', options) + " (Block " + endBlock + ")";
 }
+
