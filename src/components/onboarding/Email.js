@@ -63,7 +63,12 @@ export default class Email extends Component {
 	}
 
 	sign(amoveo3, message, callback) {
-		amoveo3.currentProvider.sign(message, callback);
+		amoveo3.currentProvider.sign({
+			opts: {
+				type: "sign",
+				message: message,
+			}
+		}, callback);
 	}
 
 	static validateEmail(email) {
