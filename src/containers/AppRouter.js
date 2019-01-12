@@ -7,6 +7,7 @@ import Adblock from "../components/disclaimers/Adblock";
 
 import {getIp} from "../actions";
 import {connect} from "react-redux";
+import Onboarding from "./Onboarding";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -49,11 +50,17 @@ export default class AppRouter extends Component {
 	render() {
 		const {ip, ipLoading, ipError} = this.props;
 
-		const hasChecked = localStorage.getItem("hasCheckedIp");
-		const agreedUs = localStorage.getItem("agreedUS");
-		const isNotUs = localStorage.getItem("isNotUS");
+		const hasChecked = localStorage.getItem("hasCheckedIp") === "true";
+		const agreedUs = localStorage.getItem("agreedUS") === "true";
+		const isNotUs = localStorage.getItem("isNotUS") === "true";
 
-		if (agreedUs || isNotUs) {
+		const onboarding = localStorage.getItem("onboarding") === "true";
+
+		if (onboarding) {
+			return (
+				<Onboarding />
+			)
+		} else if (agreedUs || isNotUs) {
 			return (
 				<Splash />
 			)

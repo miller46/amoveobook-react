@@ -1,77 +1,37 @@
-import request from 'request'
 import {api} from '../config'
 
-
-export function getNodeData(data, callback) {
-	retry(data, callback, 3);
-	// callback(null, 10);
+export function saveEmail(email, address, signed, callback) {
+	const data = {email: email, address: address, signed: signed};
+	post(api.saveEmailUrl, {}, data, callback);
 }
 
-function retry(data, callback, attempts) {
-	if (attempts === 0) {
-		callback(new Error("Server overloaded"), null);
-	} else {
-		var url = api.defaultNodeUrl;
-		post(url, {}, JSON.stringify(data), function (error, result) {
-			if (error) {
-				callback(error, result);
-			} else {
-				try {
-					var response = JSON.parse(result)[1];
-					if (response === "c3RvcCBzcGFtbWluZyB0aGUgc2VydmVy") {
-						setTimeout(retry(data, callback, attempts - 1), 500);
-					} else {
-						callback(error, response);
-					}
-				} catch (e) {
-					console.info(e);
-					callback(error, result);
-				}
-			}
-		});
-	}
+export function createChannel(amount, duration, callback) {
+	const data = {amount: amount, duration: duration};
+	post(api.openChannelUrl, {}, data, callback);
 }
 
-function get(url, headers, callback) {
-	var options = {
-		url: url,
-		headers: headers
-	};
-	request.get(options, function(error, httpResponse, body) {
-		if (error) {
-			callback(error, undefined);
-		} else {
-			callback(undefined, body);
-		}
-	});
+export function get(url, headers, callback) {
+	request('get', url, headers, data, callback)
 }
 
-function post(url, headers, data, callback) {
-	var options = {
-		url: url,
+export function post(url, headers, data, callback) {
+	request('post', url, headers, data, callback)
+}
+
+export function put(url, headers, data, callback) {
+	request('put', url, headers, data, callback)
+}
+
+function request(method, url, headers, data, callback) {
+	fetch(url, {
+		method: method,
 		headers: headers,
-		form: data
-	};
-	request.post(options, function(error, httpResponse, body) {
-		if (error) {
-			callback(error, undefined);
-		} else {
-			callback(undefined, body);
-		}
-	});
-}
-
-function put(url, headers, data, callback) {
-	var options = {
-		url: url,
-		headers: headers,
-		form: data
-	};
-	request.put(options, function(error, httpResponse, body) {
-		if (error) {
-			callback(error, undefined);
-		} else {
-			callback(undefined, body);
-		}
-	});
+		body: JSON.stringify(data)
+	}).then(res=>res.json())
+	.then(res => {
+		callback(undefined, body);
+	})
+	.catch(error => {
+		callback(error, undefined);
+	})
 }

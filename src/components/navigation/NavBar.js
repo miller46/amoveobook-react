@@ -7,6 +7,7 @@ import AmoveoExchangeLink from './AmoveoExchangeLink'
 import VeoPrice from './VeoPrice'
 import LanguagePicker from './LanguagePicker'
 import Help from './Help'
+import Account from './Account'
 
 @CSSModules(styles)
 export default class NavBar extends Component {
@@ -34,6 +35,8 @@ export default class NavBar extends Component {
 						</div>
 
 						<div styleName="NavBarRight">
+							<Account />
+
 							<Help />
 
 							<LanguagePicker />
@@ -66,6 +69,10 @@ export default class NavBar extends Component {
 
 						<div styleName="LinkRow">
 							<Help />
+						</div>
+
+						<div styleName="LinkRow">
+							<Account />
 						</div>
 					</div>
 				</div>

@@ -1,0 +1,72 @@
+.Container {
+    text-align: center;
+    margin: auto;
+    max-width: 600px;
+    margin-top: 64px;
+    background: #f3f3f3;
+    padding: 32px;
+    border-radius: 4px;
+}
+
+.Form {
+    max-width: 508px;
+    overflow: auto;
+    margin: auto;
+}
+
+.Error {
+    text-align: center;
+    color: #dc3545;
+}
+
+.Cta {
+    margin: 0 8px;
+}
+
+.InputText {
+    margin-bottom: 32px;
+}
+
+.InputText input {
+    width: 300px;
+    height: 40px;
+    margin: 16px;
+    padding: 0 16px;
+}
+
+.Button {
+    margin: 16px 16px 16px 0;
+}
+
+.Button button {
+    height: 40px;
+    color: #fff;
+    background-color: #5cb85c;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 12px;
+}
+
+.Button button:hover {
+    background-color: #419641;
+    border-color: #398439;
+}
+
+@media (max-width: 424px) {
+    .InputText {
+        float: none;
+    }
+
+    .Button {
+        float: none;
+    }
+}
+
+@media (max-width: 424px) {
+    .InputText input {
+        width: 200px;
+    }
+}

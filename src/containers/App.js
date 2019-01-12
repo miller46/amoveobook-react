@@ -5,8 +5,6 @@ import NavBar from '../components/navigation/NavBar'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 
-import {isTestnet} from "../config"
-
 @CSSModules(styles)
 export default class App extends Component {
 
@@ -19,6 +17,10 @@ export default class App extends Component {
 			localStorage.getItem("agreedUS") === "true"
 			|| localStorage.getItem("isNotUS") === "true" ;
 
+		const amoveo3 = window.amoveo3;
+
+		const isTestnet = amoveo3 && amoveo3.api.network === "testnet";
+		
 		return (
 			<div>
 				<div>
