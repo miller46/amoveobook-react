@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Email from '../components/onboarding/Email'
 import Channel from '../components/onboarding/Channel'
 import Wallet from '../components/onboarding/Wallet'
+import Locked from '../components/onboarding/Locked'
 
 @CSSModules(styles)
 export default class Onboarding extends Component {
@@ -45,6 +46,10 @@ export default class Onboarding extends Component {
 			body =
 				<Wallet
 					onAdvance={this.advanceToChannels}
+				/>
+		} else if (amoveo3.isLocked) {
+			body =
+				<Locked
 				/>
 		} else if (!email) {
 			body =
