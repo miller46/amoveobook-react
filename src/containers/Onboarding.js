@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import Email from '../components/onboarding/Email'
 import Channel from '../components/onboarding/Channel'
+import Wallet from '../components/onboarding/Wallet'
 
 @CSSModules(styles)
 export default class Onboarding extends Component {
@@ -37,23 +38,35 @@ export default class Onboarding extends Component {
 
 	render() {
 		const {email, channel} = this.state;
+		const amoveo3 = window.amoveo3;
 
-		if (!email) {
-			return (
-				<div>
-					<Email
-						onAdvance={this.advanceToChannels}
-					/>
-				</div>
-			)
+		let body;
+		if (!amoveo3) {
+			body =
+				<Wallet
+					onAdvance={this.advanceToChannels}
+				/>
+		} else if (!email) {
+			body =
+				<Email
+					onAdvance={this.advanceToChannels}
+				/>
 		} else {
-			return (
-				<div>
-					<Channel
-						onAdvance={this.advanceToChannels}
-					/>
-				</div>
-			)
+			body =
+				<Channel
+					onAdvance={this.advanceToChannels}
+				/>
 		}
+
+		return (
+			<div styleName="Onboarding">
+				<div styleName="Close" onClick={() => this.advanceToSplash()}>
+					<p>Close</p>
+				</div>
+				<div>
+					{body}
+				</div>
+			</div>
+		)
 	}
 }

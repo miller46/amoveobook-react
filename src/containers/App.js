@@ -4,6 +4,7 @@ import styles from './App.css'
 import NavBar from '../components/navigation/NavBar'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
+import Footer from "../components/footer/Footer";
 
 @CSSModules(styles)
 export default class App extends Component {
@@ -42,6 +43,8 @@ export default class App extends Component {
 				<div>
 					{this.props.children}
 				</div>
+
+				<Footer />
 			</div>
 		)
 	}

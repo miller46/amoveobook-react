@@ -1,9 +1,10 @@
 .DetailsContainer {
     overflow: auto;
     margin-top: 64px;
-    margin-bottom: 64px;
+    margin-bottom: 256px;
     padding-left: 32px;
     padding-right: 32px;
+
 }
 
 .DetailInfo {

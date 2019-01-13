@@ -34,7 +34,7 @@ export default class Email extends Component {
 		} else {
 			const amoveo3 = window.amoveo3;
 			const address = amoveo3.coinbase;
-			const message = address + email;
+			const message = "My addresss is " + address + " and my email is " + email;
 
 			this.sign(amoveo3, message, (error, signed) => {
 				if (error) {

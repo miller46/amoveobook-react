@@ -1,1 +1,2 @@
-export const LOGO_URL = "https://i.imgur.com/KEI7SIo.png"
+export const LOGO_URL = "https://res.cloudinary.com/klowdstore/image/upload/v1547363016/amoveo_logo_lf8wdb.png"
+export const EXTENSION_GUIDE_URL = "https://res.cloudinary.com/klowdstore/image/upload/v1547363016/extension_b4iilu.png"

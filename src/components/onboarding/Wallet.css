@@ -1,0 +1,34 @@
+.Wallet {
+
+}
+
+.Wallet img {
+    max-width: 100%;
+    padding: 0 32px;
+}
+
+.LeftPanel {
+    float: left;
+    width: 50%;
+}
+
+.RightPanel {
+    float: right;
+    width: 50%;
+    text-align: center;
+    margin-top: 8%;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 800px) {
+    .LeftPanel {
+        float: left;
+        width: 100%;
+    }
+
+    .RightPanel {
+        float: left;
+        width: 100%;
+        margin-top: 16px;
+    }
+}
