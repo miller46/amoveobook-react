@@ -66,7 +66,9 @@ export default class App extends Component {
 		const amoveo3 = window.amoveo3;
 
 		const isTestnet = amoveo3 && amoveo3.api.network === "testnet";
-		
+
+		const path = this.props.location.pathname;
+
 		return (
 			<div>
 				<div>
@@ -89,7 +91,12 @@ export default class App extends Component {
 					{this.props.children}
 				</div>
 
-				<Footer />
+				{
+					path.indexOf("/advanced") < 0
+						? <Footer />
+						: <div></div>
+				}
+				
 			</div>
 		)
 	}

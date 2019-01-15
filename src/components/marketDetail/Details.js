@@ -53,7 +53,7 @@ export default class Details extends Component {
 			amount: 0,
 			price: 0,
 			selectedOrderType: "limit",
-			hideAdvanced: true,
+			hideAdvanced: false,
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
