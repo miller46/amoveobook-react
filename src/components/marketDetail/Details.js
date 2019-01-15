@@ -6,10 +6,10 @@ import styles from './Details.css'
 import styles2 from '../markets/MarketRow.css'
 
 import {getDisplayExpires} from '../../utility'
-import SectionLabel from "../markets/SectionLabel";
 import Calculator from "../payoutCalculator/Calculator";
 import GoToAdvancedView from "./GoToAdvancedView";
 import PlaceOrder from "../placeOrder/PlaceOrder";
+import YourOrders from "./YourOrders";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -53,6 +53,7 @@ export default class Details extends Component {
 			amount: 0,
 			price: 0,
 			selectedOrderType: "limit",
+			hideAdvanced: true,
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
@@ -86,7 +87,7 @@ export default class Details extends Component {
 	}
 
 	render() {
-		const {oid, price, amount, bestPrice} = this.state;
+		const {hideAdvanced, oid, price, amount, bestPrice} = this.state;
 		const {account, activeMarkets, marketDetail, height} = this.props;
 
 		let expires = "--"
@@ -137,17 +138,12 @@ export default class Details extends Component {
 							</div>
 						</div>
 					</div>
-					<div styleName="Orders">
-						<SectionLabel
-							titleText="Your Orders"
-						/>
-						<div styleName="OrderRow">
-							<p>No orders</p>
-						</div>
-					</div>
 
-					<GoToAdvancedView
-					/>
+					<YourOrders/>
+
+					{
+						hideAdvanced ? <div></div> : <GoToAdvancedView />
+					}
 				</div>
 
 				<div styleName="PanelRight">

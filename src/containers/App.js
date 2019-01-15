@@ -61,7 +61,7 @@ export default class App extends Component {
 	render() {
 		const showWarning =
 			localStorage.getItem("agreedUS") === "true"
-			|| localStorage.getItem("isNotUS") === "true" ;
+			|| localStorage.getItem("isNotUS") !== "true" ;
 
 		const amoveo3 = window.amoveo3;
 

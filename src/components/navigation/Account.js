@@ -74,9 +74,6 @@ export default class Account extends Component {
 						<div styleName="DropdownRow">
 							<p><a href={"https://veoscan.io/account/" + account.address} target="_blank"> {account.address.substring(0, 8) + "..."}</a></p>
 						</div>
-						<div styleName="DropdownRow">
-							<p>Log out</p>
-						</div>
 					</div>
 					<div className="clear"></div>
 				</ClickOutHandler>

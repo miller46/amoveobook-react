@@ -1,0 +1,19 @@
+.Orders {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.OrderRow {
+    border-top: 1px solid black;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.OrderContainer {
+
+}
+
+.OrderHeader {
+
+}
