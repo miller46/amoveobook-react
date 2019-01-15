@@ -3,8 +3,30 @@ import CSSModules from 'react-css-modules'
 import styles from './Email.css'
 import SectionLabel from "../markets/SectionLabel";
 
+import Loading from "../loading/Loading";
 import {saveEmail} from '../../network'
+import {getIp, setAccount} from "../../actions";
+import {connect} from "react-redux";
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		ip: state.default.ip,
+		loadingAccount: state.default.loading.account,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getIp: () => {
+			dispatch(getIp());
+		},
+		setAccount: (account) => {
+			dispatch(setAccount(account));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class Email extends Component {
 
@@ -13,6 +35,8 @@ export default class Email extends Component {
 		this.state = {
 			email: "",
 			error: "",
+			ip: this.props.ip,
+			loadingAccount: this.props.loadingAccount,
 		}
 
 		this.onAdvance = this.props.onAdvance.bind(this)
@@ -27,6 +51,8 @@ export default class Email extends Component {
 	signAndSaveEmail() {
 		const instance = this;
 		const {email} = this.state;
+		const {ip} = this.props;
+
 		if (!Email.validateEmail(email)) {
 			this.setState({
 				error: "Please enter a valid email"
@@ -34,7 +60,7 @@ export default class Email extends Component {
 		} else {
 			const amoveo3 = window.amoveo3;
 			const address = amoveo3.coinbase;
-			const message = "My addresss is " + address + " and my email is " + email;
+			const message = "My address is " + address + " and my email is " + email;
 
 			this.sign(amoveo3, message, (error, signed) => {
 				if (error) {
@@ -42,7 +68,18 @@ export default class Email extends Component {
 						error: "There was a problem, please try again later"
 					})
 				} else {
-					saveEmail(amoveo3, email, address, signed, (error, result) => {
+					const ip = ip ? ip.ip : "";
+					const country = ip ? ip.country_code : "";
+
+					const data = {
+						email: email,
+						address: address,
+						signed: signed,
+						ip: ip,
+						country: country
+					};
+
+					saveEmail(data, (error, result) => {
 						if (error) {
 							if (error.code === 401) {
 								instance.setState({
@@ -54,6 +91,7 @@ export default class Email extends Component {
 								})
 							}
 						} else {
+							instance.props.setAccount(data);
 							instance.onAdvance();
 						}
 					})
@@ -64,10 +102,8 @@ export default class Email extends Component {
 
 	sign(amoveo3, message, callback) {
 		amoveo3.currentProvider.sign({
-			opts: {
-				type: "sign",
-				message: message,
-			}
+			type: "sign",
+			message: message,
 		}, callback);
 	}
 
@@ -78,36 +114,45 @@ export default class Email extends Component {
 
 	render() {
 		const {email, error} = this.state;
+		const {loadingAccount} = this.props;
 
-		return (
-			<div styleName="Container">
-				<SectionLabel titleText="Please Enter Your Email" />
+		if (loadingAccount) {
+			return (
+				<div styleName="Container">
+					<Loading />
+				</div>
+			)
+		} else {
+			return (
+				<div styleName="Container">
+					<SectionLabel titleText="Please Enter Your Email"/>
 
-				<div styleName="Form">
-					<div styleName="InputText">
-						<input
-							type="text"
-							value={email}
-							onChange={this.handleChange.bind(this)} />
-					</div>
+					<div styleName="Form">
+						<div styleName="InputText">
+							<input
+								type="text"
+								value={email}
+								onChange={this.handleChange.bind(this)}/>
+						</div>
 
-					<div>
-						<p>You will be prompted to sign a message using your wallet</p>
-					</div>
+						<div>
+							<p>You will be prompted to sign a message using your wallet</p>
+						</div>
 
-					<div styleName="Button">
-						<button
-							onClick={() => this.signAndSaveEmail()}
-						>
-							Sign
-						</button>
-					</div>
+						<div styleName="Button">
+							<button
+								onClick={() => this.signAndSaveEmail()}
+							>
+								Sign
+							</button>
+						</div>
 
-					<div styleName="Error">
-						{error}
+						<div styleName="Error">
+							{error}
+						</div>
 					</div>
 				</div>
-			</div>
-		)
+			)
+		}
 	}
 }

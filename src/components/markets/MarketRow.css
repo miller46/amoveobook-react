@@ -6,6 +6,7 @@
     padding: 16px;
     max-width: 800px;
     border-radius: 4px;
+    text-align: left;
 }
 
 .Card:hover {
@@ -15,8 +16,13 @@
 .Market {
 }
 
+.Expires {
+    text-align: left;
+}
+
 .Question h1 {
     margin: 0;
+    text-align: left;
 }
 
 .Market label {

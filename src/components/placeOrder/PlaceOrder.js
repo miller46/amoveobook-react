@@ -2,9 +2,33 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './PlaceOrder.css'
 import Details from "../marketDetail/Details";
+import {connect} from "react-redux";
+import {getAccount} from "../../actions";
+import PropTypes from 'prop-types';
+import Loading from '../loading/Loading'
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		account: state.default.account,
+		loading: state.default.loading.account,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getAccount: (address) => {
+			dispatch(getAccount(address));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(style)
 export default class PlaceOrder extends Component {
+
+	static contextTypes = {
+		router: PropTypes.object
+	}
 
 	DEFAULT_PRICE = 0.5;
 
@@ -12,6 +36,8 @@ export default class PlaceOrder extends Component {
 		super(props);
 		this.state = {
 			bestPrice: this.props.bestPrice,
+			account: this.props.account,
+			loading: this.props.loading,
 			selectedOrderType: "market",
 			selectedBuySell: "buy",
 			selectedSide: "long",
@@ -91,9 +117,7 @@ export default class PlaceOrder extends Component {
 		if (amoveo3) {
 			amoveo3.currentProvider.send(
 				{
-					opts: {
-						type: "market", price: orderPrice, amount: amount, side: side, oid: oid
-					}
+					type: "market", price: orderPrice, amount: amount, side: side, oid: oid
 				}
 			);
 		}
@@ -143,7 +167,14 @@ export default class PlaceOrder extends Component {
 		this.props.onAmountUpdate(amount);
 	}
 
+	goToLogin() {
+		localStorage.setItem("onboarding", true);
+		this.context.router.push("/")
+	}
+
 	render() {
+		const {account, loading} = this.props;
+
 		const {selectedOrderType, selectedBuySell, price, amount, bestPrice,
 			selectedSide, userShares, amountError, priceError} = this.state;
 
@@ -173,6 +204,78 @@ export default class PlaceOrder extends Component {
 			</div>
 		}
 
+		let hasChannel = false;
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			if (amoveo3.channels && amoveo3.channels.length > 0) {
+				hasChannel = true;
+			}
+		}
+
+		let form = <div></div>
+		if (loading) {
+			form = <div styleName="OrderForm">
+				<Loading lightMode={true} />
+			</div>
+		} else if (!account) {
+			form = <div styleName="OrderForm">
+				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</p>
+			</div>
+		} else if (!hasChannel) {
+			form = <div styleName="OrderForm">
+				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</p>
+			</div>
+		} else {
+			form = <div styleName="OrderForm">
+				<div styleName="FormRow">
+					<div className="left">
+						<p>Amount</p>
+					</div>
+					<div className="right">
+						<input
+							type="number"
+							value={amount >= 0 ? amount : ''}
+							onChange={this.handleAmountChange.bind(this)}
+						/>
+					</div>
+				</div>
+
+				<div styleName="Error">
+					<small>
+						{amountError}
+					</small>
+				</div>
+
+				<div styleName="FormRow">
+					<div className="left">
+						<p>Price</p>
+					</div>
+					<div className="right">
+						<input
+							disabled={isMarketOrder && bestPrice > 0}
+							type="number"
+							value={isMarketOrder ? bestPrice : price}
+							onChange={this.handlePriceChange.bind(this)}
+						/>
+
+						{priceToggle}
+					</div>
+				</div>
+
+				<div styleName="Error">
+					<small>
+						{priceError}
+					</small>
+				</div>
+
+				<div styleName="OrderFormButton">
+					<button
+						disabled={!price || !amount || amount < 0 || amountError || priceError}
+						onClick={this.submitOrder.bind(this)}>Buy</button>
+				</div>
+			</div>
+		}
+
 		return (
 			<div>
 				<div styleName={buySellStyleName}>
@@ -193,54 +296,8 @@ export default class PlaceOrder extends Component {
 							<p>Short</p>
 						</div>
 					</div>
-					<div styleName="OrderForm">
-						<div styleName="FormRow">
-							<div className="left">
-								<p>Amount</p>
-							</div>
-							<div className="right">
-								<input
-									type="number"
-									value={amount >= 0 ? amount : ''}
-									onChange={this.handleAmountChange.bind(this)}
-								/>
-							</div>
-						</div>
 
-						<div styleName="Error">
-							<small>
-								{amountError}
-							</small>
-						</div>
-
-						<div styleName="FormRow">
-							<div className="left">
-								<p>Price</p>
-							</div>
-							<div className="right">
-								<input
-									disabled={isMarketOrder && bestPrice > 0}
-									type="number"
-									value={isMarketOrder ? bestPrice : price}
-									onChange={this.handlePriceChange.bind(this)}
-								/>
-
-								{priceToggle}
-							</div>
-						</div>
-
-						<div styleName="Error">
-							<small>
-								{priceError}
-							</small>
-						</div>
-
-						<div styleName="OrderFormButton">
-							<button
-								disabled={!price || !amount || amount < 0 || amountError || priceError}
-								onClick={this.submitOrder.bind(this)}>Buy</button>
-						</div>
-					</div>
+					{form}
 				</div>
 			</div>
 		)

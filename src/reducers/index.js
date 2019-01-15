@@ -32,6 +32,10 @@ import {
 	GET_IP_STARTED,
 	GET_IP_SUCCESS,
 	GET_IP_FAILURE,
+	GET_ACCOUNT_STARTED,
+	GET_ACCOUNT_SUCCESS,
+	GET_ACCOUNT_FAILURE,
+	SET_ACCOUNT_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -44,6 +48,7 @@ const initialState = {
 		marketDetails: {},
 		requestMarket: false,
 		ip: false,
+		account: false,
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
@@ -51,6 +56,7 @@ const initialState = {
 	marketDetails: {},
 	height: 45315,
 	ip: null,
+	account: null,
 	requestMarket: false,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
@@ -66,6 +72,7 @@ const initialState = {
 		marketDetails: {},
 		requestMarket: null,
 		ip: null,
+		account: null,
 	}
 };
 
@@ -463,6 +470,48 @@ export default function getVeoPriceReducer(state = initialState, action) {
 					...state.error,
 					ip: action.payload.error
 				}
+			};
+		case GET_ACCOUNT_STARTED:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					account: true
+				},
+				error: {
+					...state.error,
+					account: null
+				},
+			};
+		case GET_ACCOUNT_SUCCESS:
+			return {
+				...state,
+				account: action.payload.account,
+				loading: {
+					...state.loading,
+					account: false
+				},
+				error: {
+					...state.error,
+					account: null
+				},
+			};
+		case GET_ACCOUNT_FAILURE:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					account: false
+				},
+				error: {
+					...state.error,
+					account: action.payload.error
+				}
+			};
+		case SET_ACCOUNT_SUCCESS:
+			return {
+				...state,
+				account: action.payload.account,
 			};
 		default:
 			return state;

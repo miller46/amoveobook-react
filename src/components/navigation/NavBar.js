@@ -14,6 +14,10 @@ export default class NavBar extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			account: this.props.account,
+			loading: this.props.loading,
+		}
 	}
 
 	burgerToggle() {
@@ -51,9 +55,13 @@ export default class NavBar extends Component {
 				</div>
 				<div styleName="NavNarrow">
 					<i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+					<div styleName="NavBarRight">
+						<Account />
+					</div>
 					<div className="right">
 						<Logo />
 					</div>
+
 					<div id="narrow-links" styleName="NarrowLinks">
 						<div styleName="LinkRowPad">
 							<VeoPrice />
@@ -69,10 +77,6 @@ export default class NavBar extends Component {
 
 						<div styleName="LinkRow">
 							<Help />
-						</div>
-
-						<div styleName="LinkRow">
-							<Account />
 						</div>
 					</div>
 				</div>

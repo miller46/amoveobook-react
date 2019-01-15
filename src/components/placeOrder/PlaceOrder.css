@@ -6,6 +6,12 @@
     margin-top: -16px;
 }
 
+.Underlined {
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .OrderType {
     overflow: auto;
     text-align: center;

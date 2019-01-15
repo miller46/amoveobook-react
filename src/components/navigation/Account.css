@@ -1,11 +1,74 @@
 .Account {
     cursor: pointer;
-    padding: 8px 12px;
-    border: 2px solid white;
-    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.Account small {
+    float: right;
+    margin-top: 8px;
 }
 
 .Account:hover {
+    color: #FDD835;
+}
+
+.Account canvas {
+    float: left;
+    border-radius: 100%;
+    margin-right: 4px;
+    border: 2px solid white;
+}
+
+.Account canvas:hover {
+    border: 2px solid #FDD835;
+}
+
+.Login {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 2px solid white;
+    border-radius: 4px;
+    max-width: 68px;
+}
+
+.Login:hover {
     background: #444;
     color: #FDD835;
+}
+
+.Loading {
+    height: 20px;
+    margin-top: -8px;
+}
+
+.Hidden {
+    display: none;
+}
+
+.Dropdown {
+    background: #000;
+    position: absolute;
+    margin-top: 50px;
+    right: 0;
+}
+
+.DropdownRow {
+    padding: 8px;
+    background: #000000;
+    margin-left: -9px;
+    width: 134px;
+}
+
+.DropdownRow:hover {
+    color: #FFEB3B;
+    cursor: pointer;
+}
+
+.DropdownRow a {
+    color: white;
+}
+
+.DropdownRow a:hover {
+    color: #FFEB3B;
+    cursor: pointer;
 }

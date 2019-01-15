@@ -1,3 +1,10 @@
 .Locked {
     text-align: center;
+    width: 400px;
+}
+
+@media (max-width: 532px) {
+    .Locked {
+        width: auto;
+    }
 }

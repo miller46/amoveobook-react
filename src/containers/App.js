@@ -5,12 +5,57 @@ import NavBar from '../components/navigation/NavBar'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
+import {getAccount, getIp} from "../actions";
+import {connect} from "react-redux";
 
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		ip: state.default.ip,
+		account: state.default.account,
+		ipLoading: state.default.loading.ip,
+		ipError: state.default.error.ip,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getIp: () => {
+			dispatch(getIp());
+		},
+		getAccount: (address) => {
+			dispatch(getAccount(address));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class App extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			ip: this.props.ip,
+			account: this.props.account,
+		}
+	}
+
+	componentWillMount() {
+		const {ip, account} = this.state;
+
+		const hasChecked = localStorage.getItem("hasCheckedIp");
+		if (hasChecked !== "true" && !ip) {
+			this.props.getIp()
+		}
+
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			const address = amoveo3.coinbase;
+			if (address && !account) {
+				this.props.getAccount(address);
+			}
+		}
 	}
 
 	render() {
@@ -40,7 +85,7 @@ export default class App extends Component {
 						: null
 				}
 
-				<div>
+				<div styleName="AppContainer">
 					{this.props.children}
 				</div>
 

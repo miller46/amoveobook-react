@@ -60,23 +60,17 @@ export default class Calculator extends Component {
 
 		const veoPrice = veoPrices[currencyId] * veoPrices.last;
 
-		let veoWinnings;
-		if (price <= 0.5) {
-			veoWinnings = Calculator.roundOff((amount / price - amount), 8)
-		} else {
-			veoWinnings = Calculator.roundOff((amount * (1 - price)), 8)
-		}
-
-		let winnings = <div></div>
+		let displayAmount = amount > 0 ? amount : "--";
+		let displayPrice = price > 0 ? price : "--";
+		let veoWinnings = "--";
+		let currencyWinnings = "--";
 		if (amount > 0 && price > 0) {
-			winnings = <div>
-				<table>
-					<tbody>
-						<tr><td styleName="LeftColumn"><p>Buy:</p></td><td><p>{amount} VEO @ {price} <small>per share</small></p></td></tr>
-						<tr><td styleName="LeftColumn"><p>Pays out:</p></td><td><p>{veoWinnings} VEO ({currency.symbol}{(veoWinnings * veoPrice).toFixed(2)})</p></td></tr>
-					</tbody>
-				</table>
-			</div>
+			if (price <= 0.5) {
+				veoWinnings = Calculator.roundOff((amount / price - amount), 8)
+			} else {
+				veoWinnings = Calculator.roundOff((amount * (1 - price)), 8)
+			}
+			currencyWinnings = (veoWinnings * veoPrice).toFixed(2)
 		}
 
 		return (
@@ -85,7 +79,14 @@ export default class Calculator extends Component {
 					<SectionLabel titleText="Payout Calculator"/>
 				</div>
 
-				{winnings}
+				<div>
+					<table>
+						<tbody>
+						<tr><td styleName="LeftColumn"><p>Buy:</p></td><td><p>{displayAmount} VEO @ {displayPrice} <small>per share</small></p></td></tr>
+						<tr><td styleName="LeftColumn"><p>Pays out:</p></td><td><p>{veoWinnings} VEO ({currency.symbol}{currencyWinnings})</p></td></tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		)
 	}

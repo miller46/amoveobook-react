@@ -14,6 +14,7 @@ import PlaceOrder from "../placeOrder/PlaceOrder";
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
 	return {
+		account: state.default.account,
 		activeMarkets: state.default.activeMarkets,
 		marketDetail: state.default.marketDetails[oid],
 		loading: state.default.loading.marketDetails[oid],
@@ -44,6 +45,7 @@ export default class Details extends Component {
 
 		this.state = {
 			oid: this.props.params.oid,
+			account: this.account,
 			marketDetail: this.props.marketDetail,
 			height: this.props.height,
 			activeMarkets: this.props.activeMarkets,
@@ -85,12 +87,11 @@ export default class Details extends Component {
 
 	render() {
 		const {oid, price, amount, bestPrice} = this.state;
-		const {activeMarkets, marketDetail, height} = this.props;
+		const {account, activeMarkets, marketDetail, height} = this.props;
 
 		let expires = "--"
 		if (marketDetail) {
 			expires = "Expires: " + getDisplayExpires(marketDetail.expires, height)
-
 		}
 
 		let market;
@@ -105,6 +106,22 @@ export default class Details extends Component {
 		let question = "--"
 		if (market) {
 			question = market.question;
+		}
+
+		let hasChannel = false;
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			if (amoveo3.channels && amoveo3.channels.length > 0) {
+				hasChannel = true;
+			}
+		}
+
+		let calculator = <div></div>
+		if (account && hasChannel) {
+			calculator = <Calculator
+				amount={amount}
+				price={price}
+			/>
 		}
 
 		return (
@@ -141,10 +158,7 @@ export default class Details extends Component {
 							bestPrice={bestPrice}
 						/>
 
-						<Calculator
-							amount={amount}
-							price={price}
-						/>
+						{calculator}
 					</div>
 				</div>
 			</div>

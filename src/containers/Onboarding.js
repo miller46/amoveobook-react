@@ -7,7 +7,24 @@ import Email from '../components/onboarding/Email'
 import Channel from '../components/onboarding/Channel'
 import Wallet from '../components/onboarding/Wallet'
 import Locked from '../components/onboarding/Locked'
+import {getAccount, getIp} from "../actions";
+import {connect} from "react-redux";
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		account: state.default.account,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getAccount: (address) => {
+			dispatch(getAccount(address));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class Onboarding extends Component {
 
@@ -18,27 +35,33 @@ export default class Onboarding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: false,
+			finishedEmail: false,
 			channel: false,
+			account: this.props.account,
 		}
+
+		this.advanceToChannels = this.advanceToChannels.bind(this);
+		this.advanceToSplash = this.advanceToSplash.bind(this);
 	}
 
 	advanceToChannels() {
-		this.state = {
-			email: true,
-		}
+		this.setState({
+			finishedEmail: true,
+		})
 	}
 
 	advanceToSplash() {
-		this.state = {
+		this.setState({
 			channel: true,
-		}
+		})
 		localStorage.setItem("onboarding", false);
 		this.context.router.push("/")
 	}
 
 	render() {
-		const {email, channel} = this.state;
+		const {finishedEmail, channel} = this.state;
+		const {account} = this.props;
+
 		const amoveo3 = window.amoveo3;
 
 		let body;
@@ -51,7 +74,7 @@ export default class Onboarding extends Component {
 			body =
 				<Locked
 				/>
-		} else if (!email) {
+		} else if (!finishedEmail && !account) {
 			body =
 				<Email
 					onAdvance={this.advanceToChannels}
@@ -59,7 +82,7 @@ export default class Onboarding extends Component {
 		} else {
 			body =
 				<Channel
-					onAdvance={this.advanceToChannels}
+					onAdvance={this.advanceToSplash}
 				/>
 		}
 

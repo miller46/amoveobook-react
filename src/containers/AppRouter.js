@@ -5,13 +5,14 @@ import Loading from "../components/loading/Loading";
 import UsCustomers from "../components/disclaimers/UsCustomers";
 import Adblock from "../components/disclaimers/Adblock";
 
-import {getIp} from "../actions";
+import {getIp, getAccount} from "../actions";
 import {connect} from "react-redux";
 import Onboarding from "./Onboarding";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		ip: state.default.ip,
+		account: state.default.account,
 		ipLoading: state.default.loading.ip,
 		ipError: state.default.error.ip,
 	};
@@ -21,6 +22,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		getIp: () => {
 			dispatch(getIp());
+		},
+		getAccount: (address) => {
+			dispatch(getAccount(address));
 		},
 	};
 };
@@ -34,16 +38,8 @@ export default class AppRouter extends Component {
 			ip: this.props.ip,
 			loading: this.props.loading,
 			error: this.props.error,
+			account: this.props.account,
 			ipDisabled: false,
-		}
-	}
-
-	componentWillMount() {
-		const {ip} = this.state;
-
-		const hasChecked = localStorage.getItem("hasCheckedIp");
-		if (hasChecked !== "true" && !ip) {
-			this.props.getIp()
 		}
 	}
 

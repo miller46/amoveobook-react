@@ -1,12 +1,10 @@
 import {api} from '../config'
 
-export function saveEmail(email, address, signed, callback) {
-	const data = {email: email, address: address, signed: signed};
-	post(api.saveEmailUrl, {}, data, callback);
+export function saveEmail(data, callback) {
+	post(api.saveEmailUrl, {'content-type': 'application/json'}, data, callback);
 }
 
-export function createChannel(amount, duration, callback) {
-	const data = {amount: amount, duration: duration};
+export function createChannel(data, callback) {
 	post(api.openChannelUrl, {}, data, callback);
 }
 
@@ -29,7 +27,7 @@ function request(method, url, headers, data, callback) {
 		body: JSON.stringify(data)
 	}).then(res=>res.json())
 	.then(res => {
-		callback(undefined, body);
+		callback(undefined, res);
 	})
 	.catch(error => {
 		callback(error, undefined);

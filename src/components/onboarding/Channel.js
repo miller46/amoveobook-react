@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import styles from './Email.css'
+import styles from './Channel.css'
+import PropTypes from 'prop-types';
 
 import {createChannel} from '../../network'
+import {api} from '../../config'
+import SectionLabel from "../markets/SectionLabel";
 
 @CSSModules(styles)
 export default class Channel extends Component {
+
+	static contextTypes = {
+		router: PropTypes.object
+	}
 
 	constructor(props) {
 		super(props);
@@ -13,28 +20,52 @@ export default class Channel extends Component {
 			amount: 0,
 			duration: 0,
 			error: "",
+
 		}
+
+		this.onAdvance = this.props.onAdvance.bind(this)
 	}
 
-	openChannel() {
-		const {amount, duration} = this.state;
-		if (duration < 100) {
-			this.setState({
-				error: "Channels must be open for at least 100 blocks"
-			})
-		} else if (amount > 0) {
-			this.setState({
-				error: "Amount must be greater than 0"
-			})
-		} else {
-			createChannel(amount, duration, function(error, result) {
+
+	handleAmountChange(e) {
+		this.setState({
+			amount: e.target.value
+		})
+	}
+
+	handleDurationChange(e) {
+		this.setState({
+			duration: e.target.value
+		})
+	}
+
+	skip() {
+		localStorage.setItem("onboarding", false);
+		this.context.router.push("/")
+	}
+
+	openPrompt() {
+		const instance = this;
+		const amoveo3 = window.amoveo3;
+		amoveo3.currentProvider.send(
+			{
+				type: "channel", ip: api.defaultNodeUrl, duration: 4000, locked: 1, delay: 100
+			} , function(error, channel) {
 				if (error) {
-
+					instance.setState({
+						error: "An error occurred"
+					})
 				} else {
+					const data = {amount: 0, duration: 0};
+					createChannel(data, function (error, result) {
+						if (error) {
+							console.error("Error saving channel")
+						}
 
+						instance.onAdvance()
+					})
 				}
-			});
-		}
+			})
 	}
 
 	render() {
@@ -42,12 +73,49 @@ export default class Channel extends Component {
 
 		return (
 			<div>
+				<SectionLabel
+					titleText="New Channel"
+				/>
+
 				<div>
-					<label>New Channel</label>
+					<div styleName="TopContainer">
+						<div styleName="Explainer">
+							<p>You will need to open a payment channel to bet.</p>
+
+							<div styleName="Button">
+								<button
+									onClick={() => this.openPrompt()}
+								>
+									Make Channel
+								</button>
+							</div>
+						</div>
+
+						<div styleName="Error">
+							{error}
+						</div>
+
+						<div
+							styleName="Skip"
+							onClick={() => this.skip()}>
+							<p>Skip For Now</p>
+						</div>
+					</div>
+
+					<div styleName="BottomContainer">
+						<hr />
+
+						<div styleName="Explainer">
+							<h5>What is a channel?</h5>
+
+							<p>A channel is similar to opening up a tab. You lock up some VEO for some time period and you can spend or bet that VEO inside the channel and sync up with the blockchain later.</p>
+							<p>Channels let you do secure, off-chain transactions that are much faster and cheaper than doing every transaction directly on-chain.</p>
+							<p>You can read more about channels <a href="" target="_blank">here</a>.</p>
+
+						</div>
+					</div>
 				</div>
-				<div>
-					<p>{error}</p>
-				</div>
+
 			</div>
 		)
 	}

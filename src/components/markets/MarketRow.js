@@ -131,7 +131,7 @@ export default class MarketRow extends Component {
 						<div styleName="Question">
 							<h1>{market.question}</h1>
 						</div>
-						<div>
+						<div  styleName="Expires">
 							<label>Expires</label>
 							<p>{expiresText}</p>
 						</div>

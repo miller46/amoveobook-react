@@ -7,3 +7,4 @@ export function getDisplayExpires(endBlock, height) {
 	return expires.toLocaleDateString('en-US', options) + " (Block " + endBlock + ")";
 }
 
+export {createIcon} from './blockies'
