@@ -6,8 +6,13 @@
 
 .OrderRow {
     border-top: 1px solid black;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    line-height: 60px;
+    height: 60px;
+}
+
+.OrderRow div {
+    float: left;
+    width: 25%;
 }
 
 .OrderContainer {
@@ -15,5 +20,17 @@
 }
 
 .OrderHeader {
+    overflow: auto;
+}
 
+.OrderHeader div {
+    float: left;
+    width: 25%;
+    font-weight: bold;
+}
+
+.Error {
+    text-align: center;
+    color: #dc3545;
+    margin-bottom: 16px;
 }

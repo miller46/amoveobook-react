@@ -10,9 +10,13 @@ export default class YourOrders extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			error: "",
+		}
 	}
 
 	cancel(order) {
+		const instance = this;
 		const amoveo3 = window.amoveo3;
 		if (amoveo3) {
 			amoveo3.currentProvider.send(
@@ -23,12 +27,25 @@ export default class YourOrders extends Component {
 						price: order.price,
 						amount: order.amount,
 						side: order.side
+				}, function (error, result) {
+					if (error) {
+						instance.setState({
+							error: "The request to cancel was rejected"
+						})
+					} else {
+						instance.setState({
+							error: ""
+						})
+					}
 				}
 			);
 		}
 	}
 
 	render() {
+		const instance = this;
+		const {error} = this.state;
+
 		let rows = [];
 
 		const amoveo3 = window.amoveo3;
@@ -59,6 +76,8 @@ export default class YourOrders extends Component {
 			}
 		}
 
+		rows = [{amount: 100, price: 0.5, side: "false", index: 1, cancelable: true}]
+
 		let display;
 		if (rows.length === 0) {
 			display = <div styleName="OrderContainer">
@@ -68,16 +87,16 @@ export default class YourOrders extends Component {
 			</div>
 		} else {
 			display = <div styleName="OrderContainer">
-				<div class="OrderHeader">
+				<div styleName="OrderHeader">
 					<div>
 						<p>Side</p>
 					</div>
 					<div>
 						<p>Price</p>
 					</div>
-					<di>
+					<div>
 						<p>Amount</p>
-					</di>
+					</div>
 					<div>
 						<p>&nbsp;</p>
 					</div>
@@ -86,26 +105,24 @@ export default class YourOrders extends Component {
 				{
 					rows.map(function(row, index) {
 						return (
-							<div styleName="OrderRow">
+							<div styleName="OrderRow" key={index}>
 								<div>
 									{row.side}
 								</div>
 								<div>
 									{row.price}
 								</div>
-
 								<div>
 									{row.amount}
 								</div>
-
 								<div>
 									{
 										row.cancelable
 											? <button
 												className="btn btn-danger btn-cancel"
-												onClick={() => this.cancel(row)}
+												onClick={() => instance.cancel(row)}
 												>Cancel</button>
-											: <div>&nbsp;</div>
+											: <div>Filled</div>
 									}
 								</div>
 							</div>
@@ -120,6 +137,10 @@ export default class YourOrders extends Component {
 				<SectionLabel
 					titleText="Your Orders"
 				/>
+
+				<div styleName="Error">
+					{error}
+				</div>
 
 				{display}
 			</div>
