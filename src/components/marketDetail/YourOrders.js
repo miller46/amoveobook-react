@@ -76,7 +76,7 @@ export default class YourOrders extends Component {
 			}
 		}
 
-		rows = [{amount: 100, price: 0.5, side: "false", index: 1, cancelable: true}]
+		rows = [{amount: 100, price: 0.5, side: "false", index: 1, cancelable: true}, {amount: 101, price: 0.5, side: "true", index: 1, cancelable: true} ]
 
 		let display;
 		if (rows.length === 0) {
@@ -102,33 +102,35 @@ export default class YourOrders extends Component {
 					</div>
 				</div>
 
-				{
-					rows.map(function(row, index) {
-						return (
-							<div styleName="OrderRow" key={index}>
-								<div>
-									{row.side}
+				<div styleName="OrderRows">
+					{
+						rows.map(function(row, index) {
+							return (
+								<div styleName="OrderRow" key={index}>
+									<div styleName={row.side === "true" ? "Long" : "Short"}>
+										{row.side === "true" ? "Long" : "Short"}
+									</div>
+									<div>
+										{row.price}
+									</div>
+									<div>
+										{row.amount}
+									</div>
+									<div>
+										{
+											row.cancelable
+												? <button
+													className="btn btn-danger btn-cancel"
+													onClick={() => instance.cancel(row)}
+													>Cancel</button>
+												: <div>Filled</div>
+										}
+									</div>
 								</div>
-								<div>
-									{row.price}
-								</div>
-								<div>
-									{row.amount}
-								</div>
-								<div>
-									{
-										row.cancelable
-											? <button
-												className="btn btn-danger btn-cancel"
-												onClick={() => instance.cancel(row)}
-												>Cancel</button>
-											: <div>Filled</div>
-									}
-								</div>
-							</div>
-						)
-					})
-				}
+							)
+						})
+					}
+				</div>
 			</div>
 		}
 

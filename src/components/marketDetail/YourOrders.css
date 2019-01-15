@@ -5,9 +5,10 @@
 }
 
 .OrderRow {
-    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     line-height: 60px;
     height: 60px;
+    font-size: 0.9rem;
 }
 
 .OrderRow div {
@@ -15,12 +16,21 @@
     width: 25%;
 }
 
+.OrderRow button {
+    font-size: 0.8rem;
+}
+
 .OrderContainer {
 
 }
 
+.OrderRows > div:nth-child(even) {
+    background: #f3f3f3;
+}
+
 .OrderHeader {
     overflow: auto;
+    border-bottom: 1px solid black;
 }
 
 .OrderHeader div {
@@ -33,4 +43,13 @@
     text-align: center;
     color: #dc3545;
     margin-bottom: 16px;
+}
+
+.Long {
+    /*border: 1px solid #5cb85c !important;*/
+
+}
+
+.Short {
+    /*border: 1px solid #dc3545 !important;*/
 }
