@@ -14,12 +14,16 @@ export default class GoToAdvancedView extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			oid: this.props.oid
+		}
 
 		this.goToAdvanced = this.goToAdvanced.bind(this)
 	}
 
 	goToAdvanced() {
-		this.context.router.push("/advanced")
+		const {oid} = this.state;
+		this.context.router.push("/advanced/" + encodeURIComponent(oid))
 	}
 
 	render() {

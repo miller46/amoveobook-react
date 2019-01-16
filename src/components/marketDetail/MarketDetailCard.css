@@ -1,0 +1,40 @@
+.DetailInfo {
+    margin-bottom: 32px;
+}
+
+.Card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.42);
+    color: white;
+    background: #0E0E0E;
+    margin: 0 auto 16px auto;
+    padding: 16px;
+    max-width: 800px;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.Card:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 680px) {
+    .QuestionCol {
+        width: 60%;
+        padding-right: 4px;
+    }
+
+    .ExpiredCol {
+        width: 20%;
+    }
+
+    .ResolutionCol {
+        width: 20%;
+    }
+}
+
+@media (max-width: 870px) {
+    .Card {
+        margin: 0 16px;
+        margin-bottom: 16px;
+    }
+}

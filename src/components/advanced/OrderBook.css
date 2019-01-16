@@ -1,0 +1,26 @@
+.OrderBookContainer {
+    width: 400px;
+}
+
+.OrderBookHeader {
+    overflow: auto;
+}
+
+.OrderBookHeader div {
+    width: 50%;
+    float: left;
+}
+
+.Buys {
+    min-height: 100px;
+}
+
+.Sells {
+    min-height: 100px;
+}
+
+.Spread {
+    height: 4px;
+    background: rgba(176, 188, 204, .75);
+}
+

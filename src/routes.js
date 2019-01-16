@@ -11,7 +11,7 @@ import AppRouter from "./containers/AppRouter";
 const routes = (
   <Route component={AppContainer}>
       <Route path='/' component={AppRouter} />
-	  <Route path='/advanced' component={Advanced} />
+	  <Route path='/advanced/:oid' component={Advanced} />
       <Route path='/:oid' component={Details} />
   </Route>
 )

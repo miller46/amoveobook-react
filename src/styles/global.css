@@ -17,3 +17,7 @@ p {
 :global(.clearfix) {
   overflow: auto;
 }
+
+:global(.highcharts-credits) {
+  display: none !important;
+}

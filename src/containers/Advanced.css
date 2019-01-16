@@ -1,0 +1,31 @@
+.AdvancedContainer {
+    padding: 32px;
+    overflow: auto;
+    background: #444;
+}
+
+.OrderConfirm {
+
+}
+
+.LeftPanel {
+    float: left;
+}
+
+.MiddlePanel {
+    float: left;
+    margin-left: 32px;
+    margin-right: 32px;
+    width: 600px;
+}
+
+.RightPanel {
+    float: right;
+}
+
+.PanelTitle {
+    background: #0E0E0E;
+    color: rgba(176,188,204,.75);
+    font-weight: 500;
+    line-height: 44px;
+}

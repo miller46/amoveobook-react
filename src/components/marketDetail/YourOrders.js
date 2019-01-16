@@ -76,8 +76,6 @@ export default class YourOrders extends Component {
 			}
 		}
 
-		rows = [{amount: 100, price: 0.5, side: "false", index: 1, cancelable: true}, {amount: 101, price: 0.5, side: "true", index: 1, cancelable: true} ]
-
 		let display;
 		if (rows.length === 0) {
 			display = <div styleName="OrderContainer">

@@ -10,6 +10,7 @@ import Calculator from "../payoutCalculator/Calculator";
 import GoToAdvancedView from "./GoToAdvancedView";
 import PlaceOrder from "../placeOrder/PlaceOrder";
 import YourOrders from "./YourOrders";
+import MarketDetailCard from "./MarketDetailCard";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -90,11 +91,6 @@ export default class Details extends Component {
 		const {hideAdvanced, oid, price, amount, bestPrice} = this.state;
 		const {account, activeMarkets, marketDetail, height} = this.props;
 
-		let expires = "--"
-		if (marketDetail) {
-			expires = "Expires: " + getDisplayExpires(marketDetail.expires, height)
-		}
-
 		let market;
 		for (let i = 0; i < activeMarkets.length; i++) {
 			let activeMarket = activeMarkets[i];
@@ -128,21 +124,19 @@ export default class Details extends Component {
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
-					<div styleName="DetailInfo">
-						<div styleName="Card">
-							<div>
-								<p>{expires}</p>
-							</div>
-							<div>
-								<h1>{question}</h1>
-							</div>
-						</div>
-					</div>
+					<MarketDetailCard
+						market={market}
+						height={height}
+					/>
 
 					<YourOrders/>
 
 					{
-						hideAdvanced ? <div></div> : <GoToAdvancedView />
+						hideAdvanced
+							? <div></div>
+							: <GoToAdvancedView
+									oid={oid}
+								/>
 					}
 				</div>
 

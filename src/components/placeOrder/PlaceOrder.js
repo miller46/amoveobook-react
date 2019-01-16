@@ -49,8 +49,13 @@ export default class PlaceOrder extends Component {
 			maxOrderSize: 100,
 		}
 
-		this.onAmountUpdate = this.props.onAmountUpdate.bind(this)
-		this.onPriceUpdate = this.props.onPriceUpdate.bind(this)
+		if (this.props.onAmountUpdate) {
+			this.onAmountUpdate = this.props.onAmountUpdate.bind(this)
+		}
+
+		if (this.props.onPriceUpdate) {
+			this.onPriceUpdate = this.props.onPriceUpdate.bind(this)
+		}
 	}
 
 	componentDidMount() {
@@ -70,7 +75,10 @@ export default class PlaceOrder extends Component {
 				price: price
 			})
 		}
-		this.props.onPriceUpdate(price);
+
+		if (this.props.onPriceUpdate) {
+			this.props.onPriceUpdate(price);
+		}
 	}
 
 	toggleOrderType() {
