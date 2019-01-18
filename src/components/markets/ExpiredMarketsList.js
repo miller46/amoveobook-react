@@ -6,6 +6,7 @@ import SectionLabel from "./SectionLabel";
 import styles from './ExpiredMarkets.css'
 import CSSModules from "react-css-modules/dist/index";
 import ExpiredMarketsRow from "./ExpiredMarketRow";
+import PropTypes from 'prop-types';
 
 const mapStateToProps = (state) => {
 	return {
@@ -27,16 +28,37 @@ const mapDispatchToProps = dispatch => {
 @CSSModules(styles)
 export default class ExpiredMarketsList extends Component {
 
+	static contextTypes = {
+		router: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
+		this.state = {
+			limit: this.props.limit || 20,
+			seeMore: this.props.seeMore
+		}
+	}
+
+	goToSeeAll() {
+		this.context.router.push("/expiredMarkets")
 	}
 
 	componentDidMount() {
-		this.props.getExpiredMarkets({limit: 3});
+		const {limit} = this.state;
+		this.props.getExpiredMarkets({limit: limit});
 	}
 
 	render() {
+		const {seeMore} = this.state;
 		const {expiredMarkets, loading} = this.props;
+
+		let seeMoreLink = <div></div>
+		if (seeMore) {
+			seeMoreLink = <div styleName="SeeMore" onClick={() => this.goToSeeAll()}>
+				<p>See All</p>
+			</div>
+		}
 
 		if (loading) {
 			return (
@@ -51,13 +73,13 @@ export default class ExpiredMarketsList extends Component {
 
 					<div>
 						<div styleName="TableHeader">
-							<div styleName="QuestionCol">
+							<div>
 								<p>Market</p>
 							</div>
-							<div styleName="ExpiredCol">
+							<div>
 								<p>Expired</p>
 							</div>
-							<div styleName="ResolutionCol">
+							<div>
 								<p>Outcome</p>
 							</div>
 						</div>
@@ -72,6 +94,8 @@ export default class ExpiredMarketsList extends Component {
 							})
 						}
 					</div>
+
+					{seeMoreLink}
 				</div>
 			)
 		}

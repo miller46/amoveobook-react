@@ -18,7 +18,14 @@ export default class Splash extends Component {
 			<div>
 				<MarketsList />
 
-				<ExpiredMarketsList />
+				<hr />
+
+				<ExpiredMarketsList
+					limit={3}
+					seeMore={true}
+				/>
+
+				<hr />
 
 				<RequestMarket />
 			</div>

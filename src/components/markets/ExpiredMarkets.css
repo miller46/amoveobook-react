@@ -1,9 +1,9 @@
 .List {
-    background: #F7F7F7;
     max-width: 1100px;
     margin: auto;
     padding: 32px;
     margin-bottom: 64px;
+    overflow: auto;
 }
 
 .LoadingPlaceholder {
@@ -16,24 +16,47 @@
     width: 80%;
     float: left;
     text-align: left;
+    display: table;
+    height: 80px;
+}
+
+.QuestionCol p {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .ExpiredCol {
     width: 10%;
     float: left;
+    line-height: 80px;
 }
 
 .ResolutionCol {
     width: 10%;
     float: left;
+    line-height: 80px;
 }
 
 .TableHeader {
-    overflow: hidden;
+    overflow: auto;
     border-bottom: 1px solid black;
-    padding-bottom: 16px;
-    font-size: 0.9em;
-    color: #aaaaaa;
+}
+
+.TableHeader div {
+    float: left;
+    width: 25%;
+    font-weight: bold;
+}
+
+.TableHeader > div:first-child {
+    text-align: left;
+    width: 80%;
+}
+
+.TableHeader div {
+    float: left;
+    width: 10%;
+    font-weight: bold;
 }
 
 .Row {
@@ -41,13 +64,29 @@
     padding-bottom: 16px;
     border-bottom: 1px solid #444;
     overflow: auto;
-    min-height: 81px;
+    min-height: 8px;
 }
 
-@media (max-width: 680px) {
+.SeeMore {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    cursor: pointer;
+    text-decoration: underline;
+    width: 100px;
+    margin: 16px auto;
+}
+
+@media (max-width: 782px) {
+    .TableHeader > div:first-child {
+        width: 60%;
+    }
+
+    .TableHeader div {
+        width: 20%;
+    }
+
     .QuestionCol {
         width: 60%;
-        padding-right: 4px;
     }
 
     .ExpiredCol {
@@ -56,5 +95,28 @@
 
     .ResolutionCol {
         width: 20%;
+    }
+}
+
+@media (max-width: 782px) {
+    .TableHeader > div:first-child {
+        width: 50%;
+    }
+
+    .TableHeader div {
+        width: 25%;
+    }
+
+    .QuestionCol {
+        padding-right: 4px;
+        width: 50%;
+    }
+
+    .ExpiredCol {
+        width: 25%;
+    }
+
+    .ResolutionCol {
+        width: 25%;
     }
 }

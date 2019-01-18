@@ -33,7 +33,7 @@ export default class GoToAdvancedView extends Component {
 					src={images.orderBookSrc}
 				/>
 
-				<p><span styleName="NoBold">Looking fort this? Go to the</span> Advanced View</p>
+				<p><span styleName="NoBold">Looking for this? Go to the</span> Advanced View</p>
 			</div>
 		)
 	}
