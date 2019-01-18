@@ -20,17 +20,39 @@
     font-size: 0.8rem;
 }
 
+.OrderRowBlank {
+    border-top: 1px solid black;
+    line-height: 60px;
+    height: 60px;
+    font-size: 0.9rem;
+}
+
 .OrderContainer {
 
+}
+
+.OrderRows {
+    max-height: 300px;
+    overflow-y: scroll;
 }
 
 .OrderRows > div:nth-child(even) {
     background: #f3f3f3;
 }
 
-.OrderHeader {
+.OrderHeader, .OrderHeaderSpacer {
     overflow: auto;
     border-bottom: 1px solid black;
+}
+
+.OrderHeaderSpacer {
+    padding-right: 14px;
+}
+
+.OrderHeader div, .OrderHeaderSpacer div {
+    float: left;
+    width: 25%;
+    font-weight: bold;
 }
 
 .OrderHeader div {
@@ -46,10 +68,10 @@
 }
 
 .Long {
-    /*border: 1px solid #5cb85c !important;*/
+    color: #5cb85c;
 
 }
 
 .Short {
-    /*border: 1px solid #dc3545 !important;*/
+    color: #dc3545;
 }

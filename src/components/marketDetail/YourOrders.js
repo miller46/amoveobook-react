@@ -4,7 +4,15 @@ import styles from './YourOrders.css'
 import SectionLabel from "../markets/SectionLabel";
 
 import {tokenDecimals, priceDecimals, api} from '../../config'
+import {connect} from "react-redux";
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		account: state.default.account,
+	};
+};
+
+@connect(mapStateToProps, null)
 @CSSModules(styles)
 export default class YourOrders extends Component {
 
@@ -13,7 +21,62 @@ export default class YourOrders extends Component {
 		this.state = {
 			error: "",
 			oid: this.props.oid,
+			update: this.props.update,
+			acount: this.props.update,
+			orders: [],
 		}
+
+		this.listener = 0;
+	}
+
+	componentWillMount() {
+		const instance = this;
+		let lastOrderLength = 0;
+		this.listener = setInterval(function() {
+			const orders = instance.getOrders();
+			if (lastOrderLength !== orders.length) {
+				lastOrderLength = orders.length;
+				instance.setState({orders: orders})
+			}
+		}, 500)
+	}
+
+	getOrders() {
+		const {oid} = this.state;
+		const orders = []
+		const amoveo3 = window.amoveo3;
+		if (amoveo3 && amoveo3.channels && amoveo3.channels.length > 0) {
+			const channels = amoveo3.channels;
+			for (let i = 0; i < channels.length; i++) {
+				let channel = channels[i];
+				if (channel.me[1] === amoveo3.coinbase) {
+					const bets = channel.me[3];
+					for (let j = 1; j < bets.length; j++) {
+						const bet = bets[j];
+
+						if (bet[3][2] === oid) {
+							const amount = bet[2] / tokenDecimals;
+							const price = bet[4][2] / priceDecimals;
+							const side = bet[4][1] === 1 ? "true" : "false";
+
+							const cancelable = true;
+							// if (JSON.stringify(channel.ssme[j - 1].code) === JSON.stringify([0,0,0,0,4])) {
+							//     cancelable = false;
+							// }
+
+							const order = {amount: amount, price: price, side: side, index: j - 1, cancelable: cancelable};
+							orders.push(order);
+						}
+					}
+				}
+			}
+		}
+
+		return orders;
+	}
+
+	componentWillReceiveProps(props) {
+		this.setState({update: props.update})
 	}
 
 	cancel(order) {
@@ -45,48 +108,27 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {oid, error} = this.state;
+		const {orders, error} = this.state;
+		const {account} = this.props;
 
-		let rows = [];
-
-		const amoveo3 = window.amoveo3;
-		if (amoveo3 && amoveo3.channels && amoveo3.channels.length > 0) {
-			const channels = amoveo3.channels;
-			for (let i = 0; i < channels.length; i++) {
-				let channel = channels[i];
-				if (channel.me[1] === amoveo3.coinbase) {
-					const bets = channel.me[3];
-					for (let j = 1; j < bets.length; j++) {
-						const bet = bets[j];
-
-						if (bet[3][2] === oid) {
-							const amount = bet[2] / tokenDecimals;
-							const price = bet[4][2] / priceDecimals;
-							const side = bet[4][1] === 1 ? "true" : "false";
-
-							const cancelable = true;
-							// if (JSON.stringify(channel.ssme[j - 1].code) === JSON.stringify([0,0,0,0,4])) {
-							//     cancelable = false;
-							// }
-
-							const row = {amount: amount, price: price, side: side, index: j - 1, cancelable: cancelable};
-							rows.push(row);
-						}
-					}
-				}
-			}
-		}
-
+		const orderType = "Buy";
+		const headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
 		let display;
-		if (rows.length === 0) {
+		if (!account) {
 			display = <div styleName="OrderContainer">
-				<div styleName="OrderRow">
+				<div styleName="OrderRowBlank">
+					<p>Log in to view orders</p>
+				</div>
+			</div>
+		} else if (orders.length === 0) {
+			display = <div styleName="OrderContainer">
+				<div styleName="OrderRowBlank">
 					<p>No orders</p>
 				</div>
 			</div>
 		} else {
 			display = <div styleName="OrderContainer">
-				<div styleName="OrderHeader">
+				<div styleName={headerSpacer}>
 					<div>
 						<p>Side</p>
 					</div>
@@ -103,11 +145,11 @@ export default class YourOrders extends Component {
 
 				<div styleName="OrderRows">
 					{
-						rows.map(function(row, index) {
+						orders.map(function(row, index) {
 							return (
 								<div styleName="OrderRow" key={index}>
 									<div styleName={row.side === "true" ? "Long" : "Short"}>
-										{row.side === "true" ? "Long" : "Short"}
+										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
 										{row.price}

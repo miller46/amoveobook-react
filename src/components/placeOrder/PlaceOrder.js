@@ -43,6 +43,7 @@ export default class PlaceOrder extends Component {
 			selectedSide: "long",
 			amountError: "",
 			priceError: "",
+			confirmError: "",
 			price: 0,
 			amount: -1,
 			userShares: 0,
@@ -109,7 +110,7 @@ export default class PlaceOrder extends Component {
 
 	submitOrder() {
 		const instance = this;
-		const {oid, amount, price, bestPrice, selectedOrderType, selectedBuySell} = this.state;
+		const {oid, amount, price, bestPrice, selectedOrderType, selectedSide} = this.state;
 
 		const isMarketOrder = PlaceOrder.isMarket(selectedOrderType);
 		let orderPrice;
@@ -120,7 +121,7 @@ export default class PlaceOrder extends Component {
 		}
 
 		let side;
-		if (selectedBuySell === "buy") {
+		if (selectedSide === "long") {
 			side = "true";
 		} else {
 			side = "false";
@@ -134,14 +135,14 @@ export default class PlaceOrder extends Component {
 				}, function(error, result) {
 					if (error) {
 						instance.setState({
-							priceError: "The request to cancel was rejected"
+							confirmError: "The request to cancel was rejected"
 						})
 					} else {
 						if (instance.props.onOrderSubmit) {
 							instance.props.onOrderSubmit();
 						} else {
 							instance.setState({
-								priceError: ""
+								confirmError: ""
 							})
 						}
 					}
@@ -203,7 +204,7 @@ export default class PlaceOrder extends Component {
 		const {account, loading} = this.props;
 
 		const {selectedOrderType, selectedBuySell, price, amount, bestPrice,
-			selectedSide, userShares, amountError, priceError} = this.state;
+			selectedSide, userShares, amountError, priceError, confirmError} = this.state;
 
 		const isMarketOrder = selectedOrderType === "market";
 		const marketStyleName = isMarketOrder ? "OrderTypeSelectedToggle" : "OrderTypeToggle"
@@ -292,6 +293,12 @@ export default class PlaceOrder extends Component {
 				<div styleName="Error">
 					<small>
 						{priceError}
+					</small>
+				</div>
+
+				<div styleName="Error">
+					<small>
+						{confirmError}
 					</small>
 				</div>
 

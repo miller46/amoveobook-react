@@ -63,6 +63,7 @@ export default class Details extends Component {
 			price: 0,
 			selectedOrderType: "limit",
 			hideAdvanced: false,
+			updateOrders: false,
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
@@ -93,7 +94,9 @@ export default class Details extends Component {
 		// clear form
 		// refresh YourOrders component (it just reads from channels inside wallet)
 		// save wallet state in API - WBN
-		// 
+		//
+
+		this.setState({updateOrders: true});
 	}
 
 	updatePrice(price) {
@@ -105,7 +108,7 @@ export default class Details extends Component {
 	}
 
 	render() {
-		const {hideAdvanced, oid, price, amount, bestPrice} = this.state;
+		const {hideAdvanced, oid, price, amount, bestPrice, updateOrders} = this.state;
 		const {account, activeMarkets, marketDetail, height} = this.props;
 
 		let market;
@@ -148,6 +151,7 @@ export default class Details extends Component {
 
 					<YourOrders
 						oid={oid}
+						update={updateOrders}
 					/>
 
 					{

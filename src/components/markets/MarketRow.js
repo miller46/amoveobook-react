@@ -5,7 +5,7 @@ import styles from './MarketRow.css'
 import {connect} from "react-redux";
 import {Redirect} from 'react-router'
 import {getHeight, getMarket} from "../../actions";
-import {tokenDecimals, tokenUnit} from "../../config";
+import {tokenDecimals, priceDecimals, tokenUnit} from "../../config";
 
 import {getDisplayExpires} from '../../utility'
 
@@ -108,14 +108,14 @@ export default class MarketRow extends Component {
 			const buys = marketDetails ? MarketRow.priceAmount(marketDetails.buys) : [];
 			const sells = marketDetails ? MarketRow.priceAmount(marketDetails.sells) : [];
 
-			volume = MarketRow.getVolume(marketDetails.matchedOrders);
-			openInterest = (MarketRow.sumAmounts(buys) + MarketRow.sumAmounts(sells)) / tokenDecimals;
+			volume = MarketRow.getVolume(marketDetails.matchedOrders).toFixed(2);
+			openInterest = ((MarketRow.sumAmounts(buys) + MarketRow.sumAmounts(sells)) / tokenDecimals).toFixed(2);
 			odds = MarketRow.getDisplayOdds(marketDetails.matchedOrders);
 			if (odds === 0) {
 				if (sells.length > 0) {
 					let lowestSell = sells[0];
-					const lowestBuyPrice = 1 - lowestSell[0] / 100000;
-					odds = lowestBuyPrice * 100;
+					const lowestBuyPrice = 1 - lowestSell[0] / priceDecimals;
+					odds = (lowestBuyPrice * 100).toFixed(2) ;
 				}
 
 				if (odds === 0) {
