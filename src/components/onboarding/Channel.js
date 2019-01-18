@@ -6,7 +6,24 @@ import PropTypes from 'prop-types';
 import {createChannel} from '../../network'
 import {api} from '../../config'
 import SectionLabel from "../markets/SectionLabel";
+import {connect} from "react-redux";
+import {setChannelPending} from "../../actions";
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		channelPending: state.default.channelPending,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setChannelPending: (value) => {
+			dispatch(setChannelPending(value));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class Channel extends Component {
 
@@ -60,6 +77,8 @@ export default class Channel extends Component {
 					createChannel(data, function (error, result) {
 						if (error) {
 							console.error("Error saving channel")
+						} else {
+							instance.props.setChannelPending(true);
 						}
 
 						instance.onAdvance()

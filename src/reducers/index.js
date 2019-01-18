@@ -36,6 +36,8 @@ import {
 	GET_ACCOUNT_SUCCESS,
 	GET_ACCOUNT_FAILURE,
 	SET_ACCOUNT_SUCCESS,
+	SET_CHANNEL_PENDING_SUCCESS,
+	SET_CHANNEL_PENDING_FAILURE,
 } from '../actions/types';
 
 const initialState = {
@@ -58,6 +60,7 @@ const initialState = {
 	ip: null,
 	account: null,
 	requestMarket: false,
+	channelPending: false,
 	marketBlacklist: [
 		"FlfYHw9CP6hNweYDr7tQ01EhVUADZkOsDA/OQ2Givxg=",
 		"gj1S1jRvGn5HkscyHAQIcoGdIv0t5BdK94jYSDj7e5U=",
@@ -71,6 +74,7 @@ const initialState = {
 		currency: null,
 		marketDetails: {},
 		requestMarket: null,
+		channelPending: null,
 		ip: null,
 		account: null,
 	}
@@ -512,6 +516,19 @@ export default function getVeoPriceReducer(state = initialState, action) {
 			return {
 				...state,
 				account: action.payload.account,
+			};
+		case SET_CHANNEL_PENDING_SUCCESS:
+			return {
+				...state,
+				channelPending: action.payload.channelPending,
+			};
+		case SET_CHANNEL_PENDING_FAILURE:
+			return {
+				...state,
+				error: {
+					...state.error,
+					channelPending: action.payload.error
+				}
 			};
 		default:
 			return state;

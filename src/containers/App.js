@@ -5,7 +5,7 @@ import NavBar from '../components/navigation/NavBar'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
-import {getAccount, getIp} from "../actions";
+import {getAccount, getIp, getChannelPending} from "../actions";
 import {connect} from "react-redux";
 
 
@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		ip: state.default.ip,
 		account: state.default.account,
+		channelPending: state.default.channelPending,
 		ipLoading: state.default.loading.ip,
 		ipError: state.default.error.ip,
 	};
@@ -26,6 +27,9 @@ const mapDispatchToProps = dispatch => {
 		getAccount: (address) => {
 			dispatch(getAccount(address));
 		},
+		getChannelPending: () => {
+			dispatch(getChannelPending());
+		},
 	};
 };
 
@@ -38,6 +42,7 @@ export default class App extends Component {
 		this.state = {
 			ip: this.props.ip,
 			account: this.props.account,
+			channelPending: this.props.channelPending,
 		}
 	}
 
@@ -59,6 +64,8 @@ export default class App extends Component {
 	}
 
 	render() {
+		const {channelPending} = this.props;
+
 		const showWarning =
 			localStorage.getItem("agreedUS") === "true"
 			|| localStorage.getItem("isNotUS") !== "true" ;
@@ -84,6 +91,12 @@ export default class App extends Component {
 				{
 					isTestnet
 						? <TestnetWarning />
+						: null
+				}
+
+				{
+					channelPending
+						? <div>Channel Pending...</div>
 						: null
 				}
 

@@ -34,14 +34,43 @@ export default class Onboarding extends Component {
 
 	constructor(props) {
 		super(props);
+
+		const amoveo3 = window.amoveo3;
+		const noWallet = !amoveo3;
+		const unlocked = amoveo3 && !amoveo3.isLocked;
+
 		this.state = {
 			finishedEmail: false,
 			channel: false,
 			account: this.props.account,
+			noWallet: noWallet,
+			unlocked: unlocked,
 		}
 
 		this.advanceToChannels = this.advanceToChannels.bind(this);
 		this.advanceToSplash = this.advanceToSplash.bind(this);
+	}
+
+	componentWillMount() {
+		const instance = this;
+		let lastWallet, lastUnlocked;
+		setInterval(function() {
+			const amoveo3 = window.amoveo3;
+			const noWallet = !amoveo3;
+			const unlocked = amoveo3 && !amoveo3.isLocked;
+
+			if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
+				lastWallet = noWallet;
+				lastUnlocked = unlocked;
+
+				instance.props.getAccount(amoveo3.coinbase)
+
+				instance.setState({
+					noWallet,
+					unlocked
+				})
+			}
+		}, 500)
 	}
 
 	advanceToChannels() {
@@ -59,18 +88,16 @@ export default class Onboarding extends Component {
 	}
 
 	render() {
-		const {finishedEmail, channel} = this.state;
+		const {finishedEmail, channel, noWallet, unlocked} = this.state;
 		const {account} = this.props;
 
-		const amoveo3 = window.amoveo3;
-
 		let body;
-		if (!amoveo3) {
+		if (noWallet) {
 			body =
 				<Wallet
 					onAdvance={this.advanceToChannels}
 				/>
-		} else if (amoveo3.isLocked) {
+		} else if (!unlocked) {
 			body =
 				<Locked
 				/>

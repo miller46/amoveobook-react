@@ -1,4 +1,5 @@
-export const FETCH_TIME_REMAINING = "FETCH_TIME_REMAINING";
+export const MAINNET = "mainnet";
+export const TESTNET = "testnet";
 
-export const RECEIVE_FETCHING = "RECEIVE_FETCHING";
-export const RECEIVE_TIME_REMAINING = "RECEIVE_TIME_REMAINING";
+export const CHANNEL_PENDING = "channelPending";
+

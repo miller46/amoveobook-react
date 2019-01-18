@@ -43,6 +43,10 @@ export default class MarketsList extends Component {
 			display = <div styleName="LoadingPlaceholder">
 					<Loading lightMode={true} />
 				</div>
+		} else if (!activeMarkets || activeMarkets.length === 0) {
+			display = <div>
+				<p>No active markets at this time. Please check back later.</p>
+			</div>
 		} else {
 			display = <div>
 				{

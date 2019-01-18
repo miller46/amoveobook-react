@@ -5,6 +5,7 @@ import {
 } from '../actions/types';
 
 import {api} from "../config"
+import {filterMarkets} from "../utility";
 
 export const getActiveMarkets = (options) => {
 	return (dispatch, getState) => {
@@ -24,12 +25,15 @@ export const getActiveMarkets = (options) => {
 	};
 };
 
-const getActiveMarketsSuccess = activeMarkets => ({
-	type: GET_ACTIVE_MARKETS_SUCCESS,
-	payload: {
-		activeMarkets
-	}
-});
+const getActiveMarketsSuccess = activeMarkets => {
+	let filtered = filterMarkets(activeMarkets)
+	return ({
+		type: GET_ACTIVE_MARKETS_SUCCESS,
+		payload: {
+			activeMarkets: filtered
+		}
+	});
+};
 
 const getActiveMarketsStarted = () => ({
 	type: GET_ACTIVE_MARKETS_STARTED
