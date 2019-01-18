@@ -4,32 +4,8 @@ import Splash from "./Splash";
 import Loading from "../components/loading/Loading";
 import UsCustomers from "../components/disclaimers/UsCustomers";
 import Adblock from "../components/disclaimers/Adblock";
-
-import {getIp, getAccount} from "../actions";
-import {connect} from "react-redux";
 import Onboarding from "./Onboarding";
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		ip: state.default.ip,
-		account: state.default.account,
-		ipLoading: state.default.loading.ip,
-		ipError: state.default.error.ip,
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		getIp: () => {
-			dispatch(getIp());
-		},
-		getAccount: (address) => {
-			dispatch(getAccount(address));
-		},
-	};
-};
-
-@connect(mapStateToProps, mapDispatchToProps)
 export default class AppRouter extends Component {
 
 	constructor(props) {

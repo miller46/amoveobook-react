@@ -44,9 +44,13 @@ export default class App extends Component {
 			account: this.props.account,
 			channelPending: this.props.channelPending,
 		}
+
+		this.accountListener = 0;
 	}
 
 	componentWillMount() {
+		const instance = this;
+
 		const {ip, account} = this.state;
 
 		const hasChecked = localStorage.getItem("hasCheckedIp");
@@ -54,13 +58,16 @@ export default class App extends Component {
 			this.props.getIp()
 		}
 
-		const amoveo3 = window.amoveo3;
-		if (amoveo3) {
-			const address = amoveo3.coinbase;
-			if (address && !account) {
-				this.props.getAccount(address);
+		this.accountListener = setInterval(function() {
+			const amoveo3 = window.amoveo3;
+			if (amoveo3) {
+				const address = amoveo3.coinbase;
+				if (address && !account) {
+					instance.props.getAccount(address);
+					clearInterval(instance.accountListener)
+				}
 			}
-		}
+		}, 500)
 	}
 
 	render() {

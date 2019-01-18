@@ -12,6 +12,7 @@ export default class YourOrders extends Component {
 		super(props);
 		this.state = {
 			error: "",
+			oid: this.props.oid,
 		}
 	}
 
@@ -44,7 +45,7 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {error} = this.state;
+		const {oid, error} = this.state;
 
 		let rows = [];
 

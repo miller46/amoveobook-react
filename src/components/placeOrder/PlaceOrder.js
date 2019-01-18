@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './PlaceOrder.css'
-import Details from "../marketDetail/Details";
 import {connect} from "react-redux";
 import {getAccount} from "../../actions";
 import PropTypes from 'prop-types';
@@ -38,6 +37,7 @@ export default class PlaceOrder extends Component {
 			bestPrice: this.props.bestPrice,
 			account: this.props.account,
 			loading: this.props.loading,
+			oid: this.props.oid,
 			selectedOrderType: "market",
 			selectedBuySell: "buy",
 			selectedSide: "long",
@@ -55,6 +55,10 @@ export default class PlaceOrder extends Component {
 
 		if (this.props.onPriceUpdate) {
 			this.onPriceUpdate = this.props.onPriceUpdate.bind(this)
+		}
+
+		if (this.props.onOrderSubmit) {
+			this.onOrderSubmit = this.props.onOrderSubmit.bind(this)
 		}
 	}
 
@@ -83,7 +87,7 @@ export default class PlaceOrder extends Component {
 
 	toggleOrderType() {
 		const {selectedOrderType} = this.state;
-		let newSelected = Details.isMarket(selectedOrderType) ? "limit" : "market";
+		let newSelected = PlaceOrder.isMarket(selectedOrderType) ? "limit" : "market";
 		this.setState({selectedOrderType: newSelected})
 	}
 
@@ -104,9 +108,10 @@ export default class PlaceOrder extends Component {
 	}
 
 	submitOrder() {
+		const instance = this;
 		const {oid, amount, price, bestPrice, selectedOrderType, selectedBuySell} = this.state;
 
-		const isMarketOrder = Details.isMarket(selectedOrderType);
+		const isMarketOrder = PlaceOrder.isMarket(selectedOrderType);
 		let orderPrice;
 		if (isMarketOrder) {
 			orderPrice = bestPrice;
@@ -126,6 +131,20 @@ export default class PlaceOrder extends Component {
 			amoveo3.currentProvider.send(
 				{
 					type: "market", price: orderPrice, amount: amount, side: side, oid: oid
+				}, function(error, result) {
+					if (error) {
+						instance.setState({
+							priceError: "The request to cancel was rejected"
+						})
+					} else {
+						if (instance.props.onOrderSubmit) {
+							instance.props.onOrderSubmit();
+						} else {
+							instance.setState({
+								priceError: ""
+							})
+						}
+					}
 				}
 			);
 		}

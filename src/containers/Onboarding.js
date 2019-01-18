@@ -9,6 +9,7 @@ import Wallet from '../components/onboarding/Wallet'
 import Locked from '../components/onboarding/Locked'
 import {getAccount, getIp} from "../actions";
 import {connect} from "react-redux";
+import {api} from "../config";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -47,30 +48,55 @@ export default class Onboarding extends Component {
 			unlocked: unlocked,
 		}
 
+		this.listener = 0;
+
 		this.advanceToChannels = this.advanceToChannels.bind(this);
 		this.advanceToSplash = this.advanceToSplash.bind(this);
+	}
+
+	hasChannel() {
+		const amoveo3 = window.amoveo3;
+		let hasChannel = false;
+		if (amoveo3 && amoveo3.channels) {
+			for (let i = 0; i < amoveo3.channels.length; i++) {
+				const channel = amoveo3.channels[i];
+				const serverAddress = channel.serverPubKey;
+				if (api.serverPublicKey === serverAddress) {
+					hasChannel = true;
+					break;
+				}
+			}
+		}
+
+		return hasChannel;
 	}
 
 	componentWillMount() {
 		const instance = this;
 		let lastWallet, lastUnlocked;
-		setInterval(function() {
-			const amoveo3 = window.amoveo3;
-			const noWallet = !amoveo3;
-			const unlocked = amoveo3 && !amoveo3.isLocked;
 
-			if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
-				lastWallet = noWallet;
-				lastUnlocked = unlocked;
+		if (this.hasChannel()) {
+			instance.advanceToSplash();
+		} else {
+			this.listener = setInterval(function() {
+				const amoveo3 = window.amoveo3;
+				const noWallet = !amoveo3;
+				const unlocked = amoveo3 && !amoveo3.isLocked;
+				const hasChannel = instance.hasChannel();
 
-				instance.props.getAccount(amoveo3.coinbase)
+				if (hasChannel) {
+					instance.advanceToSplash();
+				} else if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
+					lastWallet = noWallet;
+					lastUnlocked = unlocked;
 
-				instance.setState({
-					noWallet,
-					unlocked
-				})
-			}
-		}, 500)
+					instance.setState({
+						noWallet,
+						unlocked,
+					})
+				}
+			}, 500)
+		}
 	}
 
 	advanceToChannels() {
@@ -85,6 +111,8 @@ export default class Onboarding extends Component {
 		})
 		localStorage.setItem("onboarding", false);
 		this.context.router.push("/")
+
+		clearInterval(this.listener);
 	}
 
 	render() {

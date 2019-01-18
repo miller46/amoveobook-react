@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import {getHeight, getMarket, getActiveMarkets} from "../../actions";
+import {getHeight, getMarket, getActiveMarkets, getAccount} from "../../actions";
 import {connect} from "react-redux";
 import styles from './Details.css'
 import styles2 from '../markets/MarketRow.css'
+import PropTypes from 'prop-types';
 
 import {getDisplayExpires} from '../../utility'
 import Calculator from "../payoutCalculator/Calculator";
@@ -34,6 +35,9 @@ const mapDispatchToProps = dispatch => {
 		getActiveMarkets: () => {
 			dispatch(getActiveMarkets());
 		},
+		getAccount: (address) => {
+			dispatch(getAccount(address));
+		},
 	};
 };
 
@@ -41,12 +45,16 @@ const mapDispatchToProps = dispatch => {
 @CSSModules(Object.assign({}, styles, styles2))
 export default class Details extends Component {
 
+	static contextTypes = {
+		router: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			oid: this.props.params.oid,
-			account: this.account,
+			account: this.props.account,
 			marketDetail: this.props.marketDetail,
 			height: this.props.height,
 			activeMarkets: this.props.activeMarkets,
@@ -59,6 +67,7 @@ export default class Details extends Component {
 
 		this.updateAmount = this.updateAmount.bind(this)
 		this.updatePrice = this.updatePrice.bind(this)
+		this.onOrderSubmit = this.onOrderSubmit.bind(this)
 	}
 
 	componentDidMount() {
@@ -77,6 +86,14 @@ export default class Details extends Component {
 		} else {
 			const i = 0;
 		}
+	}
+
+	onOrderSubmit() {
+		//TODO
+		// clear form
+		// refresh YourOrders component (it just reads from channels inside wallet)
+		// save wallet state in API - WBN
+		// 
 	}
 
 	updatePrice(price) {
@@ -129,7 +146,9 @@ export default class Details extends Component {
 						height={height}
 					/>
 
-					<YourOrders/>
+					<YourOrders
+						oid={oid}
+					/>
 
 					{
 						hideAdvanced
@@ -145,7 +164,9 @@ export default class Details extends Component {
 						<PlaceOrder
 							onAmountUpdate={this.updateAmount}
 							onPriceUpdate={this.updatePrice}
+							onOrderSubmit={this.onOrderSubmit}
 							bestPrice={bestPrice}
+							oid={oid}
 						/>
 
 						{calculator}
