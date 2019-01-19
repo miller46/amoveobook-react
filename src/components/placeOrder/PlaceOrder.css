@@ -54,12 +54,12 @@
 
 .LongToggle:hover {
     color: #5cb85c;
-    border-bottom: 1px solid #5cb85c !important;
+    border-bottom: 2px solid #5cb85c !important;
 }
 
 .ShortToggle:hover {
     color: #dc3545;
-    border-bottom: 1px solid #dc3545 !important;
+    border-bottom: 2px solid #dc3545 !important;
 }
 
 .LongShortToggle {
@@ -72,7 +72,7 @@
     width: 50%;
     padding-top: 4px;
     padding-bottom: 4px;
-    border-bottom: 1px solid white;
+    border-bottom: 2px solid white;
 }
 
 .LongShortToggle div:hover {
@@ -82,18 +82,19 @@
 .LongSelectedToggle {
     background: #0E0E0E;
     color: #5cb85c;
-    border-bottom: 1px solid #5cb85c !important;
+    border-bottom: 2px solid #5cb85c !important;
     padding-bottom: 8px;
 }
 
 .ShortSelectedToggle {
     color: #dc3545;
-    border-bottom: 1px solid #dc3545 !important;
+    border-bottom: 2px solid #dc3545 !important;
     padding-bottom: 8px;
 }
 
 .OrderForm {
     overflow: auto;
+    margin: 16px 0;
 }
 
 .OrderFormLocked {
@@ -110,13 +111,18 @@
     outline: none;
 }
 
+.OrderFormInput {
+    float: left;
+    width: 100%;
+}
+
 .OrderForm input {
     height: 32px;
     border: 0;
     background: #0E0E0E;
     color: white;
     border-bottom: 1px solid white;
-    width: 356px;
+    width: 100%;
     font-size: 1.3rem;
 }
 
@@ -186,10 +192,25 @@
 
 }
 
-@media (max-width: 422px) {
-    .OrderContainer  input {
-        width: 100px;
-    }
+.ConfirmContainer {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-top: 8px;
+}
+
+.ConfirmContainer p {
+    font-size: 0.9rem;
+}
+
+.ConfirmLeft {
+    float: left;
+    width: 50%;
+}
+
+.ConfirmRight {
+    float: right;
+    width: 50%;
+    text-align: right;
 }
 
 @media (max-width: 510px) {

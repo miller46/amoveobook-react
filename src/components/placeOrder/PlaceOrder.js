@@ -66,11 +66,6 @@ export default class PlaceOrder extends Component {
 		this.handleSliderChange = this.handleSliderChange.bind(this)
 	}
 
-	handleSliderChange(e) {
-		const newValue = e.target.value;
-		this.setState({sliderValue: newValue, price: newValue / 100});
-	}
-
 	componentDidMount() {
 		const {bestPrice} = this.state;
 
@@ -159,27 +154,6 @@ export default class PlaceOrder extends Component {
 		}
 	}
 
-	handlePriceChange(e) {
-		const oldPrice = this.state.price;
-		let price = e.target.value;
-
-		let priceError = "";
-		if (price >= 1 || price < 0) {
-			price = oldPrice;
-			priceError = "Price must be in between 0.01 and 0.99";
-		}
-
-		this.setState(
-			{
-				priceError: priceError,
-				price: price,
-				sliderValue: price * 100,
-			}
-		);
-
-		this.props.onPriceUpdate(price);
-	}
-
 	handleAmountChange(e) {
 		let {maxOrderSize} = this.state;
 
@@ -201,6 +175,35 @@ export default class PlaceOrder extends Component {
 		);
 
 		this.props.onAmountUpdate(amount);
+	}
+
+	handlePriceChange(e) {
+		const oldPrice = this.state.price;
+		let price = e.target.value;
+
+		let priceError = "";
+		if (price >= 1 || price < 0) {
+			price = oldPrice;
+			priceError = "Price must be in between 0.01 and 0.99";
+		}
+
+		this.setState(
+			{
+				priceError: priceError,
+				price: price,
+				sliderValue: price * 100,
+			}
+		);
+
+		this.props.onPriceUpdate(price);
+	}
+
+	handleSliderChange(e) {
+		const newValue = e.target.value;
+		const newPrice = newValue / 100;
+		this.setState({sliderValue: newValue, price: newValue / 100});
+
+		this.props.onPriceUpdate(newPrice);
 	}
 
 	goToLogin() {
@@ -248,6 +251,8 @@ export default class PlaceOrder extends Component {
 			}
 		}
 
+		const total = price * amount > 0 ? price * amount : 0;
+
 		let form = <div></div>
 		if (loading) {
 			form = <div styleName="OrderForm">
@@ -267,7 +272,7 @@ export default class PlaceOrder extends Component {
 					<div className="left">
 						<p>Amount</p>
 					</div>
-					<div className="right">
+					<div styleName="OrderFormInput">
 						<input
 							type="number"
 							value={amount >= 0 ? amount : ''}
@@ -289,7 +294,7 @@ export default class PlaceOrder extends Component {
 					<div className="left">
 						<p>Price</p>
 					</div>
-					<div className="right">
+					<div styleName="OrderFormInput">
 						<input
 							disabled={isMarketOrder && bestPrice > 0}
 							type="number"
@@ -327,6 +332,27 @@ export default class PlaceOrder extends Component {
 					<small>
 						{confirmError}
 					</small>
+				</div>
+
+				<div styleName="ConfirmContainer">
+					<div styleName="ConfirmLeft">
+						<p>Share Value</p>
+					</div>
+					<div styleName="ConfirmRight">
+						<p>{(price * 100).toFixed(2)} %</p>
+					</div>
+					{/*<div styleName="ConfirmLeft">*/}
+						{/*<p>Fee</p>*/}
+					{/*</div>*/}
+					{/*<div styleName="ConfirmRight">*/}
+						{/*<p>0.000001 VEO</p>*/}
+					{/*</div>*/}
+					<div styleName="ConfirmLeft">
+						<p>Total</p>
+					</div>
+					<div styleName="ConfirmRight">
+						<p>{total.toFixed(4)} VEO</p>
+					</div>
 				</div>
 
 				<div styleName="OrderFormButton">
