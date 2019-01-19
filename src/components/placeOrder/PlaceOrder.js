@@ -48,6 +48,7 @@ export default class PlaceOrder extends Component {
 			amount: -1,
 			userShares: 0,
 			maxOrderSize: 100,
+			sliderValue: this.DEFAULT_PRICE * 100,
 		}
 
 		if (this.props.onAmountUpdate) {
@@ -61,6 +62,13 @@ export default class PlaceOrder extends Component {
 		if (this.props.onOrderSubmit) {
 			this.onOrderSubmit = this.props.onOrderSubmit.bind(this)
 		}
+
+		this.handleSliderChange = this.handleSliderChange.bind(this)
+	}
+
+	handleSliderChange(e) {
+		const newValue = e.target.value;
+		this.setState({sliderValue: newValue, price: newValue / 100});
 	}
 
 	componentDidMount() {
@@ -152,20 +160,20 @@ export default class PlaceOrder extends Component {
 	}
 
 	handlePriceChange(e) {
+		const oldPrice = this.state.price;
 		let price = e.target.value;
-		if (isNaN(price) && price < 0) {
-			price = 0;
-		}
 
 		let priceError = "";
-		if (price > 1) {
-			priceError = "Price must be in between 0 and 1";
+		if (price >= 1 || price < 0) {
+			price = oldPrice;
+			priceError = "Price must be in between 0.01 and 0.99";
 		}
 
 		this.setState(
 			{
 				priceError: priceError,
 				price: price,
+				sliderValue: price * 100,
 			}
 		);
 
@@ -203,7 +211,7 @@ export default class PlaceOrder extends Component {
 	render() {
 		const {account, loading} = this.props;
 
-		const {selectedOrderType, selectedBuySell, price, amount, bestPrice,
+		const {sliderValue, selectedOrderType, selectedBuySell, price, amount, bestPrice,
 			selectedSide, userShares, amountError, priceError, confirmError} = this.state;
 
 		const isMarketOrder = selectedOrderType === "market";
@@ -211,8 +219,8 @@ export default class PlaceOrder extends Component {
 		const limitStyleName = isMarketOrder ? "OrderTypeToggle" : "OrderTypeSelectedToggle"
 
 		const isLong = selectedSide === "long";
-		const longStyleName = isLong ? "LongSelectedToggle" : ""
-		const shortStyleName = isLong ? "" : "ShortSelectedToggle"
+		const longStyleName = isLong ? "LongSelectedToggle" : "LongToggle"
+		const shortStyleName = isLong ? "ShortToggle" : "ShortSelectedToggle"
 
 		const isBuy = selectedBuySell === "buy";
 		const buyStyleName = isBuy ? "BuySellSelectedToggle" : ""
@@ -246,11 +254,11 @@ export default class PlaceOrder extends Component {
 				<Loading lightMode={true} />
 			</div>
 		} else if (!account) {
-			form = <div styleName="OrderForm">
+			form = <div styleName="OrderFormLocked">
 				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</p>
 			</div>
 		} else if (!hasChannel) {
-			form = <div styleName="OrderForm">
+			form = <div styleName="OrderFormLocked">
 				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</p>
 			</div>
 		} else {
@@ -265,6 +273,9 @@ export default class PlaceOrder extends Component {
 							value={amount >= 0 ? amount : ''}
 							onChange={this.handleAmountChange.bind(this)}
 						/>
+					</div>
+					<div styleName="FormRowLabel">
+						<p>Shares</p>
 					</div>
 				</div>
 
@@ -283,11 +294,27 @@ export default class PlaceOrder extends Component {
 							disabled={isMarketOrder && bestPrice > 0}
 							type="number"
 							value={isMarketOrder ? bestPrice : price}
+							max="0.99"
+							min="0.01"
 							onChange={this.handlePriceChange.bind(this)}
 						/>
 
 						{priceToggle}
 					</div>
+					<div styleName="FormRowLabel">
+						<p>VEO/Share</p>
+					</div>
+				</div>
+
+				<div styleName="PriceSlider">
+					<input
+						value={sliderValue}
+						onChange={this.handleSliderChange}
+						type="range"
+						min="1"
+						max="99"
+						step="1"
+					/>
 				</div>
 
 				<div styleName="Error">
@@ -305,7 +332,7 @@ export default class PlaceOrder extends Component {
 				<div styleName="OrderFormButton">
 					<button
 						disabled={!price || !amount || amount < 0 || amountError || priceError}
-						onClick={this.submitOrder.bind(this)}>Buy</button>
+						onClick={this.submitOrder.bind(this)}>{selectedSide === "long" ? "Buy Long Shares" : "Buy Short Shares"}</button>
 				</div>
 			</div>
 		}

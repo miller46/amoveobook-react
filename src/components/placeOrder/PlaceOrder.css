@@ -2,8 +2,6 @@
     text-align: center;
     color: #dc3545;
     margin: 0;
-    padding: 0 !important;
-    margin-top: -16px;
 }
 
 .Underlined {
@@ -54,61 +52,92 @@
     font-size: 0.9rem;
 }
 
+.LongToggle:hover {
+    color: #5cb85c;
+    border-bottom: 1px solid #5cb85c !important;
+}
+
+.ShortToggle:hover {
+    color: #dc3545;
+    border-bottom: 1px solid #dc3545 !important;
+}
+
 .LongShortToggle {
     overflow: auto;
     text-align: center;
-    padding: 16px;
     font-size: 1.2rem;
 }
 
 .LongShortToggle div {
-    width: 49%;
-    border-radius: 4px;
+    width: 50%;
     padding-top: 4px;
     padding-bottom: 4px;
-    border: 1px solid transparent;
+    border-bottom: 1px solid white;
 }
 
 .LongShortToggle div:hover {
-    background: #f3f3f3;
     cursor: pointer;
 }
 
 .LongSelectedToggle {
-    background: #FCFCFC;
-    border: 1px solid #5cb85c !important;
+    background: #0E0E0E;
+    color: #5cb85c;
+    border-bottom: 1px solid #5cb85c !important;
+    padding-bottom: 8px;
 }
 
 .ShortSelectedToggle {
-    background: #FCFCFC;
-    border: 1px solid #dc3545 !important;
+    color: #dc3545;
+    border-bottom: 1px solid #dc3545 !important;
+    padding-bottom: 8px;
 }
 
 .OrderForm {
     overflow: auto;
-    background: #F7F7F7;
+}
+
+.OrderFormLocked {
+    overflow: auto;
     padding: 32px;
+    text-align: center;
 }
 
 .OrderForm div {
-    padding: 8px;
     overflow: auto;
+}
+
+.OrderForm input:focus {
+    outline: none;
 }
 
 .OrderForm input {
     height: 32px;
-    padding-left: 4px;
-    width: 200px;
+    border: 0;
+    background: #0E0E0E;
+    color: white;
+    border-bottom: 1px solid white;
+    width: 356px;
+    font-size: 1.3rem;
 }
 
 .FormRow {
-    max-width: 320px;
     margin: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.FormRow p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.FormRowLabel {
+    float: right;
+    margin-top: -24px;
 }
 
 .OrderFormButton {
     margin: auto;
-    width: 164px;
     margin-top: 16px;
 }
 
@@ -118,9 +147,13 @@
 
 .OrderContainer {
     max-width: 420px;
-    border: 2px solid #eeeeee;
-    margin-left: auto;
-    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    color: white;
+    background: #0E0E0E;
+    margin: 0 auto 16px auto;
+    padding: 16px 32px;
+    border-radius: 4px;
+    text-align: left;
 }
 
 .Hidden {
@@ -147,6 +180,10 @@
 .OrderForm button:disabled {
     background-color: rgba(65, 150, 65, 0.75);
     border-color: #398439;
+}
+
+.PriceSlider {
+
 }
 
 @media (max-width: 422px) {
