@@ -1,6 +1,8 @@
 .List {
     margin-top: 32px;
     margin-bottom: 64px;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 .LoadingPlaceholder {

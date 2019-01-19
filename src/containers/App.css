@@ -4,6 +4,8 @@
 
 .AppContainer {
   text-align: center;
+  max-width: 870px;
+  margin: auto;
 }
 
 .App-logo {

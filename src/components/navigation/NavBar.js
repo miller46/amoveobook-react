@@ -22,10 +22,16 @@ export default class NavBar extends Component {
 
 	burgerToggle() {
 		let linksEl = document.getElementById('narrow-links');
+		let burger = document.getElementById('icon-burger');
+		let x = document.getElementById('icon-x');
 		if (linksEl.style.display === 'block') {
 			linksEl.style.display = 'none';
+			burger.style.display = 'block';
+			x.style.display = 'none';
 		} else {
 			linksEl.style.display = 'block';
+			burger.style.display = 'none';
+			x.style.display = 'block';
 		}
 	}
 
@@ -54,10 +60,12 @@ export default class NavBar extends Component {
 					</div>
 				</div>
 				<div styleName="NavNarrow">
-					<i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+					<i id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+					<i style={{display: 'none'}} id="icon-x" className="fas fa-times fa-2x" onClick={this.burgerToggle}></i>
 					<div styleName="NavBarRight">
 						<Account />
 					</div>
+
 					<div className="right">
 						<Logo />
 					</div>
