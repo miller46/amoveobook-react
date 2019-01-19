@@ -4,7 +4,11 @@
 
 .AppContainer {
   text-align: center;
+}
+
+.SplashContainer {
   max-width: 870px;
+  text-align: center;
   margin: auto;
 }
 
