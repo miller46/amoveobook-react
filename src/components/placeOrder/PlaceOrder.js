@@ -45,7 +45,7 @@ export default class PlaceOrder extends Component {
 			priceError: "",
 			confirmError: "",
 			price: 0,
-			amount: -1,
+			amount: 1,
 			userShares: 0,
 			maxOrderSize: 100,
 			sliderValue: this.DEFAULT_PRICE * 100,
@@ -67,7 +67,7 @@ export default class PlaceOrder extends Component {
 	}
 
 	componentDidMount() {
-		const {bestPrice} = this.state;
+		const {bestPrice, amount} = this.state;
 
 		let price;
 		if (bestPrice === 0) {
@@ -76,16 +76,22 @@ export default class PlaceOrder extends Component {
 			this.setState({
 				selectedOrderType: "limit",
 				price: price,
+				amount: amount,
 			})
 		} else {
 			price = bestPrice;
 			this.setState({
+				amount: amount,
 				price: price
 			})
 		}
 
 		if (this.props.onPriceUpdate) {
 			this.props.onPriceUpdate(price);
+		}
+
+		if (this.props.onAmountUpdate) {
+			this.props.onAmountUpdate(amount);
 		}
 	}
 

@@ -66,9 +66,9 @@ export default class Calculator extends Component {
 		let currencyWinnings = "--";
 		if (amount > 0 && price > 0) {
 			if (price <= 0.5) {
-				veoWinnings = Calculator.roundOff((amount / price - amount), 8)
+				veoWinnings = Calculator.roundOff((amount / price - amount), 2)
 			} else {
-				veoWinnings = Calculator.roundOff((amount * (1 - price)), 8)
+				veoWinnings = Calculator.roundOff((amount * (1 - price)), 2)
 			}
 			currencyWinnings = (veoWinnings * veoPrice).toFixed(2)
 		}
