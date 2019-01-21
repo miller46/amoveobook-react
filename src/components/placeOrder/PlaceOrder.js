@@ -36,7 +36,10 @@ export default class PlaceOrder extends Component {
 		this.state = {
 			bestPrice: this.props.bestPrice,
 			account: this.props.account,
+			marketType: this.props.marketType,
 			loading: this.props.loading,
+			upperBound: this.props.upperBound || 0,
+			lowerBound: this.props.lowerBound || 0,
 			oid: this.props.oid,
 			selectedOrderType: "market",
 			selectedBuySell: "buy",
@@ -95,6 +98,16 @@ export default class PlaceOrder extends Component {
 		}
 	}
 
+	componentWillReceiveProps(props) {
+		this.setState({
+			bestPrice: props.bestPrice,
+			marketType: props.marketType,
+			account: props.account,
+			upperBound: props.upperBound,
+			lowerBound: props.lowerBound,
+		})
+	}
+
 	toggleOrderType() {
 		const {selectedOrderType} = this.state;
 		let newSelected = PlaceOrder.isMarket(selectedOrderType) ? "limit" : "market";
@@ -119,7 +132,7 @@ export default class PlaceOrder extends Component {
 
 	submitOrder() {
 		const instance = this;
-		const {oid, amount, price, bestPrice, selectedOrderType, selectedSide} = this.state;
+		const {oid, amount, price, marketType, upperBound, lowerBound, bestPrice, selectedOrderType, selectedSide} = this.state;
 
 		const isMarketOrder = PlaceOrder.isMarket(selectedOrderType);
 		let orderPrice;
@@ -129,18 +142,11 @@ export default class PlaceOrder extends Component {
 			orderPrice = price;
 		}
 
-		let side;
-		if (selectedSide === "long") {
-			side = "true";
-		} else {
-			side = "false";
-		}
-
 		const amoveo3 = window.amoveo3;
 		if (amoveo3) {
 			amoveo3.currentProvider.send(
 				{
-					type: "market", price: orderPrice, amount: amount, side: side, oid: oid
+					type: "market", marketType: marketType, upperBound: upperBound, lowerBound: lowerBound, price: orderPrice, amount: amount, side: selectedSide, oid: oid
 				}, function(error, result) {
 					if (error) {
 						instance.setState({
@@ -184,22 +190,38 @@ export default class PlaceOrder extends Component {
 	}
 
 	handlePriceChange(e) {
-		const oldPrice = this.state.price;
+		const {price:oldPrice, marketType, upperBound, lowerBound} = this.state.price;
 		let price = e.target.value;
 
-		let priceError = "";
-		if (price >= 1 || price < 0) {
-			price = oldPrice;
-			priceError = "Price must be in between 0.01 and 0.99";
-		}
-
-		this.setState(
-			{
-				priceError: priceError,
-				price: price,
-				sliderValue: price * 100,
+		if (marketType === "scalar") {
+			let priceError = "";
+			if (price >= upperBound || price < lowerBound) {
+				price = oldPrice;
+				priceError = "Price must be in between " + lowerBound + " and " + upperBound;
 			}
-		);
+
+			this.setState(
+				{
+					priceError: priceError,
+					price: price,
+					sliderValue: price * (upperBound - lowerBound),
+				}
+			);
+		} else {
+			let priceError = "";
+			if (price >= 1 || price < 0) {
+				price = oldPrice;
+				priceError = "Price must be in between 0.01 and 0.99";
+			}
+
+			this.setState(
+				{
+					priceError: priceError,
+					price: price,
+					sliderValue: price * 100,
+				}
+			);
+		}
 
 		this.props.onPriceUpdate(price);
 	}
@@ -220,7 +242,7 @@ export default class PlaceOrder extends Component {
 	render() {
 		const {account, loading} = this.props;
 
-		const {sliderValue, selectedOrderType, selectedBuySell, price, amount, bestPrice,
+		const {sliderValue, marketType, upperBound, lowerBound, selectedOrderType, selectedBuySell, price, amount, bestPrice,
 			selectedSide, userShares, amountError, priceError, confirmError} = this.state;
 
 		const isMarketOrder = selectedOrderType === "market";
@@ -236,6 +258,15 @@ export default class PlaceOrder extends Component {
 		const sellStyleName = isBuy ? "" : "BuySellSelectedToggle"
 
 		const buySellStyleName = userShares > 0 ? "BuySellToggle" : "Hidden";
+
+		const isScalarMarket = marketType === "scalar";
+
+		let formPrice;
+		if (isScalarMarket) {
+			formPrice = ((upperBound - lowerBound) * price).toFixed(2);
+		} else {
+			formPrice = isMarketOrder ? bestPrice : price;
+		}
 
 		let priceToggle = <div></div>
 		if (bestPrice > 0) {
@@ -258,6 +289,13 @@ export default class PlaceOrder extends Component {
 		}
 
 		const total = price * amount > 0 ? price * amount : 0;
+
+		let priceLabelText;
+		if (isScalarMarket) {
+			priceLabelText = (isLong ? "Greater" : "Lower") + " than this value"
+		} else {
+			priceLabelText = "VEO/Share"
+		}
 
 		let form = <div></div>
 		if (loading) {
@@ -298,13 +336,13 @@ export default class PlaceOrder extends Component {
 
 				<div styleName="FormRow">
 					<div className="left">
-						<p>Price</p>
+						<p>{isScalarMarket ? "Target Price" : "Price"}</p>
 					</div>
 					<div styleName="OrderFormInput">
 						<input
 							disabled={isMarketOrder && bestPrice > 0}
 							type="number"
-							value={isMarketOrder ? bestPrice : price}
+							value={formPrice}
 							max="0.99"
 							min="0.01"
 							onChange={this.handlePriceChange.bind(this)}
@@ -313,7 +351,7 @@ export default class PlaceOrder extends Component {
 						{priceToggle}
 					</div>
 					<div styleName="FormRowLabel">
-						<p>VEO/Share</p>
+						<p>{priceLabelText}</p>
 					</div>
 				</div>
 
@@ -345,7 +383,7 @@ export default class PlaceOrder extends Component {
 						<p>Share Value</p>
 					</div>
 					<div styleName="ConfirmRight">
-						<p>{(price * 100).toFixed(2)} %</p>
+						<p>{(price * 100).toFixed(2)} VEO</p>
 					</div>
 					{/*<div styleName="ConfirmLeft">*/}
 						{/*<p>Fee</p>*/}

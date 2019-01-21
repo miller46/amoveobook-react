@@ -120,9 +120,13 @@ export default class Details extends Component {
 			}
 		}
 
-		let question = "--"
+		let marketType = ""
+		let upperBound = 0
+		let lowerBound = 0
 		if (market) {
-			question = market.question;
+			marketType = market.market_type
+			upperBound = market.upper_bound
+			lowerBound = market.lower_bound
 		}
 
 		let hasChannel = false;
@@ -170,6 +174,9 @@ export default class Details extends Component {
 							onPriceUpdate={this.updatePrice}
 							onOrderSubmit={this.onOrderSubmit}
 							bestPrice={bestPrice}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
 							oid={oid}
 						/>
 
