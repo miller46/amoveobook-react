@@ -29,6 +29,8 @@ export default class PlaceOrder extends Component {
 		router: PropTypes.object
 	}
 
+	MAX_ORDER_SIZE = 100;
+
 	DEFAULT_PRICE = 0.5;
 
 	constructor(props) {
@@ -50,7 +52,7 @@ export default class PlaceOrder extends Component {
 			price: 0,
 			amount: 1,
 			userShares: 0,
-			maxOrderSize: 100,
+			maxOrderSize: this.MAX_ORDER_SIZE,
 			sliderValue: this.DEFAULT_PRICE * 100,
 		}
 
@@ -177,6 +179,7 @@ export default class PlaceOrder extends Component {
 		let amountError = ""
 		if (amount > maxOrderSize) {
 			amountError = "Max order size is " + maxOrderSize
+			amount = maxOrderSize
 		}
 
 		this.setState(
@@ -385,12 +388,6 @@ export default class PlaceOrder extends Component {
 					<div styleName="ConfirmRight">
 						<p>{(price * 100).toFixed(2)} VEO</p>
 					</div>
-					{/*<div styleName="ConfirmLeft">*/}
-						{/*<p>Fee</p>*/}
-					{/*</div>*/}
-					{/*<div styleName="ConfirmRight">*/}
-						{/*<p>0.000001 VEO</p>*/}
-					{/*</div>*/}
 					<div styleName="ConfirmLeft">
 						<p>Total</p>
 					</div>

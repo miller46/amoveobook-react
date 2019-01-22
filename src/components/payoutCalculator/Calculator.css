@@ -8,11 +8,60 @@
     border-radius: 4px;
 }
 
-.Calculator table {
+.BinaryContainer, .ScalarContainer {
     text-align: left;
     margin: auto;
+    overflow: auto;
+}
+
+.ScalarContainer input {
+    width: 100%;
+}
+
+.BinaryContainer {
+    width: 260px;
+}
+
+.Container div, .ScalarContainer div {
+    overflow: auto;
 }
 
 .LeftColumn {
     padding-right: 16px;
+    float: left;
+}
+
+.RightColumn {
+    float: right;
+}
+
+.Header {
+
+}
+
+.Header p {
+    font-size: 0.7rem;
+    color: #bbb;
+}
+
+.Header p:first-child {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.TargetPrice {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.Profit, .Loss {
+    font-size: 0.8rem;
+}
+
+.Profit {
+    color: #5cb85c;
+}
+
+.Loss {
+    color: #dc3545;
 }

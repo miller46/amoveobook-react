@@ -142,6 +142,9 @@ export default class Details extends Component {
 			calculator = <Calculator
 				amount={amount}
 				price={price}
+				marketType={marketType}
+				upperBound={upperBound}
+				lowerBound={lowerBound}
 			/>
 		}
 
