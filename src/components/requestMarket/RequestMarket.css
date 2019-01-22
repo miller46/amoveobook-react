@@ -18,6 +18,7 @@
 
 .InputText {
     float: left;
+    max-width: 80%;
 }
 
 .InputText input {
