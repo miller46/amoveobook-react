@@ -189,7 +189,9 @@ export default class PlaceOrder extends Component {
 			}
 		);
 
-		this.props.onAmountUpdate(amount);
+		if (this.props.onAmountUpdate) {
+			this.props.onAmountUpdate(amount);
+		}
 	}
 
 	handlePriceChange(e) {
@@ -226,7 +228,9 @@ export default class PlaceOrder extends Component {
 			);
 		}
 
-		this.props.onPriceUpdate(price);
+		if (this.props.onPriceUpdate) {
+			this.props.onPriceUpdate(price);
+		}
 	}
 
 	handleSliderChange(e) {
@@ -234,7 +238,9 @@ export default class PlaceOrder extends Component {
 		const newPrice = newValue / 100;
 		this.setState({sliderValue: newValue, price: newValue / 100});
 
-		this.props.onPriceUpdate(newPrice);
+		if (this.props.onPriceUpdate) {
+			this.props.onPriceUpdate(newPrice);
+		}
 	}
 
 	goToLogin() {

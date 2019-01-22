@@ -10,6 +10,7 @@ import PriceChart from "../components/advanced/PriceChart";
 import OrderHistory from "../components/advanced/OrderHistory";
 import DepthChart from "../components/advanced/DepthChart";
 import OrderBook from "../components/advanced/OrderBook";
+import Calculator from "../components/payoutCalculator/Calculator";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -51,11 +52,16 @@ export default class Advanced extends Component {
 			loading: this.props.loading,
 			height: this.props.height,
 			bestPrice: 0,
+			amount: 0,
+			price: 0,
 		}
+
+		this.updateAmount = this.updateAmount.bind(this)
+		this.updatePrice = this.updatePrice.bind(this)
 	}
 
 	componentWillMount() {
-		const {oid, marketDetail, height, activeMarkets} = this.state;
+		const {oid, marketDetail, height, activeMarkets, account} = this.state;
 
 		if (!height) {
 			this.props.getHeight();
@@ -72,9 +78,17 @@ export default class Advanced extends Component {
 		}
 	}
 
+	updatePrice(price) {
+		this.setState({price: price})
+	}
+
+	updateAmount(amount) {
+		this.setState({amount: amount})
+	}
+
 	render() {
-		const {oid, bestPrice} = this.state;
-		const {activeMarkets, height} = this.props;
+		const {oid, price, amount, bestPrice} = this.state;
+		const {account, activeMarkets, height} = this.props;
 
 		let market;
 		if (oid) {
@@ -92,6 +106,29 @@ export default class Advanced extends Component {
 		if (!market) {
 			return (<div><p>No markets, please try again later</p></div>)
 		} else {
+			const marketType = market.market_type;
+			const upperBound = market.upper_bound;
+			const lowerBound = market.lower_bound;
+
+			let hasChannel = false;
+			const amoveo3 = window.amoveo3;
+			if (amoveo3) {
+				if (amoveo3.channels && amoveo3.channels.length > 0) {
+					hasChannel = true;
+				}
+			}
+
+			let calculator = <div></div>
+			if (account && hasChannel) {
+				calculator = <Calculator
+					amount={amount}
+					price={price}
+					marketType={marketType}
+					upperBound={upperBound}
+					lowerBound={lowerBound}
+				/>
+			}
+
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
@@ -105,34 +142,45 @@ export default class Advanced extends Component {
 						<div styleName="OrderConfirm">
 							<PlaceOrder
 								bestPrice={bestPrice}
+								marketType={marketType}
+								upperBound={upperBound}
+								lowerBound={lowerBound}
+								onAmountUpdate={this.updateAmount}
+								onPriceUpdate={this.updatePrice}
 							/>
 						</div>
+
+						{calculator}
 					</div>
 
-					<div  styleName="MiddlePanel">
-						<div styleName="PanelTitle">
-							<p>Price Chart</p>
+					<div styleName="MiddlePanel">
+						<div styleName="PriceChartContainer">
+							<div styleName="PanelTitle">
+								<p>Price Chart</p>
+							</div>
+
+							<PriceChart
+								prices={[]}
+								buys={[]}
+								sells={[]}
+							/>
 						</div>
 
-						<PriceChart
-							prices={[]}
-							buys={[]}
-							sells={[]}
-						/>
+						<div styleName="DepthChartContainer">
+							<div styleName="PanelTitle">
+								<p>Market Depth</p>
+							</div>
 
-						<div styleName="PanelTitle">
-							<p>Market Depth</p>
+							<DepthChart
+								prices={[]}
+								buys={[]}
+								sells={[]}
+							/>
 						</div>
-
-						<DepthChart
-							prices={[]}
-							buys={[]}
-							sells={[]}
-						/>
 
 					</div>
 					<div  styleName="RightPanel">
-						<div>
+						<div styleName="OrderBookContainer">
 							<div styleName="PanelTitle">
 								<p>Order Book</p>
 							</div>
@@ -143,7 +191,7 @@ export default class Advanced extends Component {
 							/>
 						</div>
 
-						<div>
+						<div styleName="OrderHistoryContainer">
 							<div styleName="PanelTitle">
 								<p>Order History</p>
 							</div>

@@ -36,13 +36,9 @@ export default class MarketInfo extends Component {
 						<p>{expires}</p>
 					</div>
 
-					<div styleName="Separator"></div>
-
 					<div styleName="Question">
 						<p>{question}</p>
 					</div>
-
-					<div styleName="Separator"></div>
 
 					<div styleName="Trading">
 						<div styleName="Left">

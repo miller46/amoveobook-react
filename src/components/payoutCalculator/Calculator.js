@@ -144,7 +144,7 @@ export default class Calculator extends Component {
 
 					<div styleName="RightColumn">
 						<div styleName="Header">
-							<p>Your winnings</p>
+							<p>Your payouts</p>
 						</div>
 						<div>
 							<p>{veoWinnings} VEO <span styleName={profitLoss}>{percentageGain}%</span></p>

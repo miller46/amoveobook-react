@@ -20,6 +20,7 @@ export const api = {
 	getIpUrl: "https://api.ipify.org/?format=json",
 	getIpDetailsUrl: "http://api.ipstack.com/$$$?access_key=4db6b276661ad034f44477078402a553&format=1",
 	replacementCharacter: "$$$",
-	defaultNodeUrl: isTestnet ? "http://127.0.0.1:8070/" : "http://40.117.196.55:8080/",
+	// defaultNodeUrl: isTestnet ? "http://127.0.0.1:8070/" : "http://40.117.196.55:8080/",
+	defaultNodeUrl: isTestnet ? "http://127.0.0.1:5001/api/v1/node/" : "http://40.117.196.55:8080/",
 	serverPublicKey: isTestnet ? "BKw7qHfymuCuUnakeUJW/qhrz4MBzwBrIxJq8hihW5Do6zVQtA8C9t5DBHTrWZ5GT5SKnRztKz+JvpC2BYpsn2Y=" : "BKSYQw/88NOUfwBhyXwVuKymkQxZNxJ0NjqAqJQgXKvflmRJ1K1Q70WAIsUtmxa6C30FdcQKPzeEarNIT4mCUKU=",
 }

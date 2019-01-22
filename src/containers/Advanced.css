@@ -19,13 +19,46 @@
     width: 600px;
 }
 
+.PriceChartContainer {
+    width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    border-radius: 4px;
+    border: 1px solid #0E0E0E;
+    margin-bottom: 32px;
+}
+
+.DepthChartContainer {
+    width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    border-radius: 4px;
+    border: 1px solid #0E0E0E;
+}
+
 .RightPanel {
     float: right;
 }
 
+.OrderBookContainer {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    border-radius: 4px;
+    border: 1px solid #0E0E0E;
+    margin-bottom: 32px;
+    background: rgba(0,0,0,0.6);
+}
+
+.OrderHistoryContainer {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    border-radius: 4px;
+    border: 1px solid #0E0E0E;
+    margin-bottom: 32px;
+    background: #0E0E0E;
+}
+
+
 .PanelTitle {
     background: #0E0E0E;
-    color: rgba(176,188,204,.75);
+    /*color: rgba(176,188,204,.75);*/
+    color: white;
     font-weight: 500;
     line-height: 44px;
 }
