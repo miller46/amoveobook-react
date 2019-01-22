@@ -159,6 +159,7 @@ export default class Details extends Component {
 					<YourOrders
 						oid={oid}
 						update={updateOrders}
+						marketType={marketType}
 					/>
 
 					{

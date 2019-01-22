@@ -18,6 +18,14 @@
     width: 100%;
 }
 
+.ScalarContainer .LeftColumn, .ScalarContainer .RightColumn {
+    width: 50%;
+}
+
+.ScalarContainer .RightColumn {
+    padding-left: 16px;
+}
+
 .BinaryContainer {
     width: 260px;
 }

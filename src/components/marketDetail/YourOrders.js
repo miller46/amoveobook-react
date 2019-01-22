@@ -23,6 +23,9 @@ export default class YourOrders extends Component {
 			oid: this.props.oid,
 			update: this.props.update,
 			acount: this.props.update,
+			marketType: this.props.marketType,
+			upperBound: this.props.upperBound,
+			lowerBound: this.props.lowerBound,
 			orders: [],
 		}
 
@@ -76,7 +79,7 @@ export default class YourOrders extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({update: props.update})
+		this.setState({update: props.update, marketType: props.marketType, upperBound: props.upperBound, lowerBound: props.lowerBound})
 	}
 
 	cancel(order) {
@@ -108,8 +111,10 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {orders, error} = this.state;
+		const {orders, error, marketType, upperBound, lowerBound} = this.state;
 		const {account} = this.props;
+
+		const isScalar = marketType === "scalar";
 
 		const orderType = "Buy";
 		const headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
@@ -152,7 +157,7 @@ export default class YourOrders extends Component {
 										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
-										{row.price}
+										{isScalar ? (upperBound - lowerBound) * row.price : row.price}
 									</div>
 									<div>
 										{row.amount}
