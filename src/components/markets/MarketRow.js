@@ -101,25 +101,32 @@ export default class MarketRow extends Component {
 
 		const expiresText = getDisplayExpires(market.end_block, height);
 
+		const isScalar = market.market_type === "scalar";
 		let volume = "--"
 		let openInterest = "--"
 		let odds = "--"
+
 		if (marketDetails) {
 			const buys = marketDetails ? MarketRow.priceAmount(marketDetails.buys) : [];
 			const sells = marketDetails ? MarketRow.priceAmount(marketDetails.sells) : [];
 
 			volume = MarketRow.getVolume(marketDetails.matchedOrders).toFixed(2);
 			openInterest = ((MarketRow.sumAmounts(buys) + MarketRow.sumAmounts(sells)) / tokenDecimals).toFixed(2);
+
 			odds = MarketRow.getDisplayOdds(marketDetails.matchedOrders);
 			if (odds === 0) {
 				if (sells.length > 0) {
 					let lowestSell = sells[0];
 					const lowestBuyPrice = 1 - lowestSell[0] / priceDecimals;
-					odds = (lowestBuyPrice * 100).toFixed(2) ;
-				}
+					odds = (lowestBuyPrice * 100);
 
-				if (odds === 0) {
-					odds = "--"
+					if (isScalar) {
+						const upperBound = market.upper_bound;
+						const lowerBound = market.lower_bound;
+						odds = (upperBound * lowerBound) * odds;
+					}
+
+					odds = odds.toFixed(2);
 				}
 			}
 		}
@@ -144,8 +151,8 @@ export default class MarketRow extends Component {
 							<p>{volume} <small>{tokenUnit}</small></p>
 						</div>
 						<div>
-							<label>Odds</label>
-							<p>{odds}%</p>
+							<label>{isScalar ? "Current Value" : "Odds"}</label>
+							<p>{odds}{isScalar ? "" : "%"}</p>
 						</div>
 						<div>
 							<label>Open Bets</label>

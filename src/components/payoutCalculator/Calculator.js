@@ -111,6 +111,9 @@ export default class Calculator extends Component {
 
 			const profitLoss = veoWinnings >= 0 ? "Profit" : "Loss"
 			const percentageGain = (100 * ((veoWinnings) / paidValue)).toFixed(2);
+
+			veoWinnings = veoWinnings.toFixed(2)
+
 			tableBody =
 				<div styleName="ScalarContainer">
 					<div styleName="LeftColumn">
@@ -144,7 +147,7 @@ export default class Calculator extends Component {
 							<p>Your winnings</p>
 						</div>
 						<div>
-							<p>{veoWinnings.toFixed(2)} VEO <span styleName={profitLoss}>{percentageGain}%</span></p>
+							<p>{veoWinnings} VEO <span styleName={profitLoss}>{percentageGain}%</span></p>
 							<p>({currency.symbol}{currencyWinnings})</p>
 						</div>
 					</div>
