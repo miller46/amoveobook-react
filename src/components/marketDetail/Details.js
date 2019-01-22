@@ -62,7 +62,7 @@ export default class Details extends Component {
 			amount: 0,
 			price: 0,
 			selectedOrderType: "limit",
-			hideAdvanced: false,
+			hideAdvanced: true,
 			updateOrders: false,
 		}
 
