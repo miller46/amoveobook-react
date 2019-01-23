@@ -11,7 +11,8 @@ export const getActiveMarkets = (options) => {
 	return (dispatch, getState) => {
 		dispatch(getActiveMarketsStarted());
 
-		const url = api.activeMarketUrl;
+		let url = getUrlFromOptions(options || {});
+
 		fetch(url)
 		.then(function(response) {
 			return response.json();
@@ -25,12 +26,22 @@ export const getActiveMarkets = (options) => {
 	};
 };
 
+function getUrlFromOptions(options) {
+	let url = api.activeMarketUrl;
+	if ("limit" in options) {
+		url += "&limit=" + options["limit"]
+	}
+	if ("network" in options) {
+		url += "&filter_by_2=network&filter_by_value_2=" + options["network"]
+	}
+	return url;
+}
+
 const getActiveMarketsSuccess = activeMarkets => {
-	let filtered = filterMarkets(activeMarkets)
 	return ({
 		type: GET_ACTIVE_MARKETS_SUCCESS,
 		payload: {
-			activeMarkets: filtered
+			activeMarkets
 		}
 	});
 };

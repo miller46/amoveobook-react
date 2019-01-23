@@ -36,6 +36,9 @@ function getUrlFromOptions(options) {
 	if ("limit" in options) {
 		url += "&limit=" + options["limit"]
 	}
+	if ("network" in options) {
+		url += "&filter_by_2=network&filter_by_value_2=" + options["network"]
+	}
 	return url;
 }
 

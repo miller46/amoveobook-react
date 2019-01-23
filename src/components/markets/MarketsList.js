@@ -32,7 +32,11 @@ export default class MarketsList extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getActiveMarkets();
+		let network = "mainnet";
+		if (window.amoveo3) {
+			network = window.amoveo3.network || "mainnet";
+		}
+		this.props.getActiveMarkets({network: network });
 	}
 
 	render() {

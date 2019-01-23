@@ -79,7 +79,7 @@ export default class App extends Component {
 
 		const amoveo3 = window.amoveo3;
 
-		const isTestnet = amoveo3 && amoveo3.api.network === "testnet";
+		const isTestnet = amoveo3 && amoveo3.network === "testnet";
 
 		const path = this.props.location.pathname;
 

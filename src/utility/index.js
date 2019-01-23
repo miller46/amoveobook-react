@@ -1,5 +1,4 @@
-import {api} from "../config"
-import {MAINNET, TESTNET} from '../constants'
+
 
 export function getDisplayExpires(endBlock, height) {
 	let expires = new Date();
@@ -12,8 +11,7 @@ export function getDisplayExpires(endBlock, height) {
 
 export {createIcon} from './blockies'
 
-export function filterMarkets(markets) {
-	const network = api.isTestnet ? TESTNET:  MAINNET;
+export function filterMarkets(network, markets) {
 	let filteredMarkets = [];
 	for (let i = 0; i < markets.length; i++) {
 		const market = markets[i];
