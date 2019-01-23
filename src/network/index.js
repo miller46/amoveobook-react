@@ -1,7 +1,7 @@
 import {api} from '../config'
 
 export function saveEmail(data, callback) {
-	post(api.saveEmailUrl, {'content-type': 'application/json'}, data, callback);
+	post(api.saveEmailUrl, {}, data, callback);
 }
 
 export function createChannel(data, callback) {

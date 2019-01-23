@@ -1,6 +1,6 @@
 const isDev = false;
 
-const apiBase = isDev ? "http://127.0.0.1:5001/api/v1/": "https://amoveobook-api.herokuapp.com/api/v1/"
+const apiBase = isDev ? "http://127.0.0.1:5001/api/v1/": "https://amoveobook-api.herokuapp.com/api/v1/";
 
 export const api = {
 	accountUrl: apiBase + "account",
