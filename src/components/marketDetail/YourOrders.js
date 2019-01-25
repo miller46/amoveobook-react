@@ -5,6 +5,7 @@ import SectionLabel from "../markets/SectionLabel";
 
 import {tokenDecimals, priceDecimals, api} from '../../config'
 import {connect} from "react-redux";
+import {roundOff} from "../../utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -152,10 +153,10 @@ export default class YourOrders extends Component {
 										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
-										{isScalar ? (upperBound - lowerBound) * row.price : row.price}
+										{isScalar ? roundOff((upperBound - lowerBound) * row.price, 2) : roundOff(row.price, 2)}
 									</div>
 									<div>
-										{row.amount}
+										{roundOff(row.amount, 6)}
 									</div>
 									<div>
 										{

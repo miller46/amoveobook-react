@@ -15,7 +15,7 @@ export default class Warning extends Component {
 			|| localStorage.getItem("isNotUS") !== "true" ;
 
 		const isTestnet = amoveo3 && amoveo3.network === "testnet";
-		
+
 		if (showWarning && !isTestnet) {
 			return (
 				<div styleName="Warning">

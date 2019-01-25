@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import { getVeoPrices, getCurrency } from '../../actions/index';
 import SectionLabel from "../markets/SectionLabel";
 import {currencies} from '../../config'
+import {roundOff} from '../../utility'
 
 const mapStateToProps = (state) => {
 	return {
@@ -59,15 +60,8 @@ export default class Calculator extends Component {
 		})
 	}
 
-	static roundOff(value, round) {
-		return (parseInt(value * (10 ** (round + 1))) - parseInt(value * (10 ** round)) * 10) > 4 ? (((parseFloat(parseInt((value + parseFloat(1 / (10 ** round))) * (10 ** round))))) / (10 ** round)) : (parseFloat(parseInt(value * (10 ** round))) / ( 10 ** round));
-	}
-
 	handleSliderChange(e) {
-		const {upperBound, lowerBound} = this.state;
-		const newValue = e.target.value;
-		// const newPrice = (upperBound - lowerBound) * newValue;
-		const newPrice = newValue;
+		const newPrice = e.target.value
 		this.setState({sliderValue: newPrice});
 	}
 
@@ -86,9 +80,9 @@ export default class Calculator extends Component {
 		let currencyWinnings = "--";
 		if (amount > 0 && price > 0) {
 			if (price <= 0.5) {
-				veoWinnings = Calculator.roundOff((amount / price - amount), 2)
+				veoWinnings = roundOff((amount / price - amount), 2)
 			} else {
-				veoWinnings = Calculator.roundOff((amount * (1 - price)), 2)
+				veoWinnings = roundOff((amount * (1 - price)), 2)
 			}
 			currencyWinnings = (veoWinnings * veoPrice).toFixed(2)
 		}
