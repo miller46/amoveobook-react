@@ -14,8 +14,9 @@ export default class Warning extends Component {
 			localStorage.getItem("agreedUS") === "true"
 			|| localStorage.getItem("isNotUS") !== "true" ;
 
-
-		if (showWarning) {
+		const isTestnet = amoveo3 && amoveo3.network === "testnet";
+		
+		if (showWarning && !isTestnet) {
 			return (
 				<div styleName="Warning">
 					<p>We cannot provide service to US customers at this time. You may view the markets but cannot place any bets.</p>
