@@ -7,6 +7,7 @@ import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
 import {getAccount, getIp, getChannelPending} from "../actions";
 import {connect} from "react-redux";
+import ChannelPending from "../components/transaction/ChannelPending";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -63,6 +64,7 @@ export default class App extends Component {
 			if (amoveo3) {
 				const address = amoveo3.coinbase;
 				if (address && !account) {
+
 					instance.props.getAccount(address);
 					clearInterval(instance.accountListener)
 				}
@@ -71,16 +73,6 @@ export default class App extends Component {
 	}
 
 	render() {
-		const {channelPending} = this.props;
-
-		const showWarning =
-			localStorage.getItem("agreedUS") === "true"
-			|| localStorage.getItem("isNotUS") !== "true" ;
-
-		const amoveo3 = window.amoveo3;
-
-		const isTestnet = amoveo3 && amoveo3.network === "testnet";
-
 		const path = this.props.location.pathname;
 
 		return (
@@ -89,23 +81,11 @@ export default class App extends Component {
 					<NavBar />
 				</div>
 
-				{
-					showWarning
-						? <USWarning />
-						: null
-				}
+				<USWarning />
 
-				{
-					isTestnet
-						? <TestnetWarning />
-						: null
-				}
+				<TestnetWarning />
 
-				{
-					channelPending
-						? <div>Channel Pending...</div>
-						: null
-				}
+				<ChannelPending />
 
 				<div styleName="AppContainer">
 					{this.props.children}

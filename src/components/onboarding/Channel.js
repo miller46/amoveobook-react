@@ -43,7 +43,6 @@ export default class Channel extends Component {
 		this.onAdvance = this.props.onAdvance.bind(this)
 	}
 
-
 	handleAmountChange(e) {
 		this.setState({
 			amount: e.target.value
@@ -78,6 +77,7 @@ export default class Channel extends Component {
 						if (error) {
 							console.error("Error saving channel")
 						} else {
+							localStorage.setItem("channelProgress", 1);
 							instance.props.setChannelPending(true);
 						}
 

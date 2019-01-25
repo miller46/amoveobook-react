@@ -10,10 +10,16 @@ export default class TestnetWarning extends Component {
 	}
 
 	render() {
-		return (
-			<div styleName="Warning">
-				<p>You are the testnet.</p>
-			</div>
-		)
+		const amoveo3 = window.amoveo3;
+		const isTestnet = amoveo3 && amoveo3.network === "testnet";
+		if (isTestnet) {
+			return (
+				<div styleName="Warning">
+					<p>You are the testnet.</p>
+				</div>
+			)
+		} else {
+			return null;
+		}
 	}
 }

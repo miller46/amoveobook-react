@@ -10,10 +10,19 @@ export default class Warning extends Component {
 	}
 
 	render() {
-		return (
-			<div styleName="Warning">
-				<p>We cannot provide service to US customers at this time. You may view the markets but cannot place any bets.</p>
-			</div>
-		)
+		const showWarning =
+			localStorage.getItem("agreedUS") === "true"
+			|| localStorage.getItem("isNotUS") !== "true" ;
+
+
+		if (showWarning) {
+			return (
+				<div styleName="Warning">
+					<p>We cannot provide service to US customers at this time. You may view the markets but cannot place any bets.</p>
+				</div>
+			)
+		} else {
+			return null;
+		}
 	}
 }
