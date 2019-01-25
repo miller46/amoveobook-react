@@ -32,9 +32,9 @@ export default class MarketsList extends Component {
 	}
 
 	componentDidMount() {
-		let network = "mainnet";
+		let network = localStorage.getItem("lastNetwork") || "mainnet"
 		if (window.amoveo3) {
-			network = window.amoveo3.network || "mainnet";
+			network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
 		}
 		this.props.getActiveMarkets({network: network });
 	}
