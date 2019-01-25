@@ -50,7 +50,7 @@ export default class ChannelPending extends Component {
 				let txPending = false;
 				for (let i = 1; i < txs.length; i++) {
 					const tx = txs[i][1];
-					if (tx && tx.length <= 1 && tx[0] === "nc" && tx[1] === address) {
+					if (tx && tx.length > 1 && tx[0] === "nc" && tx[1] === address) {
 						txPending = true;
 						break;
 					}

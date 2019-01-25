@@ -78,6 +78,7 @@ export default class Channel extends Component {
 							console.error("Error saving channel")
 						} else {
 							localStorage.setItem("channelProgress", 1);
+							localStorage.setItem("channelPending", true);
 							instance.props.setChannelPending(true);
 						}
 

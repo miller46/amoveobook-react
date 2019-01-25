@@ -196,7 +196,7 @@ export default class PlaceOrder extends Component {
 	}
 
 	handlePriceChange(e) {
-		const {price:oldPrice, marketType, upperBound, lowerBound} = this.state.price;
+		const {price:oldPrice, marketType, upperBound, lowerBound} = this.state;
 		let price = e.target.value;
 
 		if (marketType === "scalar") {
@@ -204,6 +204,8 @@ export default class PlaceOrder extends Component {
 			if (price >= upperBound || price < lowerBound) {
 				price = oldPrice;
 				priceError = "Price must be in between " + lowerBound + " and " + upperBound;
+			} else {
+				priceError = ""
 			}
 
 			this.setState(
@@ -218,6 +220,8 @@ export default class PlaceOrder extends Component {
 			if (price >= 1 || price < 0) {
 				price = oldPrice;
 				priceError = "Price must be in between 0.01 and 0.99";
+			} else {
+				priceError = ""
 			}
 
 			this.setState(
