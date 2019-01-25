@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getAccount} from "../../actions";
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading'
+import {api} from "../../config";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -248,6 +249,26 @@ export default class PlaceOrder extends Component {
 		this.context.router.push("/")
 	}
 
+	hasChannel() {
+		const amoveo3 = window.amoveo3;
+		let hasChannel = false;
+		if (amoveo3 && amoveo3.channels) {
+			const coinbase = amoveo3.coinbase;
+			const serverPubkey = api[amoveo3.network].serverPublicKey;
+			for (let i = 0; i < amoveo3.channels.length; i++) {
+				const channel = amoveo3.channels[i];
+				const channelServerPubkey = channel.serverPubKey;
+				const channelAddress = channel.me[1];
+				if (channelAddress === coinbase && serverPubkey === channelServerPubkey) {
+					hasChannel = true;
+					break;
+				}
+			}
+		}
+
+		return hasChannel;
+	}
+
 	render() {
 		const {account, loading} = this.props;
 
@@ -289,13 +310,7 @@ export default class PlaceOrder extends Component {
 			</div>
 		}
 
-		let hasChannel = false;
-		const amoveo3 = window.amoveo3;
-		if (amoveo3) {
-			if (amoveo3.channels && amoveo3.channels.length > 0) {
-				hasChannel = true;
-			}
-		}
+		const hasChannel = this.hasChannel();
 
 		const total = price * amount > 0 ? price * amount : 0;
 
@@ -306,18 +321,27 @@ export default class PlaceOrder extends Component {
 			priceLabelText = "VEO/Share"
 		}
 
+		let button = <div></div>
+		if (!account) {
+			button = <div styleName="OrderFormLocked">
+				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</button>
+			</div>
+		} else if (!hasChannel) {
+			button = <div styleName="OrderFormLocked">
+				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</button>
+			</div>
+		} else {
+			button = <div styleName="OrderFormButton">
+				<button
+					disabled={!price || !amount || amount < 0 || amountError || priceError}
+					onClick={this.submitOrder.bind(this)}>{selectedSide === "long" ? "Buy Long Shares" : "Buy Short Shares"}</button>
+			</div>
+		}
+
 		let form = <div></div>
 		if (loading) {
 			form = <div styleName="OrderForm">
 				<Loading lightMode={true} />
-			</div>
-		} else if (!account) {
-			form = <div styleName="OrderFormLocked">
-				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</p>
-			</div>
-		} else if (!hasChannel) {
-			form = <div styleName="OrderFormLocked">
-				<p>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</p>
 			</div>
 		} else {
 			form = <div styleName="OrderForm">
@@ -402,11 +426,7 @@ export default class PlaceOrder extends Component {
 					</div>
 				</div>
 
-				<div styleName="OrderFormButton">
-					<button
-						disabled={!price || !amount || amount < 0 || amountError || priceError}
-						onClick={this.submitOrder.bind(this)}>{selectedSide === "long" ? "Buy Long Shares" : "Buy Short Shares"}</button>
-				</div>
+				{button}
 			</div>
 		}
 

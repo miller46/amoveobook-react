@@ -99,8 +99,18 @@
 
 .OrderFormLocked {
     overflow: auto;
-    padding: 32px;
+    padding-top: 32px;
     text-align: center;
+}
+
+.OrderFormLocked button {
+    background-color: #888 !important;
+}
+
+.OrderFormLocked button:hover {
+    background-color: #888 !important;
+    border-color: #888 !important;
+    cursor: auto;
 }
 
 .OrderForm div {
@@ -168,6 +178,7 @@
 
 .OrderForm button {
     height: 40px;
+    width: 100%;
     color: #fff;
     background-color: #5cb85c;
     border: 1px solid transparent;

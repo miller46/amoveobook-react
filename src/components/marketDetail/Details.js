@@ -141,17 +141,6 @@ export default class Details extends Component {
 			}
 		}
 
-		let calculator = <div></div>
-		if (account && hasChannel) {
-			calculator = <Calculator
-				amount={amount}
-				price={price}
-				marketType={marketType}
-				upperBound={upperBound}
-				lowerBound={lowerBound}
-			/>
-		}
-
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
@@ -190,7 +179,13 @@ export default class Details extends Component {
 							oid={oid}
 						/>
 
-						{calculator}
+						<Calculator
+							amount={amount}
+							price={price}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+						/>
 					</div>
 				</div>
 			</div>

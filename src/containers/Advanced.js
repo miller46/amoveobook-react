@@ -120,17 +120,6 @@ export default class Advanced extends Component {
 				}
 			}
 
-			let calculator = <div></div>
-			if (account && hasChannel) {
-				calculator = <Calculator
-					amount={amount}
-					price={price}
-					marketType={marketType}
-					upperBound={upperBound}
-					lowerBound={lowerBound}
-				/>
-			}
-
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
@@ -152,7 +141,13 @@ export default class Advanced extends Component {
 							/>
 						</div>
 
-						{calculator}
+						<Calculator
+							amount={amount}
+							price={price}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+						/>
 					</div>
 
 					<div styleName="MiddlePanel">

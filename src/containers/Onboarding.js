@@ -58,12 +58,13 @@ export default class Onboarding extends Component {
 		const amoveo3 = window.amoveo3;
 		let hasChannel = false;
 		if (amoveo3 && amoveo3.channels) {
-			const network = amoveo3.network;
+			const coinbase = amoveo3.coinbase;
 			const serverPubkey = api[amoveo3.network].serverPublicKey;
 			for (let i = 0; i < amoveo3.channels.length; i++) {
 				const channel = amoveo3.channels[i];
 				const channelServerPubkey = channel.serverPubKey;
-				if (serverPubkey === channelServerPubkey) {
+				const channelAddress = channel.me[1];
+				if (channelAddress === coinbase && serverPubkey === channelServerPubkey) {
 					hasChannel = true;
 					break;
 				}
