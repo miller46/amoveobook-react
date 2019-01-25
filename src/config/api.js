@@ -13,12 +13,13 @@ export const api = {
 	getIpUrl: "https://api.ipify.org/?format=json",
 	getIpDetailsUrl: "http://api.ipstack.com/$$$?access_key=4db6b276661ad034f44477078402a553&format=1",
 	replacementCharacter: "$$$",
-	defaultNodeUrl: apiBase + "node",
 	mainnet: {
+		nodeUrl: apiBase + "node",
 		serverPublicKey: "BKSYQw/88NOUfwBhyXwVuKymkQxZNxJ0NjqAqJQgXKvflmRJ1K1Q70WAIsUtmxa6C30FdcQKPzeEarNIT4mCUKU=",
 
 	},
 	testnet: {
+		nodeUrl: apiBase + "testnet/node",
 		serverPublicKey: "BKw7qHfymuCuUnakeUJW/qhrz4MBzwBrIxJq8hihW5Do6zVQtA8C9t5DBHTrWZ5GT5SKnRztKz+JvpC2BYpsn2Y=",
 	}
 }

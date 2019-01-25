@@ -76,6 +76,11 @@
     color: #dc3545;
 }
 
+.Filled {
+    width: 100% !important;
+    font-size: 0.8rem;
+}
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;

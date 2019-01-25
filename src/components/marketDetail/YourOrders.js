@@ -56,16 +56,11 @@ export default class YourOrders extends Component {
 					const bets = channel.me[3];
 					for (let j = 1; j < bets.length; j++) {
 						const bet = bets[j];
-
 						if (bet[3][2] === oid) {
 							const amount = bet[2] / tokenDecimals;
 							const price = bet[4][2] / priceDecimals;
 							const side = bet[4][1] === 1 ? "true" : "false";
-
-							const cancelable = true;
-							// if (JSON.stringify(channel.ssme[j - 1].code) === JSON.stringify([0,0,0,0,4])) {
-							//     cancelable = false;
-							// }
+							let cancelable = JSON.stringify(channel.ssme[j - 1].code) === JSON.stringify([0,0,0,0,4]);
 
 							const order = {amount: amount, price: price, side: side, index: j - 1, cancelable: cancelable};
 							orders.push(order);
@@ -90,7 +85,7 @@ export default class YourOrders extends Component {
 				{
 						type: "cancel",
 						index: order.index,
-						ip: api.defaultNodeUrl,
+						ip: api[amoveo3.network].nodeUrl,
 						price: order.price,
 						amount: order.amount,
 						side: order.side
@@ -169,7 +164,7 @@ export default class YourOrders extends Component {
 													className="btn btn-danger btn-cancel"
 													onClick={() => instance.cancel(row)}
 													>Cancel</button>
-												: <div>Filled</div>
+												: <div styleName="Filled">Filled</div>
 										}
 									</div>
 								</div>

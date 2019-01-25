@@ -6,11 +6,11 @@ import {
 
 import {api} from '../config'
 
-export const getHeight = () => {
+export const getHeight = (network) => {
 	return (dispatch, getState) => {
 		dispatch(getHeightStarted());
 
-		fetch(api.defaultNodeUrl,
+		fetch(api[network].nodeUrl,
 			{
 				method: 'POST',
 				body: JSON.stringify(["height"])

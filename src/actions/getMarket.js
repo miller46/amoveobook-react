@@ -6,11 +6,11 @@ import {
 
 import {api} from '../config'
 
-export const getMarket = (oid) => {
+export const getMarket = (network, oid) => {
 	return (dispatch, getState) => {
 		dispatch(getMarketStarted(oid));
 
-		fetch(api.defaultNodeUrl,
+		fetch(api[network].nodeUrl,
 			{
 				method: 'POST',
 				body: JSON.stringify(["oracle", oid])

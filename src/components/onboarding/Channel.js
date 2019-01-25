@@ -66,7 +66,7 @@ export default class Channel extends Component {
 		const amoveo3 = window.amoveo3;
 		amoveo3.currentProvider.send(
 			{
-				type: "channel", ip: api.defaultNodeUrl, duration: 4000, locked: 1, delay: 100
+				type: "channel", ip: api[amoveo3.network].nodeUrl, duration: 4000, locked: 1, delay: 100
 			} , function(error, channel) {
 				if (error) {
 					instance.setState({

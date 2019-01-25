@@ -20,11 +20,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getHeight: () => {
-			dispatch(getHeight());
+		getHeight: (network) => {
+			dispatch(getHeight(network));
 		},
-		getMarket: (oid) => {
-			dispatch(getMarket(oid));
+		getMarket: (network, oid) => {
+			dispatch(getMarket(network, oid));
 		},
 	};
 };
@@ -48,8 +48,11 @@ export default class MarketRow extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getHeight()
-		this.props.getMarket(this.state.market.oid)
+		if (window.amoveo3) {
+			const network = window.amoveo3.network;
+			this.props.getHeight(network);
+			this.props.getMarket(network, this.state.market.oid);
+		}
 	}
 
 	goToDetails() {

@@ -101,9 +101,9 @@ export default class Calculator extends Component {
 			const actualValue = amount * (sliderValue / 100);
 			let paidValue;
 			if (price <= 0.5) {
-				paidValue = Calculator.roundOff(amount * price, 2)
+				paidValue = amount * price
 			} else {
-				paidValue = Calculator.roundOff(amount * (1 - price), 2)
+				paidValue = amount * (1 - price)
 			}
 
 			veoWinnings = actualValue - paidValue;

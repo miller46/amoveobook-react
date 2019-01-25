@@ -26,11 +26,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getHeight: () => {
-			dispatch(getHeight());
+		getHeight: (network) => {
+			dispatch(getHeight(network));
 		},
-		getMarket: (oid) => {
-			dispatch(getMarket(oid));
+		getMarket: (network, oid) => {
+			dispatch(getMarket(network, oid));
 		},
 		getActiveMarkets: () => {
 			dispatch(getActiveMarkets());
@@ -62,7 +62,7 @@ export default class Details extends Component {
 			amount: 0,
 			price: 0,
 			selectedOrderType: "limit",
-			hideAdvanced: true,
+			hideAdvanced: false,
 			updateOrders: false,
 		}
 
@@ -75,11 +75,15 @@ export default class Details extends Component {
 		const {oid, marketDetail, height, activeMarkets, bestPrice} = this.state;
 
 		if (!height) {
-			this.props.getHeight();
+			if (window.amoveo3) {
+				this.props.getHeight(window.amoveo3.network);
+			}
 		}
 
 		if (!marketDetail) {
-			this.props.getMarket(oid);
+			if (window.amoveo3) {
+				this.props.getMarket(window.amoveo3.network, oid);
+			}
 		}
 
 		if (activeMarkets.length === 0) {
@@ -160,6 +164,8 @@ export default class Details extends Component {
 						oid={oid}
 						update={updateOrders}
 						marketType={marketType}
+						upperBound={upperBound}
+						lowerBound={lowerBound}
 					/>
 
 					{

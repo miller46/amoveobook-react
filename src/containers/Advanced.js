@@ -26,11 +26,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getHeight: () => {
-			dispatch(getHeight());
+		getHeight: (network) => {
+			dispatch(getHeight(network));
 		},
-		getMarket: (oid) => {
-			dispatch(getMarket(oid));
+		getMarket: (network, oid) => {
+			dispatch(getMarket(network, oid));
 		},
 		getActiveMarkets: () => {
 			dispatch(getActiveMarkets());
@@ -63,12 +63,14 @@ export default class Advanced extends Component {
 	componentWillMount() {
 		const {oid, marketDetail, height, activeMarkets, account} = this.state;
 
-		if (!height) {
-			this.props.getHeight();
-		}
-
-		if (!marketDetail) {
-			this.props.getMarket(oid);
+		if (window.amoveo3) {
+			const network = window.amoveo3.network;
+			if (!height) {
+				this.props.getHeight(network);
+			}
+			if (!marketDetail) {
+				this.props.getMarket(network, oid);
+			}
 		}
 
 		if (activeMarkets.length === 0) {
