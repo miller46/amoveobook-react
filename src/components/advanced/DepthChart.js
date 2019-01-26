@@ -99,34 +99,37 @@ export default class DepthChart extends Component {
 	}
 
 	render() {
-		let {prices, buys, sells} = this.state;
+		const {prices, buys, sells} = this.state;
 
-		if (buys.length === 1) {
-			const first = [buys[0][0], 0];
-			buys.unshift(first);
+		let sortedBuys = buys.slice();
+		let sortedSells = sells.slice();
+
+		if (sortedBuys.length === 1) {
+			const first = [sortedBuys[0][0], 0];
+			sortedBuys.unshift(first);
 		}
 
-		if (sells.length === 1) {
-			const first = [sells[0][0], 0];
-			sells.unshift(first);
+		if (sortedSells.length === 1) {
+			const first = [sortedSells[0][0], 0];
+			sortedSells.unshift(first);
 		}
 
-		const series = buys.concat(sells);
+		const iterator = sortedBuys.concat(sortedSells);
 
 		let min = 99999999999;
 		let max = 0;
 
-		for (let i = 0; i < series.length; i++) {
-			let item = series[i];
-			item[0] = item[0] / priceDecimals;
-			item[1] = item[1] / tokenDecimals;
+		for (let i = 0; i < iterator.length; i++) {
+			let item = iterator[i];
+			const price = item[0] / priceDecimals;
+			const amount = item[1] / tokenDecimals;
 
-			if (item[1] < min) {
-				min = item[1];
+			if (amount < min) {
+				min = amount;
 			}
 
-			if (item[1] > max) {
-				max = item[1];
+			if (amount > max) {
+				max = amount;
 			}
 		}
 
@@ -134,9 +137,9 @@ export default class DepthChart extends Component {
 			min = 0;
 		}
 
-		sells = sells.reverse();
+		sortedSells = sortedSells.reverse();
 
-		const options = this.getOptions(max, min, buys, sells);
+		const options = this.getOptions(max, min, sortedBuys, sortedSells);
 
 		return (
 			<div styleName="DepthChartContainer">

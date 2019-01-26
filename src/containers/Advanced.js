@@ -147,7 +147,7 @@ export default class Advanced extends Component {
 
 		if (loading) {
 			return (
-				<div>
+				<div styleName="AdvancedLoading">
 					<Loading
 						lightMode={true}
 					/>
@@ -220,8 +220,8 @@ export default class Advanced extends Component {
 							</div>
 
 							<DepthChart
-								buys={[]}
-								sells={[]}
+								buys={buys}
+								sells={sells}
 							/>
 						</div>
 					</div>

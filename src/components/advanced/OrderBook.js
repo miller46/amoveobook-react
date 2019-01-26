@@ -17,30 +17,33 @@ export default class OrderBook extends Component {
 	render() {
 		let {buys, sells} = this.state;
 
-		if (buys.length > 1) {
-			for (let t = 0; t <= buys.length - 2; t++) {
-				const buy = buys[t];
-				const nextBuy = buys[t + 1]
+		let sortedBuys = buys.slice();
+		let sortedSells = sells.slice();
+
+		if (sortedBuys.length > 1) {
+			for (let t = 0; t <= sortedBuys.length - 2; t++) {
+				const buy = sortedBuys[t];
+				const nextBuy = sortedBuys[t + 1]
 				if (buy[0] === nextBuy[0]) {
 					buy[1] = buy[1] + nextBuy[1]
-					buys.splice(t + 1)
+					sortedBuys.splice(t + 1)
 				}
 			}
 		}
 
-		if (sells.length > 1) {
-			for (let m = 0; m <= sells.length - 2; m++) {
-				const sell = sells[m];
-				const nextSell = sells[m + 1]
+		if (sortedSells.length > 1) {
+			for (let m = 0; m <= sortedSells.length - 2; m++) {
+				const sell = sortedSells[m];
+				const nextSell = sortedSells[m + 1]
 				if (sell[0] === nextSell[0]) {
 					sell[1] = sell[1] + nextSell[1]
-					sells.splice(m + 1)
+					sortedSells.splice(m + 1)
 				}
 			}
 		}
 
-		sells = sells.reverse();
-		buys = buys.reverse();
+		sortedBuys = sortedBuys.reverse();
+		sortedSells = sortedSells.reverse();
 
 		return (
 			<div styleName="OrderBookContainer">
@@ -55,7 +58,7 @@ export default class OrderBook extends Component {
 
 				<div id="SellContainer" styleName="Sells">
 					{
-						sells.map(function(sell, index) {
+						sortedSells.map(function(sell, index) {
 							return (
 								<div styleName="SellRow" key={index}>
 									<div styleName="Amount">
@@ -76,7 +79,7 @@ export default class OrderBook extends Component {
 
 				<div styleName="Buys">
 					{
-						buys.map(function(buy, index) {
+						sortedBuys.map(function(buy, index) {
 							return (
 								<div styleName="BuyRow" key={index}>
 									<div styleName="Amount">
