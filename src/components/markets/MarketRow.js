@@ -6,8 +6,8 @@ import {connect} from "react-redux";
 import {Redirect} from 'react-router'
 import {getHeight, getMarket} from "../../actions";
 import {tokenDecimals, priceDecimals, tokenUnit} from "../../config";
+import {getDisplayExpires, getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../../utility";
 
-import {getDisplayExpires} from '../../utility'
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -59,45 +59,6 @@ export default class MarketRow extends Component {
 		this.context.router.push("/" + encodeURIComponent(this.state.market.oid))
 	}
 
-	static getVolume(orders) {
-		let volume = 0;
-		if (orders.length > 0) {
-			for (let i = 0; i < orders.length; i++) {
-				volume += orders[i].buy_amount;
-			}
-		}
-		if (!volume) {
-			volume = 0;
-		}
-
-		return volume;
-	}
-
-	static sumAmounts(orders) {
-		let totalVolume = 0;
-		for (let i = 0; i < orders.length; i++) {
-			totalVolume = totalVolume + orders[i][1];
-		}
-		return totalVolume;
-	}
-
-	static priceAmount(orders) {
-		let x = [];
-		for (let i = 1; i < orders.length; i++) {
-			x.push([orders[i][2], orders[i][4]]);
-		}
-		return x.reverse();
-	}
-
-	static getDisplayOdds(prices) {
-		let odds = 0;
-		if (prices.length > 0) {
-			odds = (prices[0].price * 100).toFixed(0);
-		}
-
-		return odds;
-	}
-
 	render() {
 		const {height, marketDetails} = this.props;
 		const {market} = this.state;
@@ -110,13 +71,13 @@ export default class MarketRow extends Component {
 		let odds = "--"
 
 		if (marketDetails) {
-			const buys = marketDetails ? MarketRow.priceAmount(marketDetails.buys) : [];
-			const sells = marketDetails ? MarketRow.priceAmount(marketDetails.sells) : [];
+			const buys = marketDetails ? priceAmount(marketDetails.buys) : [];
+			const sells = marketDetails ? priceAmount(marketDetails.sells) : [];
 
-			volume = MarketRow.getVolume(marketDetails.matchedOrders).toFixed(2);
-			openInterest = ((MarketRow.sumAmounts(buys) + MarketRow.sumAmounts(sells)) / tokenDecimals).toFixed(2);
+			volume = getVolume(marketDetails.matchedOrders).toFixed(2);
+			openInterest = ((sumAmounts(buys) + sumAmounts(sells)) / tokenDecimals).toFixed(2);
 
-			odds = MarketRow.getDisplayOdds(marketDetails.matchedOrders);
+			odds = getDisplayOdds(marketDetails.matchedOrders);
 			if (odds === 0) {
 				if (sells.length > 0) {
 					let lowestSell = sells[0];

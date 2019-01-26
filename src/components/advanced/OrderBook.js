@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './OrderBook.css'
+import {priceDecimals, tokenDecimals} from "../../config";
 
 @CSSModules(style)
 export default class OrderBook extends Component {
@@ -38,25 +39,8 @@ export default class OrderBook extends Component {
 			}
 		}
 
+		sells = sells.reverse();
 		buys = buys.reverse();
-
-		for (let k = buys.length - 1; k >= 0; k--) {
-			const buy = buys[k];
-			if (buy[1] > 0) {
-				const row = initOrderBookRow(buy, true);
-				row.className = "order-row buy clearfix";
-				buysBook.appendChild(row);
-			}
-		}
-
-		for (let p = 0; p < sells.length; p++) {
-			const sell = sells[p];
-			if (sell[1] > 0) {
-				const row = initOrderBookRow(sell, false);
-				row.className = "order-row sell clearfix";
-				sellsBook.appendChild(row);
-			}
-		}
 
 		return (
 			<div styleName="OrderBookContainer">
@@ -69,16 +53,16 @@ export default class OrderBook extends Component {
 					</div>
 				</div>
 
-				<div styleName="Sells">
+				<div id="SellContainer" styleName="Sells">
 					{
 						sells.map(function(sell, index) {
 							return (
 								<div styleName="SellRow" key={index}>
-									<div>
-										sell[1]
+									<div styleName="Amount">
+										{sell[1] / tokenDecimals}
 									</div>
 									<div>
-										sell[0]
+										{sell[0] / priceDecimals}
 									</div>
 								</div>
 							)
@@ -94,12 +78,12 @@ export default class OrderBook extends Component {
 					{
 						buys.map(function(buy, index) {
 							return (
-								<div styleName="SellRow" key={index}>
-									<div>
-										buy[1]
+								<div styleName="BuyRow" key={index}>
+									<div styleName="Amount">
+										{buy[1] / tokenDecimals}
 									</div>
 									<div>
-										buy[0]
+										{buy[0] / priceDecimals}
 									</div>
 								</div>
 							)

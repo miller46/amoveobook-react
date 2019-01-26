@@ -32,8 +32,8 @@ const mapDispatchToProps = dispatch => {
 		getMarket: (network, oid) => {
 			dispatch(getMarket(network, oid));
 		},
-		getActiveMarkets: () => {
-			dispatch(getActiveMarkets());
+		getActiveMarkets: (options) => {
+			dispatch(getActiveMarkets(options));
 		},
 		getAccount: (address) => {
 			dispatch(getAccount(address));
@@ -87,7 +87,11 @@ export default class Details extends Component {
 		}
 
 		if (activeMarkets.length === 0) {
-			this.props.getActiveMarkets();
+			let network = localStorage.getItem("lastNetwork") || "mainnet"
+			if (window.amoveo3) {
+				network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
+			}
+			this.props.getActiveMarkets({network: network});
 		} else {
 			const i = 0;
 		}

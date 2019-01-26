@@ -5,7 +5,6 @@ import {
 } from '../actions/types';
 
 import {api} from "../config"
-import {filterMarkets} from "../utility";
 
 export const getActiveMarkets = (options) => {
 	return (dispatch, getState) => {

@@ -11,6 +11,10 @@ import OrderHistory from "../components/advanced/OrderHistory";
 import DepthChart from "../components/advanced/DepthChart";
 import OrderBook from "../components/advanced/OrderBook";
 import Calculator from "../components/payoutCalculator/Calculator";
+import Loading from "../components/loading/Loading";
+import MarketRow from "../components/markets/MarketRow";
+import {priceDecimals, tokenDecimals} from "../config";
+import {getDisplayExpires, getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../utility";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -18,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		account: state.default.account,
 		activeMarkets: state.default.activeMarkets,
-		marketDetail: state.default.marketDetails[oid],
+		marketDetails: state.default.marketDetails[oid],
 		loading: state.default.loading.marketDetails[oid],
 		height: state.default.height,
 	};
@@ -32,8 +36,8 @@ const mapDispatchToProps = dispatch => {
 		getMarket: (network, oid) => {
 			dispatch(getMarket(network, oid));
 		},
-		getActiveMarkets: () => {
-			dispatch(getActiveMarkets());
+		getActiveMarkets: (options) => {
+			dispatch(getActiveMarkets(options));
 		},
 	};
 };
@@ -74,7 +78,11 @@ export default class Advanced extends Component {
 		}
 
 		if (activeMarkets.length === 0) {
-			this.props.getActiveMarkets();
+			let network = localStorage.getItem("lastNetwork") || "mainnet"
+			if (window.amoveo3) {
+				network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
+			}
+			this.props.getActiveMarkets({network: network});
 		} else {
 			const i = 0;
 		}
@@ -90,7 +98,7 @@ export default class Advanced extends Component {
 
 	render() {
 		const {oid, price, amount, bestPrice} = this.state;
-		const {account, activeMarkets, height} = this.props;
+		const {activeMarkets, marketDetails, height, loading} = this.props;
 
 		let market;
 		if (oid) {
@@ -105,8 +113,52 @@ export default class Advanced extends Component {
 			market = activeMarkets[0];
 		}
 
-		if (!market) {
-			return (<div><p>No markets, please try again later</p></div>)
+		let volume = "--"
+		let openInterest = "--"
+		let odds = "--"
+		let buys = [];
+		let sells = [];
+
+		if (marketDetails && market) {
+			buys = marketDetails ? priceAmount(marketDetails.buys) : [];
+			sells = marketDetails ? priceAmount(marketDetails.sells) : [];
+
+			volume = getVolume(marketDetails.matchedOrders).toFixed(2);
+			openInterest = ((sumAmounts(buys) + sumAmounts(sells)) / tokenDecimals).toFixed(2);
+
+			odds = getDisplayOdds(marketDetails.matchedOrders);
+			if (odds === 0) {
+				if (sells.length > 0) {
+					let lowestSell = sells[0];
+					const lowestBuyPrice = 1 - lowestSell[0] / priceDecimals;
+					odds = (lowestBuyPrice * 100);
+
+					const isScalar = market.market_type === "scalar";
+					if (isScalar) {
+						const upperBound = market.upper_bound;
+						const lowerBound = market.lower_bound;
+						odds = (upperBound * lowerBound) * odds;
+					}
+
+					odds = odds.toFixed(2);
+				}
+			}
+		}
+
+		if (loading) {
+			return (
+				<div>
+					<Loading
+						lightMode={true}
+					/>
+				</div>
+			)
+		} else if (!market) {
+			return (
+				<div>
+					<p>No markets, please try again later</p>
+				</div>
+			)
 		} else {
 			const marketType = market.market_type;
 			const upperBound = market.upper_bound;
@@ -126,6 +178,7 @@ export default class Advanced extends Component {
 						<div styleName="MarketInfoContainer">
 							<MarketDetail
 								market={market}
+								marketDetail={marketDetails}
 								height={height}
 							/>
 						</div>
@@ -158,8 +211,6 @@ export default class Advanced extends Component {
 
 							<PriceChart
 								prices={[]}
-								buys={[]}
-								sells={[]}
 							/>
 						</div>
 
@@ -169,13 +220,12 @@ export default class Advanced extends Component {
 							</div>
 
 							<DepthChart
-								prices={[]}
 								buys={[]}
 								sells={[]}
 							/>
 						</div>
-
 					</div>
+
 					<div  styleName="RightPanel">
 						<div styleName="OrderBookContainer">
 							<div styleName="PanelTitle">
@@ -183,8 +233,8 @@ export default class Advanced extends Component {
 							</div>
 
 							<OrderBook
-								buys={[]}
-								sells={[]}
+								buys={buys}
+								sells={sells}
 							/>
 						</div>
 

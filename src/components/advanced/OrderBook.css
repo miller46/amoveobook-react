@@ -25,3 +25,38 @@
     background: rgba(176, 188, 204, .75);
 }
 
+.Amount {
+    color: white !important;
+}
+
+.BuyRow {
+    color: #5cb85c;
+}
+
+.BuyRow > div, .SellRow > div {
+    font-size: 0.8rem;
+    width: 50%;
+    float: left;
+    cursor: pointer;
+}
+
+.BuyRow, .SellRow {
+    overflow: auto;
+}
+
+.BuyRow:hover, .SellRow:hover {
+    background: #444444;
+}
+
+.BuyRow > div {
+    color: #5cb85c;
+}
+
+.SellRow > div {
+    color: #dc3545
+}
+
+.SellRow {
+    color: #5cb85c;
+}
+
