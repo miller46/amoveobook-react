@@ -3,6 +3,7 @@
     overflow: auto;
     background: #444;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .OrderConfirm {
@@ -11,17 +12,25 @@
 
 .LeftPanel {
     float: left;
+    width: 420px;
 }
 
 .MiddlePanel {
     float: left;
     margin-left: 32px;
     margin-right: 32px;
-    flex-grow: 1;
+    flex: 1;
+    max-width: 800px;
+    min-width: 500px;
 }
 
 .RightPanel {
     float: right;
+    width: 420px;
+}
+
+.MarketInfoContainer {
+
 }
 
 .PriceChartContainer {
@@ -35,6 +44,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
     border-radius: 4px;
     border: 1px solid #0E0E0E;
+    margin-bottom: 32px;
 }
 
 .OrderBookContainer {
@@ -53,10 +63,98 @@
     background: #0E0E0E;
 }
 
-
 .PanelTitle {
     background: #0E0E0E;
     color: white;
     font-weight: 500;
     line-height: 44px;
+}
+
+@media (min-width: 1275px) and (max-width: 1475px) {
+    .LeftPanel {
+        max-width: 320px;
+        min-width: 260px;
+    }
+
+    .RightPanel {
+        max-width: 320px;
+        min-width: 260px;
+    }
+}
+
+@media (min-width: 1023px) and (max-width: 1275px) {
+    .LeftPanel {
+        min-width: 420px;
+    }
+
+    .MiddlePanel {
+        margin-right: 0
+    }
+
+    .RightPanel {
+        width: auto;
+    }
+
+    .RightPanel > div {
+        min-width: 420px;
+        float: left;
+    }
+
+    .OrderBookContainer {
+        margin-right: 32px;
+    }
+}
+
+@media (min-width: 916px) and (max-width: 1023px) {
+    .LeftPanel {
+        max-width: 320px;
+        min-width: 260px;
+    }
+
+    .MiddlePanel {
+        margin-right: 0
+    }
+}
+
+@media (max-width: 916px) {
+
+    .LeftPanel {
+        min-width: 420px;
+        margin: auto;
+    }
+
+    .MiddlePanel {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .RightPanel {
+        min-width: 420px;
+        margin: auto;
+    }
+}
+
+@media (max-width: 564px) {
+
+    .AdvancedContainer {
+        padding: 0;
+        padding-top: 32px;
+    }
+    
+    .MiddlePanel {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .LeftPanel {
+        max-width: 320px;
+        min-width: 260px;
+    }
+
+    .RightPanel {
+        max-width: 320px;
+        min-width: 260px;
+    }
 }

@@ -63,10 +63,3 @@
         width: 20%;
     }
 }
-
-@media (max-width: 870px) {
-    .Card {
-        margin: 0 16px;
-        margin-bottom: 16px;
-    }
-}

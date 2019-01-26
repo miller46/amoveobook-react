@@ -123,7 +123,7 @@ export default class Advanced extends Component {
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
-						<div>
+						<div styleName="MarketInfoContainer">
 							<MarketDetail
 								market={market}
 								height={height}
