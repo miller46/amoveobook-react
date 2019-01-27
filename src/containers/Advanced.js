@@ -48,26 +48,23 @@ export default class Advanced extends Component {
 
 	constructor(props) {
 		super(props);
+		const oid = this.props.params.oid;
+		const marketDetail = this.props.params.marketDetail;
+		const height = this.props.height;
+		const activeMarkets = this.props.activeMarkets;
+
 		this.state = {
-			oid: this.props.params.oid,
+			oid: oid,
 			account: this.props.account,
-			activeMarkets: this.props.activeMarkets,
-			marketDetail: this.props.marketDetail,
+			activeMarkets: activeMarkets,
+			marketDetail: marketDetail,
 			loading: this.props.loading,
-			height: this.props.height,
+			height: height,
 			bestPrice: 0,
 			amount: undefined,
 			price: undefined,
 			selectedSide: undefined,
 		}
-
-		this.updateAmount = this.updateAmount.bind(this)
-		this.updatePrice = this.updatePrice.bind(this)
-		this.onRowSelect = this.onRowSelect.bind(this)
-	}
-
-	componentWillMount() {
-		const {oid, marketDetail, height, activeMarkets, account} = this.state;
 
 		if (window.amoveo3) {
 			const network = window.amoveo3.network;
@@ -88,6 +85,14 @@ export default class Advanced extends Component {
 		} else {
 			const i = 0;
 		}
+
+		this.updateAmount = this.updateAmount.bind(this)
+		this.updatePrice = this.updatePrice.bind(this)
+		this.onRowSelect = this.onRowSelect.bind(this)
+	}
+
+	componentWillMount() {
+
 	}
 
 	updatePrice(price) {
@@ -204,6 +209,7 @@ export default class Advanced extends Component {
 								price={price}
 								amount={amount}
 								selectedSide={selectedSide}
+								oid={oid}
 							/>
 						</div>
 

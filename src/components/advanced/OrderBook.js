@@ -31,36 +31,32 @@ export default class OrderBook extends Component {
 		let sortedBuys = [];
 		let sortedSells = [];
 
-		if (buys.length > 1) {
-			let lastPrice = -1;
-			for (let t = 0; t < buys.length; t++) {
-				const buy = buys[t];
-				const price = buy[0];
-				const amount = buy[1];
-				if (buy[0] === lastPrice) {
-					const index = sortedBuys.length - 1;
-					sortedBuys[index][1] = sortedBuys[index][1] + amount;
-				} else {
-					sortedBuys.push([price, amount])
-				}
-				lastPrice = price;
+		let lastBuyPrice = -1;
+		for (let t = 0; t < buys.length; t++) {
+			const buy = buys[t];
+			const price = buy[0];
+			const amount = buy[1];
+			if (buy[0] === lastBuyPrice) {
+				const index = sortedBuys.length - 1;
+				sortedBuys[index][1] = sortedBuys[index][1] + amount;
+			} else {
+				sortedBuys.push([price, amount])
 			}
+			lastBuyPrice = price;
 		}
 
-		if (sells.length > 1) {
-			let lastPrice = -1;
-			for (let m = 0; m < sells.length; m++) {
-				const sell = sells[m];
-				const price = sell[0];
-				const amount = sell[1];
-				if (sell[0] === lastPrice) {
-					const index = sortedSells.length - 1;
-					sortedSells[index][1] = sortedBuys[index][1] + amount;
-				} else {
-					sortedSells.push([price, amount])
-				}
-				lastPrice = price;
+		let lastSellPrice = -1;
+		for (let m = 0; m < sells.length; m++) {
+			const sell = sells[m];
+			const price = sell[0];
+			const amount = sell[1];
+			if (sell[0] === lastSellPrice) {
+				const index = sortedSells.length - 1;
+				sortedSells[index][1] = sortedBuys[index][1] + amount;
+			} else {
+				sortedSells.push([price, amount])
 			}
+			lastSellPrice = price;
 		}
 
 		sortedBuys = sortedBuys.reverse();

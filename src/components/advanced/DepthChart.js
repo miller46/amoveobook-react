@@ -39,7 +39,7 @@ export default class DepthChart extends Component {
 			},
 			xAxis: {
 				title: {
-					text: '',
+					text: 'Price per Share (VEO)',
 					color: '#000000'
 				},
 				min: minX,
@@ -50,7 +50,7 @@ export default class DepthChart extends Component {
 			},
 			yAxis: {
 				title: {
-					text: '',
+					text: 'Volume (VEO)',
 					color: '#000000'
 				},
 				opposite: true,
@@ -121,15 +121,15 @@ export default class DepthChart extends Component {
 		let sortedBuys = [];
 		let sortedSells = [];
 
-		if (buys.length === 1) {
-			const first = [buys[0][0], 0];
-			sortedBuys.push(first);
-		}
-
-		if (sells.length === 1) {
-			const first = [sells[0][0], 0];
-			sortedSells.push(first);
-		}
+		// if (buys.length === 1) {
+		// 	const first = [buys[0][0], 0];
+		// 	sortedBuys.push(first);
+		// }
+		//
+		// if (sells.length === 1) {
+		// 	const first = [sells[0][0], 0];
+		// 	sortedSells.push(first);
+		// }
 
 		let minY = 99999999999;
 		let maxY = 0;
@@ -202,7 +202,8 @@ export default class DepthChart extends Component {
 			lastSellPrice = price;
 		}
 
-		if (minY === 99999999999) {
+		// 0 or 1 data point cases
+		if (minY === 99999999999 || minY === maxY) {
 			minY = 0;
 		}
 
@@ -216,6 +217,7 @@ export default class DepthChart extends Component {
 		// if (sortedSells.length > 0) {
 		// 	sortedSells.push([sortedSells[sortedSells.length - 1][0], 0]);
 		// }
+
 
 		const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
 
