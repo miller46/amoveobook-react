@@ -61,7 +61,9 @@ export default class YourOrders extends Component {
 							const amount = bet[2] / tokenDecimals;
 							const price = bet[4][2] / priceDecimals;
 							const side = bet[4][1] === 1 ? "true" : "false";
-							let cancelable = JSON.stringify(channel.ssme[j - 1].code) === JSON.stringify([0,0,0,0,4]);
+
+							const betData = channel.ssme[j - 1];
+							let cancelable = JSON.stringify(betData.code) === JSON.stringify([0,0,0,0,4]);
 
 							const order = {amount: amount, price: price, side: side, index: j - 1, cancelable: cancelable};
 							orders.push(order);

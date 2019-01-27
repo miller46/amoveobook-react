@@ -22,7 +22,8 @@ export default class DepthChart extends Component {
 		return {
 			chart: {
 				backgroundColor: '#0E0E0E',
-				type: 'area'
+				type: 'area',
+				height: '384px',
 			},
 			exporting: {
 				enabled: false
