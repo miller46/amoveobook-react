@@ -18,7 +18,7 @@ export default class DepthChart extends Component {
 		}
 	}
 
-	getOptions(max, min, buys, sells) {
+	getOptions(minX, maxX, minY, maxY, buys, sells) {
 		return {
 			chart: {
 				backgroundColor: '#0E0E0E',
@@ -41,16 +41,29 @@ export default class DepthChart extends Component {
 					text: '',
 					color: '#000000'
 				},
-				min: 0,
-				max: 1,
+				min: minX,
+				max: maxX,
+				lineWidth: 0,
+				lineColor: 'transparent',
+				tickColor: 'transparent',
 			},
 			yAxis: {
 				title: {
 					text: '',
 					color: '#000000'
 				},
-				min: min,
-				max: max,
+				opposite: true,
+				min: minY,
+				max: maxY,
+				gridLineColor: 'rgb(255, 255, 255, 0.2)',
+				labels: {
+					useHTML: true,
+					formatter: function () {
+						if (this.value > 0) {
+							return '<span class="AxisLabels">' + this.value + '</span>';
+						}
+					},
+				},
 			},
 			series: [{
 				showInLegend: false,
@@ -105,8 +118,11 @@ export default class DepthChart extends Component {
 			sortedSells.append(first);
 		}
 
-		let min = 99999999999;
-		let max = 0;
+		let minY = 99999999999;
+		let maxY = 0;
+
+		let minX = 99999999999;
+		let maxX = 0;
 
 
 		let lastBuyPrice = -1;
@@ -122,12 +138,20 @@ export default class DepthChart extends Component {
 				sortedBuys.push([price, amount])
 			}
 
-			if (amount < min) {
-				min = amount;
+			if (amount < minY) {
+				minY = amount;
 			}
 
-			if (amount > max) {
-				max = amount;
+			if (amount > maxY) {
+				maxY = amount;
+			}
+
+			if (price < minX) {
+				minX = price;
+			}
+
+			if (price > maxX) {
+				maxX = price;
 			}
 
 			lastBuyPrice = price;
@@ -146,17 +170,27 @@ export default class DepthChart extends Component {
 				sortedSells.push([price, amount])
 			}
 
-			if (amount < min) {
-				min = amount;
+			if (amount < minY) {
+				minY = amount;
 			}
 
-			if (amount > max) {
-				max = amount;
+			if (amount > maxY) {
+				maxY = amount;
 			}
+
+			if (price < minX) {
+				minX = price;
+			}
+
+			if (price > maxX) {
+				maxX = price;
+			}
+
+			lastSellPrice = price;
 		}
 
-		if (min === 99999999999) {
-			min = 0;
+		if (minY === 99999999999) {
+			minY = 0;
 		}
 
 		sortedBuys = sortedBuys.reverse();
@@ -170,7 +204,7 @@ export default class DepthChart extends Component {
 			sortedSells.push([sortedSells[sortedSells.length - 1][0], 0]);
 		}
 
-		const options = this.getOptions(max, min, sortedBuys, sortedSells);
+		const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
 
 		return (
 			<div styleName="DepthChartContainer">
