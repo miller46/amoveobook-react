@@ -51,7 +51,6 @@ export default class DepthChart extends Component {
 				},
 				min: min,
 				max: max,
-				lineColor: 'rgb(0, 0, 0, 0.4)',
 			},
 			series: [{
 				showInLegend: false,
@@ -110,12 +109,18 @@ export default class DepthChart extends Component {
 		let max = 0;
 
 
+		let lastBuyPrice = -1;
 		for (let i = 0; i < buys.length; i++) {
 			let item = buys[i];
 			const amount = item[1] / tokenDecimals;
 			const price = item[0] / priceDecimals;
 
-			sortedBuys.push([price, amount]);
+			if (price === lastBuyPrice) {
+				const index = sortedBuys.length - 1;
+				sortedBuys[index][1] = sortedBuys[index][1] + amount;
+			} else {
+				sortedBuys.push([price, amount])
+			}
 
 			if (amount < min) {
 				min = amount;
@@ -124,14 +129,22 @@ export default class DepthChart extends Component {
 			if (amount > max) {
 				max = amount;
 			}
+
+			lastBuyPrice = price;
 		}
 
+		let lastSellPrice = -1;
 		for (let i = 0; i < sells.length; i++) {
 			let item = sells[i];
 			const amount = item[1] / tokenDecimals;
 			const price = item[0] / priceDecimals;
 
-			sortedSells.push([price, amount]);
+			if (price === lastSellPrice) {
+				const index = sortedSells.length - 1;
+				sortedSells[index][1] = sortedSells[index][1] + amount;
+			} else {
+				sortedSells.push([price, amount])
+			}
 
 			if (amount < min) {
 				min = amount;
@@ -146,7 +159,16 @@ export default class DepthChart extends Component {
 			min = 0;
 		}
 
-		// sortedSells = sortedSells.reverse();
+		sortedBuys = sortedBuys.reverse();
+		sortedSells = sortedSells.reverse();
+
+		if (sortedBuys.length > 0) {
+			sortedBuys.push([sortedBuys[sortedBuys.length - 1][0], 0]);
+		}
+
+		if (sortedSells.length > 0) {
+			sortedSells.push([sortedSells[sortedSells.length - 1][0], 0]);
+		}
 
 		const options = this.getOptions(max, min, sortedBuys, sortedSells);
 
