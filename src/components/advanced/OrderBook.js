@@ -17,28 +17,38 @@ export default class OrderBook extends Component {
 	render() {
 		let {buys, sells} = this.state;
 
-		let sortedBuys = buys.slice();
-		let sortedSells = sells.slice();
+		let sortedBuys = [];
+		let sortedSells = [];
 
-		if (sortedBuys.length > 1) {
-			for (let t = 0; t <= sortedBuys.length - 2; t++) {
-				const buy = sortedBuys[t];
-				const nextBuy = sortedBuys[t + 1]
-				if (buy[0] === nextBuy[0]) {
-					buy[1] = buy[1] + nextBuy[1]
-					sortedBuys.splice(t + 1)
+		if (buys.length > 1) {
+			let lastPrice = -1;
+			for (let t = 0; t < buys.length; t++) {
+				const buy = buys[t];
+				const price = buy[0];
+				const amount = buy[1];
+				if (buy[0] === lastPrice) {
+					const index = sortedBuys.length - 1;
+					sortedBuys[index][1] = sortedBuys[index][1] + amount;
+				} else {
+					sortedBuys.push([price, amount])
 				}
+				lastPrice = price;
 			}
 		}
 
-		if (sortedSells.length > 1) {
-			for (let m = 0; m <= sortedSells.length - 2; m++) {
-				const sell = sortedSells[m];
-				const nextSell = sortedSells[m + 1]
-				if (sell[0] === nextSell[0]) {
-					sell[1] = sell[1] + nextSell[1]
-					sortedSells.splice(m + 1)
+		if (sells.length > 1) {
+			let lastPrice = -1;
+			for (let m = 0; m < sells.length; m++) {
+				const sell = sells[m];
+				const price = sell[0];
+				const amount = sell[1];
+				if (sell[0] === lastPrice) {
+					const index = sortedSells.length - 1;
+					sortedSells[index][1] = sortedBuys[index][1] + amount;
+				} else {
+					sortedSells.push([price, amount])
 				}
+				lastPrice = price;
 			}
 		}
 

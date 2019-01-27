@@ -51,15 +51,7 @@ export default class DepthChart extends Component {
 				},
 				min: min,
 				max: max,
-				lineWidth: 0,
-				gridLineWidth: 0,
-				minorGridLineWidth: 0,
-				lineColor: 'transparent',
-				labels: {
-					enabled: false
-				},
-				minorTickLength: 0,
-				tickLength: 0
+				lineColor: 'rgb(0, 0, 0, 0.4)',
 			},
 			series: [{
 				showInLegend: false,
@@ -101,28 +93,45 @@ export default class DepthChart extends Component {
 	render() {
 		const {prices, buys, sells} = this.state;
 
-		let sortedBuys = buys.slice();
-		let sortedSells = sells.slice();
+		let sortedBuys = [];
+		let sortedSells = [];
 
-		if (sortedBuys.length === 1) {
-			const first = [sortedBuys[0][0], 0];
-			sortedBuys.unshift(first);
+		if (buys.length === 1) {
+			const first = [buys[0][0], 0];
+			sortedBuys.append(first);
 		}
 
-		if (sortedSells.length === 1) {
-			const first = [sortedSells[0][0], 0];
-			sortedSells.unshift(first);
+		if (sells.length === 1) {
+			const first = [sells[0][0], 0];
+			sortedSells.append(first);
 		}
-
-		const iterator = sortedBuys.concat(sortedSells);
 
 		let min = 99999999999;
 		let max = 0;
 
-		for (let i = 0; i < iterator.length; i++) {
-			let item = iterator[i];
-			const price = item[0] / priceDecimals;
+
+		for (let i = 0; i < buys.length; i++) {
+			let item = buys[i];
 			const amount = item[1] / tokenDecimals;
+			const price = item[0] / priceDecimals;
+
+			sortedBuys.push([price, amount]);
+
+			if (amount < min) {
+				min = amount;
+			}
+
+			if (amount > max) {
+				max = amount;
+			}
+		}
+
+		for (let i = 0; i < sells.length; i++) {
+			let item = sells[i];
+			const amount = item[1] / tokenDecimals;
+			const price = item[0] / priceDecimals;
+
+			sortedSells.push([price, amount]);
 
 			if (amount < min) {
 				min = amount;
@@ -137,7 +146,7 @@ export default class DepthChart extends Component {
 			min = 0;
 		}
 
-		sortedSells = sortedSells.reverse();
+		// sortedSells = sortedSells.reverse();
 
 		const options = this.getOptions(max, min, sortedBuys, sortedSells);
 
