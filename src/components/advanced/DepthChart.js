@@ -77,6 +77,12 @@ export default class DepthChart extends Component {
 						[0, 'rgb(92, 184, 92, 0.2)'],
 						[1, 'rgba(255, 255, 255, 0)']
 					]
+				},
+				tooltip: {
+					pointFormatter: function() {
+						var point = this;
+						return '<span style="color:' + point.color + '">\u25CF</span> ' + 'Volume:' + ': <b>' + point.y + '</b> <small>VEO</small>';
+					}
 				}
 			}, {
 				showInLegend: false,
@@ -90,6 +96,12 @@ export default class DepthChart extends Component {
 						[0, 'rgb(217, 83, 79, 0.2)'],
 						[1, 'rgba(255, 255, 255, 0)']
 					]
+				},
+				tooltip: {
+					pointFormatter: function() {
+						var point = this;
+						return '<span style="color:' + point.color + '">\u25CF</span> ' + 'Volume:' + ': <b>' + point.y + '</b> <small>VEO</small>';
+					}
 				}
 			}],
 			plotOptions: {
@@ -193,16 +205,16 @@ export default class DepthChart extends Component {
 			minY = 0;
 		}
 
+		// if (sortedBuys.length > 0) {
+		// 	sortedBuys.push([sortedBuys[sortedBuys.length - 1][0], 0]);
+		// }
+
 		sortedBuys = sortedBuys.reverse();
 		sortedSells = sortedSells.reverse();
-
-		if (sortedBuys.length > 0) {
-			sortedBuys.push([sortedBuys[sortedBuys.length - 1][0], 0]);
-		}
-
-		if (sortedSells.length > 0) {
-			sortedSells.push([sortedSells[sortedSells.length - 1][0], 0]);
-		}
+		//
+		// if (sortedSells.length > 0) {
+		// 	sortedSells.push([sortedSells[sortedSells.length - 1][0], 0]);
+		// }
 
 		const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
 
