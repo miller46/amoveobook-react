@@ -56,12 +56,14 @@ export default class Advanced extends Component {
 			loading: this.props.loading,
 			height: this.props.height,
 			bestPrice: 0,
-			amount: 0,
-			price: 0,
+			amount: undefined,
+			price: undefined,
+			selectedSide: undefined,
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
 		this.updatePrice = this.updatePrice.bind(this)
+		this.onRowSelect = this.onRowSelect.bind(this)
 	}
 
 	componentWillMount() {
@@ -96,8 +98,16 @@ export default class Advanced extends Component {
 		this.setState({amount: amount})
 	}
 
+	onRowSelect(side, amount, price) {
+		this.setState({
+			selectedSide: side,
+			amount: amount,
+			price: price,
+		})
+	}
+
 	render() {
-		const {oid, price, amount, bestPrice} = this.state;
+		const {oid, price, amount, bestPrice, selectedSide} = this.state;
 		const {activeMarkets, marketDetails, height, loading} = this.props;
 
 		let market;
@@ -191,6 +201,9 @@ export default class Advanced extends Component {
 								lowerBound={lowerBound}
 								onAmountUpdate={this.updateAmount}
 								onPriceUpdate={this.updatePrice}
+								price={price}
+								amount={amount}
+								selectedSide={selectedSide}
 							/>
 						</div>
 
@@ -233,6 +246,7 @@ export default class Advanced extends Component {
 							</div>
 
 							<OrderBook
+								onSelectRow={this.onRowSelect}
 								buys={buys}
 								sells={sells}
 							/>

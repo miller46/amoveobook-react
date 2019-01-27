@@ -12,9 +12,20 @@ export default class OrderBook extends Component {
 			buys: this.props.buys,
 			sells: this.props.sells,
 		}
+
+		if (this.props.onSelectRow) {
+			this.onSelectRow = this.props.onSelectRow.bind(this)
+		}
+	}
+
+	onRowClick(side, price, amount) {
+		const orderSide = side === "long" ? "sell" : "long";
+		this.props.onSelectRow(orderSide, price, amount);
 	}
 
 	render() {
+		const instance = this;
+
 		let {buys, sells} = this.state;
 
 		let sortedBuys = [];
@@ -69,13 +80,19 @@ export default class OrderBook extends Component {
 				<div id="SellContainer" styleName="Sells">
 					{
 						sortedSells.map(function(sell, index) {
+							const amount = sell[1] / tokenDecimals;
+							const price = sell[0] / priceDecimals;
 							return (
-								<div styleName="SellRow" key={index}>
+								<div
+									styleName="SellRow"
+									key={index}
+									onClick={() => instance.onRowClick("short", amount, price)}
+								>
 									<div styleName="Amount">
-										{sell[1] / tokenDecimals}
+										{amount}
 									</div>
 									<div>
-										{sell[0] / priceDecimals}
+										{price}
 									</div>
 								</div>
 							)
@@ -90,8 +107,14 @@ export default class OrderBook extends Component {
 				<div styleName="Buys">
 					{
 						sortedBuys.map(function(buy, index) {
+							const amount = buy[1] / tokenDecimals;
+							const price = buy[0] / priceDecimals;
 							return (
-								<div styleName="BuyRow" key={index}>
+								<div
+									styleName="BuyRow"
+									key={index}
+									onClick={() => instance.onRowClick("long", amount, price)}
+								>
 									<div styleName="Amount">
 										{buy[1] / tokenDecimals}
 									</div>

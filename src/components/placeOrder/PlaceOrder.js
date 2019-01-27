@@ -102,12 +102,17 @@ export default class PlaceOrder extends Component {
 	}
 
 	componentWillReceiveProps(props) {
+		const price = props.price || this.state.price;
 		this.setState({
 			bestPrice: props.bestPrice,
 			marketType: props.marketType,
 			account: props.account,
 			upperBound: props.upperBound,
 			lowerBound: props.lowerBound,
+			amount: props.amount || this.state.amount,
+			price: price,
+			selectedSide: props.selectedSide || this.state.selectedSide,
+			sliderValue: price * 100,
 		})
 	}
 
