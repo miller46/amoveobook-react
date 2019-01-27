@@ -72,18 +72,18 @@ export default class Channel extends Component {
 						error: "An error occurred"
 					})
 				} else {
-					const data = {amount: 0, duration: 0};
-					createChannel(data, function (error, result) {
-						if (error) {
-							console.error("Error saving channel")
-						} else {
+					// const data = {amount: 0, duration: 0};
+					// createChannel(data, function (error, result) {
+					// 	if (error) {
+					// 		console.error("Error saving channel")
+					// 	} else {
 							localStorage.setItem("channelProgress", 1);
 							localStorage.setItem("channelPending", true);
 							instance.props.setChannelPending(true);
-						}
+						// }
 
 						instance.onAdvance()
-					})
+					// })
 				}
 			})
 	}

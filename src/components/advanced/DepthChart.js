@@ -123,12 +123,12 @@ export default class DepthChart extends Component {
 
 		if (buys.length === 1) {
 			const first = [buys[0][0], 0];
-			sortedBuys.append(first);
+			sortedBuys.push(first);
 		}
 
 		if (sells.length === 1) {
 			const first = [sells[0][0], 0];
-			sortedSells.append(first);
+			sortedSells.push(first);
 		}
 
 		let minY = 99999999999;
