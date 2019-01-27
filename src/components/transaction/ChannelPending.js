@@ -8,26 +8,21 @@ export default class ChannelPending extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.channelCheck = 0;
+		this.countDown = 0;
+
+		const channelPending = localStorage.getItem("channelPending") === "true";
+		if (channelPending) {
+			this.beginCountdown();
+			this.beginTxChecker();
+		}
+
 		this.state = {
 			progress: parseInt(localStorage.getItem("channelProgress")) || 1,
 			duration: 420,
-			showPending: false,
+			showPending: channelPending,
 			showConfirmation: false,
-		}
-		this.channelCheck = 0;
-		this.countDown = 0;
-	}
-
-	componentDidMount() {
-		const instance = this;
-		const channelPending = localStorage.getItem("channelPending") === "true";
-		if (channelPending) {
-			instance.beginCountdown();
-			instance.checkForTxs(instance);
-			instance.channelCheck = setInterval(function() {
-				instance.checkForTxs(instance)
-			}, 60000)
-			instance.setState({showPending: true})
 		}
 	}
 
@@ -79,6 +74,14 @@ export default class ChannelPending extends Component {
 				instance.setState({progress: progress + 1})
 			}
 		}, 1000)
+	}
+
+	beginTxChecker() {
+		const instance = this;
+		instance.checkForTxs(instance);
+		instance.channelCheck = setInterval(function () {
+			instance.checkForTxs(instance)
+		}, 60000)
 	}
 
 	render() {

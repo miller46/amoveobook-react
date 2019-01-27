@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import {connect} from "react-redux";
 import {getActiveMarkets} from "../../actions";
+import {getNetwork} from "../../amoveo3utility";
 import Loading from "../loading/Loading";
 import styles from './MarketsList.css'
 import MarketRow from './MarketRow'
@@ -32,10 +33,7 @@ export default class MarketsList extends Component {
 	}
 
 	componentDidMount() {
-		let network = localStorage.getItem("lastNetwork") || "mainnet"
-		if (window.amoveo3) {
-			network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
-		}
+		const network = getNetwork(window.amoveo3);
 		this.props.getActiveMarkets({network: network });
 	}
 

@@ -7,7 +7,7 @@ import {Redirect} from 'react-router'
 import {getHeight, getMarket} from "../../actions";
 import {tokenDecimals, priceDecimals, tokenUnit} from "../../config";
 import {getDisplayExpires, getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../../utility";
-
+import {getNetwork} from "../../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -48,11 +48,9 @@ export default class MarketRow extends Component {
 	}
 
 	componentDidMount() {
-		if (window.amoveo3) {
-			const network = window.amoveo3.network;
-			this.props.getHeight(network);
-			this.props.getMarket(network, this.state.market.oid);
-		}
+		const network = getNetwork(window.amoveo3);
+		this.props.getHeight(network);
+		this.props.getMarket(network, this.state.market.oid);
 	}
 
 	goToDetails() {

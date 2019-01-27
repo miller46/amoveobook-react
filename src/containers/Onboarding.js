@@ -10,6 +10,7 @@ import Locked from '../components/onboarding/Locked'
 import {getAccount, getIp} from "../actions";
 import {connect} from "react-redux";
 import {api} from "../config";
+import {hasChannel} from "../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -54,45 +55,20 @@ export default class Onboarding extends Component {
 		this.advanceToSplash = this.advanceToSplash.bind(this);
 	}
 
-	hasChannel() {
-		const amoveo3 = window.amoveo3;
-		let hasChannel = false;
-		if (amoveo3 && amoveo3.channels) {
-			let network = localStorage.getItem("lastNetwork") || "mainnet"
-			if (window.amoveo3) {
-				network = amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
-			}
-
-			const coinbase = amoveo3.coinbase;
-			const serverPubkey = api[network].serverPublicKey;
-			for (let i = 0; i < amoveo3.channels.length; i++) {
-				const channel = amoveo3.channels[i];
-				const channelServerPubkey = channel.serverPubKey;
-				const channelAddress = channel.me[1];
-				if (channelAddress === coinbase && serverPubkey === channelServerPubkey) {
-					hasChannel = true;
-					break;
-				}
-			}
-		}
-
-		return hasChannel;
-	}
-
 	componentWillMount() {
 		const instance = this;
 		let lastWallet, lastUnlocked;
 
-		if (this.hasChannel()) {
+		const amoveo3 = window.amoveo3;
+		if (hasChannel(amoveo3)) {
 			instance.advanceToSplash();
 		} else {
 			this.listener = setInterval(function() {
-				const amoveo3 = window.amoveo3;
 				const noWallet = !amoveo3;
 				const unlocked = amoveo3 && !amoveo3.isLocked;
-				const hasChannel = instance.hasChannel();
+				const channelExists = hasChannel(amoveo3);
 
-				if (hasChannel) {
+				if (channelExists) {
 					instance.advanceToSplash();
 				} else if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
 					lastWallet = noWallet;

@@ -6,7 +6,7 @@ import styles from './Details.css'
 import styles2 from '../markets/MarketRow.css'
 import PropTypes from 'prop-types';
 
-import {getDisplayExpires} from '../../utility'
+import {getNetwork} from '../../amoveo3utility'
 import Calculator from "../payoutCalculator/Calculator";
 import GoToAdvancedView from "./GoToAdvancedView";
 import PlaceOrder from "../placeOrder/PlaceOrder";
@@ -87,10 +87,7 @@ export default class Details extends Component {
 		}
 
 		if (activeMarkets.length === 0) {
-			let network = localStorage.getItem("lastNetwork") || "mainnet"
-			if (window.amoveo3) {
-				network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
-			}
+			const network = getNetwork(window.amoveo3);
 			this.props.getActiveMarkets({network: network});
 		} else {
 			const i = 0;

@@ -25,6 +25,10 @@
     text-align: left;
 }
 
+.Question {
+    min-height: 114px;
+}
+
 .Market label {
     font-size: 1rem;
     margin-top: 5px;

@@ -6,6 +6,7 @@ import {getAccount} from "../../actions";
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading'
 import {api} from "../../config";
+import {hasChannel} from "../../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -36,6 +37,21 @@ export default class PlaceOrder extends Component {
 
 	constructor(props) {
 		super(props);
+
+		const bestPrice = this.props.bestPrice
+		let selectedOrderType = "market"
+		let selectedBuySell = "buy"
+		let selectedSide = "long"
+		let amount = 1
+		let price = 0
+
+		if (bestPrice === 0) {
+			price = this.DEFAULT_PRICE;
+			selectedOrderType = "limit";
+		} else {
+			price = bestPrice;
+		}
+
 		this.state = {
 			bestPrice: this.props.bestPrice,
 			account: this.props.account,
@@ -44,14 +60,14 @@ export default class PlaceOrder extends Component {
 			upperBound: this.props.upperBound || 0,
 			lowerBound: this.props.lowerBound || 0,
 			oid: this.props.oid,
-			selectedOrderType: "market",
-			selectedBuySell: "buy",
-			selectedSide: "long",
+			selectedOrderType: selectedOrderType,
+			selectedBuySell: selectedBuySell,
+			selectedSide: selectedSide,
 			amountError: "",
 			priceError: "",
 			confirmError: "",
-			price: 0,
-			amount: 1,
+			price: price,
+			amount: amount,
 			userShares: 0,
 			maxOrderSize: this.MAX_ORDER_SIZE,
 			sliderValue: this.DEFAULT_PRICE * 100,
@@ -70,27 +86,6 @@ export default class PlaceOrder extends Component {
 		}
 
 		this.handleSliderChange = this.handleSliderChange.bind(this)
-	}
-
-	componentDidMount() {
-		const {bestPrice, amount} = this.state;
-
-		let price;
-		if (bestPrice === 0) {
-			price = this.DEFAULT_PRICE;
-
-			this.setState({
-				selectedOrderType: "limit",
-				price: price,
-				amount: amount,
-			})
-		} else {
-			price = bestPrice;
-			this.setState({
-				amount: amount,
-				price: price
-			})
-		}
 
 		if (this.props.onPriceUpdate) {
 			this.props.onPriceUpdate(price);
@@ -258,26 +253,6 @@ export default class PlaceOrder extends Component {
 		this.context.router.push("/")
 	}
 
-	hasChannel() {
-		const amoveo3 = window.amoveo3;
-		let hasChannel = false;
-		if (amoveo3 && amoveo3.channels) {
-			const coinbase = amoveo3.coinbase;
-			const serverPubkey = api[amoveo3.network].serverPublicKey;
-			for (let i = 0; i < amoveo3.channels.length; i++) {
-				const channel = amoveo3.channels[i];
-				const channelServerPubkey = channel.serverPubKey;
-				const channelAddress = channel.me[1];
-				if (channelAddress === coinbase && serverPubkey === channelServerPubkey) {
-					hasChannel = true;
-					break;
-				}
-			}
-		}
-
-		return hasChannel;
-	}
-
 	render() {
 		const {account, loading} = this.props;
 
@@ -319,7 +294,8 @@ export default class PlaceOrder extends Component {
 			</div>
 		}
 
-		const hasChannel = this.hasChannel();
+		const amoveo3 = window.amoveo3;
+		const channelExists = hasChannel(amoveo3);
 
 		const total = price * amount > 0 ? price * amount : 0;
 
@@ -335,7 +311,7 @@ export default class PlaceOrder extends Component {
 			button = <div styleName="OrderFormLocked">
 				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</button>
 			</div>
-		} else if (!hasChannel) {
+		} else if (!channelExists) {
 			button = <div styleName="OrderFormLocked">
 				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</button>
 			</div>

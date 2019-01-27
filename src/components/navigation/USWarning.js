@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './USWarning.css'
+import {getNetwork} from '../../amoveo3utility'
 
 @CSSModules(styles)
 export default class Warning extends Component {
@@ -14,7 +15,7 @@ export default class Warning extends Component {
 			localStorage.getItem("agreedUS") === "true"
 			|| localStorage.getItem("isNotUS") !== "true" ;
 
-		const isTestnet = amoveo3 && amoveo3.network === "testnet";
+		const isTestnet = getNetwork(window.amoveo3);
 
 		if (showWarning && !isTestnet) {
 			return (

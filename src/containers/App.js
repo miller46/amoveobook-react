@@ -59,17 +59,19 @@ export default class App extends Component {
 			this.props.getIp()
 		}
 
-		this.accountListener = setInterval(function() {
-			const amoveo3 = window.amoveo3;
-			if (amoveo3) {
-				const address = amoveo3.coinbase;
-				if (address && !account) {
+		if (this.accountListener === 0) {
+			this.accountListener = setInterval(function () {
+				const amoveo3 = window.amoveo3;
+				if (amoveo3) {
+					const address = amoveo3.coinbase;
+					if (address && !account) {
 
-					instance.props.getAccount(address);
-					clearInterval(instance.accountListener)
+						instance.props.getAccount(address);
+						clearInterval(instance.accountListener)
+					}
 				}
-			}
-		}, 500)
+			}, 500)
+		}
 	}
 
 	render() {

@@ -12,10 +12,9 @@ import DepthChart from "../components/advanced/DepthChart";
 import OrderBook from "../components/advanced/OrderBook";
 import Calculator from "../components/payoutCalculator/Calculator";
 import Loading from "../components/loading/Loading";
-import MarketRow from "../components/markets/MarketRow";
 import {priceDecimals, tokenDecimals} from "../config";
-import {getDisplayExpires, getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../utility";
-
+import {getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../utility";
+import {getNetwork} from "../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -77,10 +76,7 @@ export default class Advanced extends Component {
 		}
 
 		if (activeMarkets.length === 0) {
-			let network = localStorage.getItem("lastNetwork") || "mainnet"
-			if (window.amoveo3) {
-				network = window.amoveo3.network || localStorage.getItem("lastNetwork") || "mainnet";
-			}
+			const network = getNetwork(window.amoveo3);
 			this.props.getActiveMarkets({network: network});
 		} else {
 			const i = 0;

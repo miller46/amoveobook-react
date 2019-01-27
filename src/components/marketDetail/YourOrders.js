@@ -36,13 +36,16 @@ export default class YourOrders extends Component {
 	componentWillMount() {
 		const instance = this;
 		let lastOrderLength = 0;
-		this.listener = setInterval(function() {
-			const orders = instance.getOrders();
-			if (lastOrderLength !== orders.length) {
-				lastOrderLength = orders.length;
-				instance.setState({orders: orders})
-			}
-		}, 500)
+
+		if (this.listener === 0) {
+			this.listener = setInterval(function () {
+				const orders = instance.getOrders();
+				if (lastOrderLength !== orders.length) {
+					lastOrderLength = orders.length;
+					instance.setState({orders: orders})
+				}
+			}, 500)
+		}
 	}
 
 	getOrders() {
