@@ -20,6 +20,8 @@
 .HistoryRows {
     overflow: auto;
     margin-bottom: 8px;
+    max-height: 300px;
+    overflow-y: scroll;
 }
 
 .HistoryRow {

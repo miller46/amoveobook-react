@@ -14,11 +14,13 @@
 }
 
 .Buys {
-    min-height: 100px;
+    height: 100px;
+    overflow-y: scroll;
 }
 
 .Sells {
-    min-height: 100px;
+    height: 100px;
+    overflow-y: scroll;
 }
 
 .Spread {
