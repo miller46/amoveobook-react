@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules'
 import style from './PriceChart.css'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import {priceDecimals} from "../../config";
 
 @CSSModules(style)
 export default class PriceChart extends Component {
@@ -62,7 +63,7 @@ export default class PriceChart extends Component {
 		let series = [];
 		for (let i = 0; i < prices.length; i++) {
 			let price = prices[i];
-			let item = [Date.parse(price.timestamp), price.price * 100];
+			let item = [Date.parse(price.timestamp), price.price * 100 / priceDecimals];
 			series.push(item);
 		}
 

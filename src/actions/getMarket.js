@@ -21,18 +21,31 @@ export const getMarket = (network, oid) => {
 		})
 		.then(function(json) {
 			const details = json[1];
-			fetch(api.pricesUrl + "&filter_by_value=" + oid)
+			const url = api.pricesUrl + "&filter_by_value=" + oid
+			fetch(url)
 			.then(function(response) {
 				return response.json();
 			})
 			.then(function(json) {
+				let buys = []
+				let sells = []
+				let expires = 0
+				let question = ""
+
+				if (details.length > 1) {
+					expires = details[1][6];
+					buys = details[1][3];
+					sells = details[1][4];
+					question = atob(details[2]);
+				}
+
 				const marketData = {
 					matchedOrders: json,
-					expires: details[1][6],
-					buys: details[1][3],
-					sells: details[1][4],
 					oid: oid,
-					question: atob(details[2]),
+					expires: expires,
+					buys: buys,
+					sells: sells,
+					question: question,
 				}
 
 				dispatch(getMarketSuccess(oid, marketData));

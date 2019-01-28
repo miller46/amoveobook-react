@@ -1,4 +1,4 @@
-import {api} from "../config";
+import {api, priceDecimals, tokenDecimals} from "../config";
 
 
 export function getDisplayExpires(endBlock, height) {
@@ -38,7 +38,7 @@ export function getVolume(orders) {
 		volume = 0;
 	}
 
-	return volume;
+	return volume / tokenDecimals;
 }
 
 export function sumAmounts(orders) {
@@ -60,7 +60,7 @@ export function priceAmount(orders) {
 export function getDisplayOdds(prices) {
 	let odds = 0;
 	if (prices.length > 0) {
-		odds = (prices[0].price * 100).toFixed(0);
+		odds = (prices[0].price * 100 / priceDecimals).toFixed(0);
 	}
 
 	return odds;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './OrderHistory.css'
+import {priceDecimals, tokenDecimals} from "../../config";
 
 @CSSModules(style)
 export default class OrderHistory extends Component {
@@ -17,14 +18,13 @@ export default class OrderHistory extends Component {
 
 		let display;
 		if (prices.length === 0) {
-			display = <div styleName="OrderContainer">
+			display =
 				<div styleName="OrderRow">
 					<p>No orders in this market yet</p>
 				</div>
-			</div>
 		} else {
-			display = <div styleName="OrderContainer">
-				<div styleName="OrderHeader">
+			display = <div styleName="HistoryContainer">
+				<div styleName="HistoryHeader">
 					<div>
 						<p>Amount</p>
 					</div>
@@ -36,16 +36,16 @@ export default class OrderHistory extends Component {
 					</div>
 				</div>
 
-				<div styleName="OrderRows">
+				<div styleName="HistoryRows">
 					{
 						prices.map(function(price, index) {
 							return (
-								<div styleName="OrderRow" key={index}>
+								<div styleName="HistoryRow" key={index}>
 									<div>
-										{price.buy_amount}
+										{price.buy_amount / tokenDecimals}
 									</div>
 									<div>
-										{price.price}
+										{price.price / priceDecimals}
 									</div>
 									<div>
 										{price.timestamp}

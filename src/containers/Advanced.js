@@ -65,21 +65,20 @@ export default class Advanced extends Component {
 			selectedSide: undefined,
 		}
 
+		const network = getNetwork(window.amoveo3);
 		if (window.amoveo3) {
-			const network = window.amoveo3.network;
 			if (!height) {
 				this.props.getHeight(network);
 			}
-			if (!marketDetail) {
-				this.props.getMarket(network, oid);
-			}
+		}
+
+		if (!marketDetail) {
+			this.props.getMarket(network, oid);
 		}
 
 		if (activeMarkets.length === 0) {
 			const network = getNetwork(window.amoveo3);
 			this.props.getActiveMarkets({network: network});
-		} else {
-			const i = 0;
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
@@ -129,8 +128,10 @@ export default class Advanced extends Component {
 		let odds = "--"
 		let buys = [];
 		let sells = [];
+		let prices = [];
 
 		if (marketDetails && market) {
+			prices = marketDetails.matchedOrders;
 			buys = marketDetails ? priceAmount(marketDetails.buys) : [];
 			sells = marketDetails ? priceAmount(marketDetails.sells) : [];
 
@@ -175,14 +176,6 @@ export default class Advanced extends Component {
 			const upperBound = market.upper_bound;
 			const lowerBound = market.lower_bound;
 
-			let hasChannel = false;
-			const amoveo3 = window.amoveo3;
-			if (amoveo3) {
-				if (amoveo3.channels && amoveo3.channels.length > 0) {
-					hasChannel = true;
-				}
-			}
-
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
@@ -225,7 +218,8 @@ export default class Advanced extends Component {
 							</div>
 
 							<PriceChart
-								prices={[]}
+								prices={prices}
+								oid={oid}
 							/>
 						</div>
 
@@ -260,7 +254,8 @@ export default class Advanced extends Component {
 							</div>
 
 							<OrderHistory
-								prices={[]}
+								prices={prices}
+								oid={oid}
 							/>
 						</div>
 					</div>

@@ -196,19 +196,28 @@ export default class DepthChart extends Component {
 		if (minY === 99999999999 || minY === maxY) {
 			minY = 0;
 		}
-		
+
 		sortedBuys = sortedBuys.reverse();
 		sortedSells = sortedSells.reverse();
 
-		const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
-
-		return (
-			<div styleName="DepthChartContainer">
-				<HighchartsReact
-					highcharts={Highcharts}
-					options={options}
-				/>
-			</div>
-		)
+		if (sortedBuys.length === 0 && sortedSells.length === 0) {
+			return (
+				<div styleName="DepthChartContainer">
+					<div styleName="DepthChartBlankState">
+						<p>No orders yet</p>
+					</div>
+				</div>
+			)
+		} else {
+			const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
+			return (
+				<div styleName="DepthChartContainer">
+					<HighchartsReact
+						highcharts={Highcharts}
+						options={options}
+					/>
+				</div>
+			)
+		}
 	}
 }
