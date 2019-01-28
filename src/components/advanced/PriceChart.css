@@ -1,3 +1,11 @@
 .ChartContainer {
+    overflow: hidden;
+}
 
+.ChartContainer > div {
+    margin-bottom: -32px;
+}
+
+:global(.highcharts-scrollbar) {
+    display: none;
 }
