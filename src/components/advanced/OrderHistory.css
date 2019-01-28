@@ -20,8 +20,16 @@
 .HistoryRows {
     overflow: auto;
     margin-bottom: 8px;
-    max-height: 300px;
+    max-height: 284px;
     overflow-y: scroll;
+    background: rgba(0, 0, 0, .6);
+}
+
+.HistoryRows::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #444;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .HistoryRow {

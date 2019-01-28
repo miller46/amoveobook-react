@@ -18,6 +18,12 @@ export default class OrderBook extends Component {
 		}
 	}
 
+	componentDidMount() {
+		const container = document.getElementById("order-container")
+		const max = container.offsetHeight
+		container.scrollTop = (container.scrollHeight - max) / 2;
+	}
+
 	onRowClick(side, price, amount) {
 		const orderSide = side === "long" ? "sell" : "long";
 		this.props.onSelectRow(orderSide, price, amount);
@@ -63,7 +69,7 @@ export default class OrderBook extends Component {
 		sortedSells = sortedSells.reverse();
 
 		return (
-			<div styleName="OrderBookContainer">
+			<div id="order-container" styleName="OrderBookContainer">
 				<div styleName="OrderBookHeader">
 					<div>
 						<p>Amount</p>

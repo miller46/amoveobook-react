@@ -23,7 +23,7 @@ export default class OrderHistory extends Component {
 					<p>No orders in this market yet</p>
 				</div>
 		} else {
-			display = <div styleName="HistoryContainer">
+			display = <div>
 				<div styleName="HistoryHeader">
 					<div>
 						<p>Amount</p>

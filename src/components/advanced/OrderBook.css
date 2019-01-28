@@ -1,5 +1,13 @@
 .OrderBookContainer {
+    max-height: 370px;
+    overflow-y: scroll;
+}
 
+.OrderBookContainer::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #444;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .OrderBookHeader {
@@ -13,14 +21,8 @@
     float: left;
 }
 
-.Buys {
-    height: 100px;
-    overflow-y: scroll;
-}
-
-.Sells {
-    height: 100px;
-    overflow-y: scroll;
+.Buys, .Sells {
+    min-height: 180px;
 }
 
 .Spread {
@@ -62,4 +64,3 @@
 .SellRow {
     color: #5cb85c;
 }
-
