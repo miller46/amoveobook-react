@@ -184,6 +184,7 @@ export default class Advanced extends Component {
 								market={market}
 								marketDetail={marketDetails}
 								height={height}
+								prices={prices}
 							/>
 						</div>
 

@@ -30,6 +30,7 @@
 
 .Right {
     float: right;
+    text-align: right;
 }
 
 .Trading {
@@ -47,6 +48,14 @@
 
 .Question {
     font-size: 1.5rem;
+}
+
+.Profit {
+    color: #5cb85c
+}
+
+.Loss {
+    color: #dc3545
 }
 
 @media (max-width: 680px) {

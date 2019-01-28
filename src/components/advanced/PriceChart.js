@@ -37,6 +37,8 @@ export default class PriceChart extends Component {
 					text: '',
 					color: '#FFFFFF'
 				},
+				lineColor: 'transparent',
+				tickColor: 'transparent',
 			},
 			yAxis: [{
 				labels: {
@@ -53,7 +55,9 @@ export default class PriceChart extends Component {
 				gridLineColor: 'rgb(255, 255, 255, 0.2)',
 				resize: {
 					enabled: true
-				}
+				},
+				lineColor: 'transparent',
+				tickColor: 'transparent',
 			}, {
 				labels: {
 					align: 'right',
@@ -67,6 +71,8 @@ export default class PriceChart extends Component {
 				offset: 0,
 				lineWidth: 1,
 				gridLineColor: 'rgb(255, 255, 255, 0.2)',
+				lineColor: 'transparent',
+				tickColor: 'transparent',
 			}],
 			tooltip: {
 				split: true
