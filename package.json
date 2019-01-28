@@ -1,6 +1,6 @@
 {
-  "name": "commericaliz3d",
-  "description": "P3D",
+  "name": "amoveobook-web",
+  "description": "amoveobook-web",
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,13 @@
     "clean": "rm public/bundle.js && rm public/style.css && rm public/vendor.js || true",
     "dev": "cross-env NODE_ENV=dev node server.js | cross-env NODE_ENV=dev webpack-dev-server --port 5000 --inline --hot",
     "test": "cross-env NODE_ENV=dev tape src/tests/index.js",
-    "prod": "cross-env NODE_ENV=prod node server.js"
+    "prod": "cross-env NODE_ENV=prod node server.js",
+    "router": "cross-env NODE_ENV=prod node routerServer.js"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
-  "author": "Steven Iseki",
-  "license": "MIT",
   "dependencies": {
     "autoprefixer": "^6.3.6",
     "autoprefixer-loader": "^3.2.0",
@@ -47,6 +46,7 @@
     "json-loader": "^0.5.7",
     "marked": "^0.3.6",
     "nock": "^9.0.2",
+    "path": "^0.12.7",
     "postcss": "^5.0.19",
     "postcss-cssnext": "^2.5.2",
     "postcss-loader": "^1.1.0",

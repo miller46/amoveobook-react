@@ -65,7 +65,7 @@ export default class OrderBook extends Component {
 			lastSellPrice = price;
 		}
 
-		sortedBuys = sortedBuys.reverse();
+		// sortedBuys = sortedBuys.reverse();
 		sortedSells = sortedSells.reverse();
 
 		return (

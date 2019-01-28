@@ -23,20 +23,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-/* api endpoints */
-
-const npmPackages = require('./src/api/routes/npmPackages')
-app.use('/api/npmPackages', npmPackages)
-
-const npmPackage = require('./src/api/routes/npmPackage')
-app.use('/api/npmPackage', npmPackage)
-
 /* configure store */
 function configureStore(memoryHistory, initialState) {
-  const reducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-  })
+  const dict = reducers;
+  dict.routing = routerReducer
+  const reducer = combineReducers(dict)
   let store = createStore(
     reducer,
     initialState,
@@ -49,19 +40,21 @@ function configureStore(memoryHistory, initialState) {
 
 /* html page */
 
-const HTML = ({ content, store }) => (
-  <html>
-    <head>
-      <link rel='stylesheet' type='text/css' href='/public/style.css' />
-    </head>
-    <body>
-      <div id='root' dangerouslySetInnerHTML={{ __html: content }}/>
-      <script dangerouslySetInnerHTML={{ __html: `window.__initialState__=${serialize(store.getState())};` }}/>
-      <script src='/public/vendor.js' />
-      <script src='/public/bundle.js' />
-    </body>
-  </html>
-)
+const HTML = ({ content, store }) => {
+	return (
+		<html>
+		<head>
+			<link rel='stylesheet' type='text/css' href='/public/style.css'/>
+		</head>
+		<body>
+		<div id='root' dangerouslySetInnerHTML={{__html: content}}/>
+		<script dangerouslySetInnerHTML={{__html: `window.__initialState__=${serialize(store.getState())};`}}/>
+		<script src='/public/vendor.js'/>
+		<script src='/public/bundle.js'/>
+		</body>
+		</html>
+	);
+}
 
 /* react router */
 app.use(function (req, res) {
