@@ -16,6 +16,14 @@
     font-size: 0.9rem;
 }
 
+.NoOrders {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: white;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.75rem;
+}
+
 .OrderBookHeader div {
     width: 50%;
     float: left;

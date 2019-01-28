@@ -65,70 +65,79 @@ export default class OrderBook extends Component {
 			lastSellPrice = price;
 		}
 
-		// sortedBuys = sortedBuys.reverse();
 		sortedSells = sortedSells.reverse();
 
-		return (
-			<div id="order-container" styleName="OrderBookContainer">
-				<div styleName="OrderBookHeader">
-					<div>
-						<p>Amount</p>
-					</div>
-					<div>
-						<p>Price</p>
-					</div>
-				</div>
-
-				<div id="SellContainer" styleName="Sells">
-					{
-						sortedSells.map(function(sell, index) {
-							const amount = sell[1] / tokenDecimals;
-							const price = sell[0] / priceDecimals;
-							return (
-								<div
-									styleName="SellRow"
-									key={index}
-									onClick={() => instance.onRowClick("short", amount, price)}
-								>
-									<div styleName="Amount">
-										{amount}
-									</div>
-									<div>
-										{price}
-									</div>
-								</div>
-							)
-						})
-					}
-				</div>
-
-				<div styleName="Spread">
-
-				</div>
-
-				<div styleName="Buys">
-					{
-						sortedBuys.map(function(buy, index) {
-							const amount = buy[1] / tokenDecimals;
-							const price = buy[0] / priceDecimals;
-							return (
-								<div
-									styleName="BuyRow"
-									key={index}
-									onClick={() => instance.onRowClick("long", amount, price)}
-								>
-									<div styleName="Amount">
-										{buy[1] / tokenDecimals}
-									</div>
-									<div>
-										{buy[0] / priceDecimals}
-									</div>
-								</div>
-							)
-						})
-					}
+		if (sortedBuys.length === 0 && sortedSells.length === 0) {
+			return <div styleName="OrderBookContainer">
+				<div styleName="NoOrders">
+					<p>No orders in this market yet</p>
 				</div>
 			</div>
-		)
+		} else {
+			return (
+				<div id="order-container" styleName="OrderBookContainer">
+					<div styleName="OrderBookHeader">
+						<div>
+							<p>Amount</p>
+						</div>
+						<div>
+							<p>Price</p>
+						</div>
+					</div>
+
+					<div styleName="OrdersContainer">
+						<div id="SellContainer" styleName="Sells">
+							{
+								sortedSells.map(function (sell, index) {
+									const amount = sell[1] / tokenDecimals;
+									const price = sell[0] / priceDecimals;
+									return (
+										<div
+											styleName="SellRow"
+											key={index}
+											onClick={() => instance.onRowClick("short", amount, price)}
+										>
+											<div styleName="Amount">
+												{amount}
+											</div>
+											<div>
+												{price}
+											</div>
+										</div>
+									)
+								})
+							}
+						</div>
+
+						<div styleName="Spread">
+
+						</div>
+
+						<div styleName="Buys">
+							{
+								sortedBuys.map(function (buy, index) {
+									const amount = buy[1] / tokenDecimals;
+									const price = buy[0] / priceDecimals;
+									return (
+										<div
+											styleName="BuyRow"
+											key={index}
+											onClick={() => instance.onRowClick("long", amount, price)}
+										>
+											<div styleName="Amount">
+												{buy[1] / tokenDecimals}
+											</div>
+											<div>
+												{buy[0] / priceDecimals}
+											</div>
+										</div>
+									)
+								})
+							}
+						</div>
+					</div>
+				</div>
+			)
+		}
 	}
 }
