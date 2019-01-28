@@ -49,7 +49,7 @@ export default class PriceChart extends Component {
 				min: 0,
 				max: 100,
 				height: '60%',
-				lineWidth: 2,
+				lineWidth: 1,
 				gridLineColor: 'rgb(255, 255, 255, 0.2)',
 				resize: {
 					enabled: true
@@ -65,7 +65,8 @@ export default class PriceChart extends Component {
 				top: '65%',
 				height: '35%',
 				offset: 0,
-				lineWidth: 2
+				lineWidth: 1,
+				gridLineColor: 'rgb(255, 255, 255, 0.2)',
 			}],
 			tooltip: {
 				split: true
@@ -87,8 +88,10 @@ export default class PriceChart extends Component {
 			},
 			plotOptions: {
 				candlestick: {
-					color: '#5cb85c',
-					upColor: '#dc3545'
+					color: '#0E0E0E',
+					upColor: '#0E0E0E',
+					upLineColor: '#5cb85c',
+					lineColor: '#dc3545'
 				},
 				column: {
 					color: 'rgb(92, 92, 97, 0.5)'
@@ -108,13 +111,14 @@ export default class PriceChart extends Component {
 		const begin = end - selectedLength * 24 * 60 * 60 * 1000
 		const interval = selectedInterval * 60 * 1000;
 
+		let lastOpen = -1;
+		let lastHigh = 0;
+		let lastLow = 9999999999;
+		let lastClose = 0;
+
 		for (let i = begin; i < end; i = i + interval) {
 			const date = i;
 
-			let lastOpen = -1;
-			let lastHigh = 0;
-			let lastLow = 9999999999;
-			let lastClose = 0;
 			let totalAmount = 0;
 
 			for (let lastIndex = 0; lastIndex < prices.length; lastIndex++) {
@@ -163,6 +167,10 @@ export default class PriceChart extends Component {
 				date, // the date
 				totalAmount // the volume
 			]);
+
+			lastOpen = lastClose;
+			lastHigh = lastClose;
+			lastLow = lastClose;
 		}
 
 		const options = this.getOptions(ohlc, volume);
