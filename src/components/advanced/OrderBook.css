@@ -1,6 +1,5 @@
 .OrderBookContainer {
-    max-height: 370px;
-    overflow-y: scroll;
+
 }
 
 .OrderBookContainer::-webkit-scrollbar-thumb {
@@ -25,7 +24,8 @@
 }
 
 .OrdersContainer {
-
+    max-height: 370px;
+    overflow-y: scroll;
 }
 
 .OrderBookHeader div {

@@ -19,7 +19,7 @@ export default class OrderHistory extends Component {
 		let display;
 		if (prices.length === 0) {
 			display =
-				<div styleName="HistoryRow">
+				<div styleName="NoOrders">
 					<p>No orders in this market yet</p>
 				</div>
 		} else {
