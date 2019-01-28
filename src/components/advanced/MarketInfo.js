@@ -71,6 +71,9 @@ export default class MarketInfo extends Component {
 		const sign = change > 0 ? "+" : "-";
 		const changeClass = change > 0 ? "Profit" : "Loss";
 
+		totalVolume = totalVolume.toFixed(2);
+		volumeLast24 = volumeLast24.toFixed(2);
+
 		return (
 			<div styleName="DetailInfo">
 				<div styleName="Card">
