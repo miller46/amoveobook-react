@@ -25,7 +25,7 @@ export default class Wallet extends Component {
 						<p>You need an Amoveo wallet to log in and place bets.</p>
 						<p>Amoveo3 Wallet lets you safely store your veo.</p>
 						<a
-							href="https://chrome.google.com/webstore/detail/amoveo-wallet/hfojlfflnlmfjhddgodpmophmhpimahi?hl=en"
+							href="https://github.com/johnnycash77/amoveo3-wallet"
 							target="_blank">
 							Install for Chrome here.
 						</a>
