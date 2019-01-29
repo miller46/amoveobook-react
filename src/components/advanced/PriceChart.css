@@ -9,3 +9,71 @@
 :global(.highcharts-scrollbar) {
     display: none;
 }
+
+.PanelTitle {
+    background: #0E0E0E;
+    color: white;
+    font-weight: 500;
+    line-height: 44px;
+    width: 150px;
+    margin: auto;
+}
+
+.ChartLength {
+    float: left;
+    margin-left: 12px;
+    margin-top: 4px;
+}
+
+.ChartLength p {
+    float: left;
+}
+
+.ChartInterval {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+
+.ChartInterval p {
+    float: right;
+}
+
+.ChartLength p, .ChartInterval p {
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(176, 188, 204, .75);
+    font-size: 0.75rem;
+    padding: 4px;
+}
+
+.ChartLength p:hover, .ChartInterval p:hover {
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    background: #444444;
+}
+
+.Buttons {
+    background: #0E0E0E;
+    width: 100%;
+    margin: -1px;
+}
+
+.Buttons td {
+    width: 33%;
+    text-align: center;
+}
+
+.ButtonSelected {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .ChartInterval {
+        padding-right: 16px;
+        width: 100px;
+    }
+}
