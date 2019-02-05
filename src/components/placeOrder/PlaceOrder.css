@@ -203,6 +203,14 @@
 
 }
 
+.PriceSlider input::-moz-range-track {
+    background-color: #BCBCBC;
+}
+
+.PriceSlider input {
+    border-bottom: 0 !important;
+}
+
 .ConfirmContainer {
     margin-top: 8px;
     margin-bottom: 8px;

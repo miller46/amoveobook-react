@@ -56,7 +56,8 @@ export default class YourOrders extends Component {
 			const channels = amoveo3.channels;
 			for (let i = 0; i < channels.length; i++) {
 				let channel = channels[i];
-				if (channel.me[1] === amoveo3.coinbase) {
+				const channelInfo = channel.me;
+				if (channelInfo && channelInfo[1] === amoveo3.coinbase) {
 					const bets = channel.me[3];
 					for (let j = 1; j < bets.length; j++) {
 						const bet = bets[j];
@@ -67,11 +68,17 @@ export default class YourOrders extends Component {
 
 							const betData = channel.ssme[j - 1];
 							let cancelable = false;
-							if (betData && JSON.stringify(betData.code) === JSON.stringify([0,0,0,0,4])) {
+							if (betData && JSON.stringify(betData.code) === JSON.stringify([0, 0, 0, 0, 4])) {
 								cancelable = true;
 							}
 
-							const order = {amount: amount, price: price, side: side, index: j - 1, cancelable: cancelable};
+							const order = {
+								amount: amount,
+								price: price,
+								side: side,
+								index: j - 1,
+								cancelable: cancelable
+							};
 							orders.push(order);
 						}
 					}

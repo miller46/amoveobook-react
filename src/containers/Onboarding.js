@@ -87,16 +87,24 @@ export default class Onboarding extends Component {
 		this.setState({
 			finishedEmail: true,
 		})
+
+		const channelExists = hasChannel(window.amoveo3);
+		if (channelExists) {
+			this.advanceToSplash();
+		}
 	}
 
 	advanceToSplash() {
-		this.setState({
-			channel: true,
-		})
-		localStorage.setItem("onboarding", false);
-		this.context.router.push("/")
+		const {account} = this.props;
+		if (account) {
+			this.setState({
+				channel: true,
+			})
+			localStorage.setItem("onboarding", false);
+			this.context.router.push("/")
 
-		clearInterval(this.listener);
+			clearInterval(this.listener);
+		}
 	}
 
 	render() {
