@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './ChannelPending.css'
 import {api} from "../../config";
+import {getNetwork} from "../../amoveo3utility";
 
 @CSSModules(style)
 export default class ChannelPending extends Component {
@@ -15,7 +16,6 @@ export default class ChannelPending extends Component {
 		const channelPending = localStorage.getItem("channelPending") === "true";
 		if (channelPending) {
 			this.beginCountdown();
-			this.beginTxChecker();
 		}
 
 		this.state = {
@@ -23,14 +23,20 @@ export default class ChannelPending extends Component {
 			duration: 420,
 			showPending: channelPending,
 			showConfirmation: false,
+			beganCountdown: false,
 		}
+	}
+
+	componentDidMount() {
+		this.beginTxChecker();
 	}
 
 	// TODO this should just be a channel sync instead, and alert the user if they have an old state
 	checkForTxs(instance) {
 		if (window.amoveo3) {
 			const address = amoveo3.coinbase;
-			const network = amoveo3.network;
+			const {showPending} = instance.state;
+			const network = getNetwork(amoveo3);
 			fetch(api[network].nodeUrl,
 				{
 					method: 'POST',
@@ -54,9 +60,12 @@ export default class ChannelPending extends Component {
 				if (!txPending) {
 					localStorage.setItem("channelProgress", 0);
 					localStorage.setItem("channelPending", false);
-					instance.setState({showPending: false, showConfirmation: true});
+					instance.setState({showPending: false, showConfirmation: showPending});
 					clearInterval(instance.channelCheck);
 					clearInterval(instance.countDown);
+				} else {
+					instance.beginCountdown();
+					instance.setState({beganCountdown: true, showPending: true});
 				}
 			})
 			.catch(err => {
