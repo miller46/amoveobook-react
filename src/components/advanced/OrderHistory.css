@@ -22,7 +22,6 @@
     margin-bottom: 8px;
     max-height: 284px;
     overflow-y: scroll;
-    background: rgba(0, 0, 0, .6);
 }
 
 .HistoryRows::-webkit-scrollbar-thumb {
@@ -43,6 +42,7 @@
 .HistoryRow {
     color: rgba(255, 255, 255, 0.75);
     font-size: 0.75rem;
+    background: rgba(0, 0, 0, .6);
 }
 
 .HistoryRow > div {

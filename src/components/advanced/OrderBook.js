@@ -11,6 +11,9 @@ export default class OrderBook extends Component {
 		this.state = {
 			buys: this.props.buys,
 			sells: this.props.sells,
+			marketType: this.props.marketType,
+			upperBound: parseFloat(this.props.upperBound),
+			lowerBound: parseFloat(this.props.lowerBound),
 		}
 
 		if (this.props.onSelectRow) {
@@ -20,8 +23,10 @@ export default class OrderBook extends Component {
 
 	componentDidMount() {
 		const container = document.getElementById("order-container")
-		const max = container.offsetHeight
-		container.scrollTop = (container.scrollHeight - max) / 2;
+		if (container) {
+			const max = container.offsetHeight
+			container.scrollTop = (container.scrollHeight - max) / 2;
+		}
 	}
 
 	onRowClick(side, price, amount) {
@@ -32,7 +37,7 @@ export default class OrderBook extends Component {
 	render() {
 		const instance = this;
 
-		let {buys, sells} = this.state;
+		let {buys, sells, marketType, upperBound, lowerBound} = this.state;
 
 		let sortedBuys = [];
 		let sortedSells = [];
@@ -65,6 +70,7 @@ export default class OrderBook extends Component {
 			lastSellPrice = price;
 		}
 
+		sortedBuys = sortedBuys.reverse();
 		sortedSells = sortedSells.reverse();
 
 		if (sortedBuys.length === 0 && sortedSells.length === 0) {
@@ -90,7 +96,13 @@ export default class OrderBook extends Component {
 							{
 								sortedSells.map(function (sell, index) {
 									const amount = sell[1] / tokenDecimals;
-									const price = sell[0] / priceDecimals;
+									let price = sell[0] / priceDecimals;
+
+									if (marketType === "scalar") {
+										price = price * (upperBound - lowerBound);
+										price = parseFloat(price.toFixed(4))
+									}
+
 									return (
 										<div
 											styleName="SellRow"
@@ -117,7 +129,13 @@ export default class OrderBook extends Component {
 							{
 								sortedBuys.map(function (buy, index) {
 									const amount = buy[1] / tokenDecimals;
-									const price = buy[0] / priceDecimals;
+									let price = buy[0] / priceDecimals;
+
+									if (marketType === "scalar") {
+										price = price * (upperBound - lowerBound);
+										price = parseFloat(price.toFixed(4))
+									}
+
 									return (
 										<div
 											styleName="BuyRow"
@@ -125,10 +143,10 @@ export default class OrderBook extends Component {
 											onClick={() => instance.onRowClick("long", amount, price)}
 										>
 											<div styleName="Amount">
-												{buy[1] / tokenDecimals}
+												{amount}
 											</div>
 											<div>
-												{buy[0] / priceDecimals}
+												{price}
 											</div>
 										</div>
 									)

@@ -71,25 +71,11 @@ export default class MarketRow extends Component {
 		if (marketDetails) {
 			const buys = marketDetails ? priceAmount(marketDetails.buys) : [];
 			const sells = marketDetails ? priceAmount(marketDetails.sells) : [];
-
-			volume = getVolume(marketDetails.matchedOrders).toFixed(2);
 			openInterest = ((sumAmounts(buys) + sumAmounts(sells)) / tokenDecimals).toFixed(2);
 
-			odds = getDisplayOdds(marketDetails.matchedOrders);
-			if (odds === 0) {
-				if (sells.length > 0) {
-					let lowestSell = sells[0];
-					const lowestBuyPrice = 1 - lowestSell[0] / priceDecimals;
-					odds = (lowestBuyPrice * 100);
-
-					if (isScalar) {
-						const upperBound = market.upper_bound;
-						const lowerBound = market.lower_bound;
-						odds = (upperBound * lowerBound) * odds;
-					}
-
-					odds = odds.toFixed(2);
-				}
+			if (marketDetails.matchedOrders && marketDetails.matchedOrders.length) {
+				volume = getVolume(marketDetails.matchedOrders).toFixed(2);
+				odds = getDisplayOdds(marketDetails.matchedOrders);
 			}
 		}
 

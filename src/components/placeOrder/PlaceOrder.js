@@ -145,6 +145,8 @@ export default class PlaceOrder extends Component {
 			orderPrice = price;
 		}
 
+		orderPrice = parseFloat(orderPrice.toFixed(6));
+
 		const amoveo3 = window.amoveo3;
 		if (amoveo3) {
 			amoveo3.currentProvider.send(

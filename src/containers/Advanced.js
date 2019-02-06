@@ -176,6 +176,8 @@ export default class Advanced extends Component {
 			const upperBound = market.upper_bound;
 			const lowerBound = market.lower_bound;
 
+			prices = this.fakePrices()
+
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
@@ -214,10 +216,6 @@ export default class Advanced extends Component {
 
 					<div styleName="MiddlePanel">
 						<div styleName="PriceChartContainer">
-							<div styleName="PanelTitle">
-								<p>Price Chart</p>
-							</div>
-
 							<PriceChart
 								prices={prices}
 								oid={oid}
@@ -232,11 +230,14 @@ export default class Advanced extends Component {
 							<DepthChart
 								buys={buys}
 								sells={sells}
+								marketType={marketType}
+								upperBound={upperBound}
+								lowerBound={lowerBound}
 							/>
 						</div>
 					</div>
 
-					<div  styleName="RightPanel">
+					<div styleName="RightPanel">
 						<div styleName="OrderBookContainer">
 							<div styleName="PanelTitle">
 								<p>Order Book</p>
@@ -246,6 +247,9 @@ export default class Advanced extends Component {
 								onSelectRow={this.onRowSelect}
 								buys={buys}
 								sells={sells}
+								marketType={marketType}
+								upperBound={upperBound}
+								lowerBound={lowerBound}
 							/>
 						</div>
 
@@ -263,5 +267,34 @@ export default class Advanced extends Component {
 				</div>
 			)
 		}
+	}
+
+	fakePrices() {
+		return [
+			{
+				buy_amount: 1000000,
+				market_oid: "HodiAM/zNGoQeXYMH8y/EjiY2yxWyxOI8hjqdAt5uUA=",
+				price: 7500,
+				timestamp: "01/27/2019 21:30:58",
+			},
+			{
+				buy_amount: 100000,
+				market_oid: "HodiAM/zNGoQeXYMH8y/EjiY2yxWyxOI8hjqdAt5uUA=",
+				price: 7800,
+				timestamp: "01/27/2019 21:45:58",
+			},
+			{
+				buy_amount: 1300000,
+				market_oid: "HodiAM/zNGoQeXYMH8y/EjiY2yxWyxOI8hjqdAt5uUA=",
+				price: 6900,
+				timestamp: "01/27/2019 21:55:58",
+			},
+			{
+				buy_amount: 130000,
+				market_oid: "HodiAM/zNGoQeXYMH8y/EjiY2yxWyxOI8hjqdAt5uUA=",
+				price: 7200,
+				timestamp: "01/27/2019 21:55:58",
+			},
+		]
 	}
 }

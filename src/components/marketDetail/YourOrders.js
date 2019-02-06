@@ -33,7 +33,7 @@ export default class YourOrders extends Component {
 		this.listener = 0;
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		const instance = this;
 		let lastOrderLength = 0;
 

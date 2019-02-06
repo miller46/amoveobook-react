@@ -15,6 +15,9 @@ export default class DepthChart extends Component {
 			prices: this.props.prices,
 			buys: this.props.buys,
 			sells: this.props.sells,
+			marketType: this.props.marketType,
+			upperBound: parseFloat(this.props.upperBound),
+			lowerBound: parseFloat(this.props.lowerBound),
 		}
 	}
 
@@ -116,7 +119,7 @@ export default class DepthChart extends Component {
 	}
 
 	render() {
-		const {prices, buys, sells} = this.state;
+		const {prices, buys, sells, marketType, upperBound, lowerBound} = this.state;
 
 		let sortedBuys = [];
 		let sortedSells = [];
@@ -164,7 +167,11 @@ export default class DepthChart extends Component {
 		for (let i = 0; i < sells.length; i++) {
 			let item = sells[i];
 			const amount = item[1] / tokenDecimals;
-			const price = item[0] / priceDecimals;
+			let price = item[0] / priceDecimals;
+
+			// if (marketType === "scalar") {
+			// 	price = price * (upperBound - lowerBound)
+			// }
 
 			if (price === lastSellPrice) {
 				const index = sortedSells.length - 1;
