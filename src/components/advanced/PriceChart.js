@@ -14,10 +14,15 @@ export default class PriceChart extends Component {
 			prices: this.props.prices,
 			selectedLength: "all",
 			selectedInterval: "1h",
+			marketType: this.props.marketType,
+			upperBound: parseFloat(this.props.upperBound),
+			lowerBound: parseFloat(this.props.lowerBound),
 		}
 	}
 
 	getOptions(ohlc, volume) {
+		const {marketType, upperBound, lowerBound} = this.state;
+
 		return {
 			chart: {
 				backgroundColor: '#0E0E0E'
@@ -46,7 +51,7 @@ export default class PriceChart extends Component {
 					x: -3
 				},
 				title: {
-					text: 'Price per Share (VEO)',
+					text: marketType === "scalar" ? "Price" : 'Price per Share (VEO)',
 				},
 				min: 0,
 				max: 100,

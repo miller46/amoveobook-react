@@ -22,6 +22,8 @@ export default class DepthChart extends Component {
 	}
 
 	getOptions(minX, maxX, minY, maxY, buys, sells) {
+		const {marketType} = this.state;
+
 		return {
 			chart: {
 				backgroundColor: '#0E0E0E',
@@ -42,7 +44,7 @@ export default class DepthChart extends Component {
 			},
 			xAxis: {
 				title: {
-					text: 'Price per Share (VEO)',
+					text: marketType === "scalar" ? "Price" : 'Price per Share (VEO)',
 					color: '#000000'
 				},
 				min: minX,
@@ -135,7 +137,12 @@ export default class DepthChart extends Component {
 		for (let i = 0; i < buys.length; i++) {
 			let item = buys[i];
 			const amount = item[1] / tokenDecimals;
-			const price = item[0] / priceDecimals;
+			let price = item[0] / priceDecimals;
+
+			if (marketType === "scalar") {
+				price = price * (upperBound - lowerBound)
+				price = parseFloat(price.toFixed(4));
+			}
 
 			if (price === lastBuyPrice) {
 				const index = sortedBuys.length - 1;
@@ -169,9 +176,10 @@ export default class DepthChart extends Component {
 			const amount = item[1] / tokenDecimals;
 			let price = item[0] / priceDecimals;
 
-			// if (marketType === "scalar") {
-			// 	price = price * (upperBound - lowerBound)
-			// }
+			if (marketType === "scalar") {
+				price = price * (upperBound - lowerBound)
+				price = parseFloat(price.toFixed(4));
+			}
 
 			if (price === lastSellPrice) {
 				const index = sortedSells.length - 1;
@@ -216,7 +224,13 @@ export default class DepthChart extends Component {
 				</div>
 			)
 		} else {
-			const options = this.getOptions(0, 1, minY, maxY * 1.1, sortedBuys, sortedSells);
+			let minX = 0;
+			let maxX = 1;
+			if (marketType === "scalar") {
+				minX = lowerBound;
+				maxX = upperBound
+			}
+			const options = this.getOptions(minX, maxX, minY, maxY * 1.1, sortedBuys, sortedSells);
 			return (
 				<div styleName="DepthChartContainer">
 					<HighchartsReact

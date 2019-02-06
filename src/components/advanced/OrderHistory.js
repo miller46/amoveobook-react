@@ -10,11 +10,14 @@ export default class OrderHistory extends Component {
 		super(props);
 		this.state = {
 			prices: this.props.prices,
+			marketType: this.props.marketType,
+			upperBound: parseFloat(this.props.upperBound),
+			lowerBound: parseFloat(this.props.lowerBound),
 		}
 	}
 
 	render() {
-		const {prices} = this.state;
+		const {prices, marketType, upperBound, lowerBound} = this.state;
 
 		let display;
 		if (prices.length === 0) {
@@ -38,17 +41,23 @@ export default class OrderHistory extends Component {
 
 				<div styleName="HistoryRows">
 					{
-						prices.map(function(price, index) {
+						prices.map(function(order, index) {
+							let price = order.price / priceDecimals
+							if (marketType === "scalar") {
+								price = price * (upperBound - lowerBound);
+								price = parseFloat(price.toFixed(4))
+							}
+
 							return (
 								<div styleName="HistoryRow" key={index}>
 									<div>
-										{price.buy_amount / tokenDecimals}
+										{order.buy_amount / tokenDecimals}
 									</div>
 									<div>
-										{price.price / priceDecimals}
+										{price}
 									</div>
 									<div>
-										{price.timestamp}
+										{order.timestamp}
 									</div>
 								</div>
 							)
