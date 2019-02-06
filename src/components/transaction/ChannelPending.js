@@ -15,14 +15,16 @@ export default class ChannelPending extends Component {
 		const channelPending = localStorage.getItem("channelPending") === "true";
 		if (channelPending) {
 			this.beginCountdown();
-			this.beginTxChecker();
 		}
+
+		this.beginTxChecker();
 
 		this.state = {
 			progress: parseInt(localStorage.getItem("channelProgress")) || 1,
 			duration: 420,
 			showPending: channelPending,
 			showConfirmation: false,
+			beganCountdown: false,
 		}
 	}
 
@@ -57,6 +59,9 @@ export default class ChannelPending extends Component {
 					instance.setState({showPending: false, showConfirmation: true});
 					clearInterval(instance.channelCheck);
 					clearInterval(instance.countDown);
+				} else {
+					instance.beginCountdown();
+					instance.setState({beganCountdown: true, showPending: true});
 				}
 			})
 			.catch(err => {
