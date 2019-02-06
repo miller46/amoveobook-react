@@ -175,7 +175,7 @@ export default class Advanced extends Component {
 			const marketType = market.market_type;
 			const upperBound = market.upper_bound;
 			const lowerBound = market.lower_bound;
-			
+
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">

@@ -29,9 +29,9 @@ export default class OrderBook extends Component {
 		}
 	}
 
-	onRowClick(side, price, amount) {
+	onRowClick(side, amount, price) {
 		const orderSide = side === "long" ? "sell" : "long";
-		this.props.onSelectRow(orderSide, price, amount);
+		this.props.onSelectRow(orderSide, amount, price);
 	}
 
 	render() {
@@ -98,9 +98,10 @@ export default class OrderBook extends Component {
 									const amount = sell[1] / tokenDecimals;
 									let price = sell[0] / priceDecimals;
 
+									let displayPrice = price;
 									if (marketType === "scalar") {
-										price = price * (upperBound - lowerBound);
-										price = parseFloat(price.toFixed(4))
+										displayPrice = price * (upperBound - lowerBound);
+										displayPrice = parseFloat(displayPrice.toFixed(4))
 									}
 
 									return (
@@ -113,7 +114,7 @@ export default class OrderBook extends Component {
 												{amount}
 											</div>
 											<div>
-												{price}
+												{displayPrice}
 											</div>
 										</div>
 									)
@@ -131,9 +132,10 @@ export default class OrderBook extends Component {
 									const amount = buy[1] / tokenDecimals;
 									let price = buy[0] / priceDecimals;
 
+									let displayPrice = price;
 									if (marketType === "scalar") {
-										price = price * (upperBound - lowerBound);
-										price = parseFloat(price.toFixed(4))
+										displayPrice = price * (upperBound - lowerBound);
+										displayPrice = parseFloat(displayPrice.toFixed(4))
 									}
 
 									return (
@@ -146,7 +148,7 @@ export default class OrderBook extends Component {
 												{amount}
 											</div>
 											<div>
-												{price}
+												{displayPrice}
 											</div>
 										</div>
 									)
