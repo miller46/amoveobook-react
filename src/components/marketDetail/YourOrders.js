@@ -162,13 +162,26 @@ export default class YourOrders extends Component {
 				<div styleName="OrderRows">
 					{
 						orders.map(function(row, index) {
+							let price;
+							if (isScalar) {
+								if (row.side === "true") {
+									price = (upperBound - lowerBound) * row.price
+								} else {
+									price = (upperBound - lowerBound) * (1 - row.price)
+								}
+							} else {
+								price = row.price;
+							}
+
+							price = parseFloat(price.toFixed(2))
+
 							return (
 								<div styleName="OrderRow" key={index}>
 									<div styleName={row.side === "true" ? "Long" : "Short"}>
 										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
-										{isScalar ? roundOff((upperBound - lowerBound) * row.price, 2) : roundOff(row.price, 2)}
+										{price}
 									</div>
 									<div>
 										{roundOff(row.amount, 6)}

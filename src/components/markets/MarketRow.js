@@ -64,6 +64,9 @@ export default class MarketRow extends Component {
 		const expiresText = getDisplayExpires(market.end_block, height);
 
 		const isScalar = market.market_type === "scalar";
+		const upperBound = market.upper_bound;
+		const lowerBound = market.lower_bound;
+
 		let volume = "--"
 		let openInterest = "--"
 		let odds = "--"
@@ -75,7 +78,16 @@ export default class MarketRow extends Component {
 
 			if (marketDetails.matchedOrders && marketDetails.matchedOrders.length) {
 				volume = getVolume(marketDetails.matchedOrders).toFixed(2);
-				odds = getDisplayOdds(marketDetails.matchedOrders);
+
+				if (isScalar) {
+					if (marketDetails.matchedOrders.length > 0) {
+						const price = marketDetails.matchedOrders[0].price / priceDecimals
+						const value = price * (upperBound - lowerBound);
+						odds = parseFloat(value.toFixed(2));
+					}
+				} else {
+					odds = getDisplayOdds(marketDetails.matchedOrders);
+				}
 			}
 		}
 

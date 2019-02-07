@@ -147,6 +147,11 @@ export default class PlaceOrder extends Component {
 
 		orderPrice = parseFloat(orderPrice.toFixed(6));
 
+		const isLong = selectedSide === "long";
+		if (!isLong) {
+			orderPrice = 1 - orderPrice
+		}
+
 		const amoveo3 = window.amoveo3;
 		if (amoveo3) {
 			amoveo3.currentProvider.send(
