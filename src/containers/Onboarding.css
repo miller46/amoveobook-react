@@ -3,6 +3,7 @@
     text-decoration: underline;
     padding: 8px;
     width: 60px;
+    float: right;
 }
 
 .Onboarding {
@@ -13,3 +14,8 @@
     margin-bottom: 256px;
     display: inline-block;
 }
+
+.Onboarding > div {
+    clear: both;
+}
+
