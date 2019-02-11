@@ -66,7 +66,7 @@ export default class NavBar extends Component {
 						<Account />
 					</div>
 
-					<div className="right">
+					<div styleName="NavBarCenter">
 						<Logo />
 					</div>
 
