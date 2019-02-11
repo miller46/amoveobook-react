@@ -206,6 +206,7 @@ export default class Advanced extends Component {
 						<Calculator
 							amount={amount}
 							price={price}
+							titleOverride={true}
 							marketType={marketType}
 							upperBound={upperBound}
 							lowerBound={lowerBound}

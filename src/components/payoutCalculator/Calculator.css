@@ -47,6 +47,12 @@
 
 }
 
+.PanelTitle {
+    font-weight: 500;
+    line-height: 44px;
+    margin-top: -16px;
+}
+
 .Header p {
     font-size: 0.7rem;
     color: #bbb;

@@ -38,6 +38,7 @@ export default class Calculator extends Component {
 			amount: parseFloat(this.props.amount),
 			price: parseFloat(this.props.price),
 			marketType: this.props.marketType,
+			titleOverride: this.props.titleOverride || false,
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
 			sliderValue: 50,
@@ -66,7 +67,7 @@ export default class Calculator extends Component {
 	}
 
 	render() {
-		const {amount, price, sliderValue, marketType, upperBound, lowerBound} = this.state;
+		const {amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
 
 		const {veoPrices} = this.props;
 		const currencyId = this.props.currencyId || "usd"
@@ -171,7 +172,7 @@ export default class Calculator extends Component {
 		return (
 			<div styleName="Calculator">
 				<div>
-					<SectionLabel titleText="Payout Calculator"/>
+					{titleOverride ? <p styleName="PanelTitle">Payout Calculator</p> : <SectionLabel titleText="Payout Calculator"/>}
 				</div>
 
 				{tableBody}
