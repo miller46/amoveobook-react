@@ -48,8 +48,8 @@ export default class OrderBook extends Component {
 			const price = buy[0];
 			const amount = buy[1];
 			if (buy[0] === lastBuyPrice) {
-				const index = sortedBuys.length - 1;
-				sortedBuys[index][1] = sortedBuys[index][1] + amount;
+				const buyLength = sortedBuys.length - 1;
+				sortedBuys[buyLength][1] = sortedBuys[buyLength][1] + amount;
 			} else {
 				sortedBuys.push([price, amount])
 			}
@@ -62,8 +62,8 @@ export default class OrderBook extends Component {
 			const price = sell[0];
 			const amount = sell[1];
 			if (sell[0] === lastSellPrice) {
-				const index = sortedSells.length - 1;
-				sortedSells[index][1] = sortedBuys[index][1] + amount;
+				const sellLength = sortedSells.length - 1;
+				sortedSells[sellLength][1] = sortedSells[sellLength][1] + amount;
 			} else {
 				sortedSells.push([price, amount])
 			}
