@@ -20,6 +20,6 @@ export const api = {
 	},
 	testnet: {
 		nodeUrl: apiBase + "testnet/node",
-		serverPublicKey: "BKw7qHfymuCuUnakeUJW/qhrz4MBzwBrIxJq8hihW5Do6zVQtA8C9t5DBHTrWZ5GT5SKnRztKz+JvpC2BYpsn2Y=",
+		serverPublicKey: "BLm3916d/2FlCFfg38nnyzaQQ7dggzw3C3xZCopeAAMVK2PiszM6ag3yD2Q3YrQpPsh+utAdX6tpPqVhviGtmXE=",
 	}
 }

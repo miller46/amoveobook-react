@@ -96,7 +96,7 @@ export default class Onboarding extends Component {
 
 	advanceToSplash() {
 		const {account} = this.props;
-		if (account) {
+		// if (account) {
 			this.setState({
 				channel: true,
 			})
@@ -104,7 +104,7 @@ export default class Onboarding extends Component {
 			this.context.router.push("/")
 
 			clearInterval(this.listener);
-		}
+		// }
 	}
 
 	render() {
