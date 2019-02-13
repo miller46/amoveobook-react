@@ -1,27 +1,28 @@
 body {
-  font-family: 'Work Sans';
+    font-family: 'Work Sans';
+    background: #F2F2F2;
 }
 
 p {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 :global(.left) {
-  float: left;
+    float: left;
 }
 
 :global(.right) {
-  float: right;
+    float: right;
 }
 
 :global(.clear) {
-  clear:both;
+    clear:both;
 }
 
 :global(.clearfix) {
-  overflow: auto;
+    overflow: auto;
 }
 
 :global(.highcharts-credits) {
-  display: none !important;
+    display: none !important;
 }

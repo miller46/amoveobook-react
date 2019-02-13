@@ -7,6 +7,7 @@ import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 import RequestMarket from "../components/requestMarket/RequestMarket";
 import CSSModules from "react-css-modules/dist/index";
 
+
 @CSSModules(styles)
 export default class Splash extends Component {
 

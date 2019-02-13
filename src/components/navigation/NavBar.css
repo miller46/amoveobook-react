@@ -2,6 +2,7 @@
     padding: 8px;
     color: #0E0E0E;
     overflow: hidden;
+    background: #ffffff;
 }
 
 .NavBar a:visited {
