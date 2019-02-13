@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules'
+import styles from './LanguagePicker.css'
 const ClickOutHandler = require('react-onclickout');
 
-import styles2 from './LanguagePicker.css'
-import { getVeoPrices, setCurrency, getCurrency } from '../../actions/index';
+import { setCurrency, getCurrency } from '../../actions/index';
 
 import {currencies} from '../../config'
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.default.loading.veoPrices,
 		currencyId: state.default.currencyId,
-		veoPrices: state.default.veoPrices,
-		error: state.default.error.veoPrices,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getVeoPrices: () => {
-			dispatch(getVeoPrices());
-		},
 		getCurrency: () => {
 			dispatch(getCurrency());
 		},
@@ -32,7 +26,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
-@CSSModules(styles2)
+@CSSModules(styles)
 export default class VeoPrice extends Component {
 
 	constructor(props) {
@@ -46,11 +40,6 @@ export default class VeoPrice extends Component {
 		this.closePicker = this.closePicker.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.selectCurrencyAndClose = this.selectCurrencyAndClose.bind(this);
-	}
-
-	componentDidMount() {
-		this.props.getVeoPrices();
-		this.props.getCurrency();
 	}
 
 	closePicker() {
@@ -68,53 +57,43 @@ export default class VeoPrice extends Component {
 
 	render() {
 		const {showing} = this.state;
-		const {loading, veoPrices, error} = this.props;
 		const currencyId = this.props.currencyId || "usd"
 		const selectedCurrency = currencies[currencyId]
 
-		const veoPrice = veoPrices[currencyId] * veoPrices.last;
-		const veoPriceDisplay = veoPrice ? veoPrice.toFixed(2) : "--";
-		let display;
-		if (loading) {
-			display = <p>Loading...</p>
-		} else if (error) {
-			display = <p>--</p>
-		} else {
-			let unselected = <div styleName="Hidden"></div>
-			if (showing) {
-				unselected = <ClickOutHandler onClickOut={this.closePicker}>
-					{
-						Object.keys(currencies).map((key, index) => {
-							const currency = currencies[key];
-							if (key !== currencyId) {
-								return (
-									<div
-										styleName="UnselectedRow"
-										key={index}
-										onClick={() => this.selectCurrencyAndClose(key)}>
-										<p>
-											{currency.symbol} {currency.displayName}
-										</p>
-									</div>
-								)
-							}
-						})
-					}
-					<div className="clear"></div>
-				</ClickOutHandler>
-			}
+		let unselected = <div styleName="Hidden"></div>
+		if (showing) {
+			unselected = <ClickOutHandler onClickOut={this.closePicker}>
+				{
+					Object.keys(currencies).map((key, index) => {
+						const currency = currencies[key];
+						if (key !== currencyId) {
+							return (
+								<div
+									styleName="UnselectedRow"
+									key={index}
+									onClick={() => this.selectCurrencyAndClose(key)}>
+									<p>
+										{currency.symbol} {currency.displayName}
+									</p>
+								</div>
+							)
+						}
+					})
+				}
+				<div className="clear"></div>
+			</ClickOutHandler>
+		}
 
-			display = <div>
-				<div styleName="Selected" onClick={() => this.toggle()}>
-					<div styleName="SelectedRow">
-						<p>1 VEO ≈ {selectedCurrency.symbol}{veoPriceDisplay} <small> ▼</small></p>
-					</div>
-				</div>
-				<div styleName="Unselected">
-					{unselected}
+		const display = <div>
+			<div styleName="Selected" onClick={() => this.toggle()}>
+				<div styleName="SelectedRow">
+					<p>{selectedCurrency.symbol} {selectedCurrency.displayName} <small> ▼</small></p>
 				</div>
 			</div>
-		}
+			<div styleName="Unselected">
+				{unselected}
+			</div>
+		</div>
 
 		return (
 			<div styleName="LanguagePicker">

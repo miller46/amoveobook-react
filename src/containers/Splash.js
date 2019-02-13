@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import styles from './App.css'
+import WelcomeContainer from "../components/markets/WelcomeContainer";
 import MarketsList from "../components/markets/MarketsList";
 import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 import RequestMarket from "../components/requestMarket/RequestMarket";
@@ -19,6 +20,8 @@ export default class Splash extends Component {
 	render() {
 		return (
 			<div styleName="SplashContainer">
+				<WelcomeContainer />
+
 				<MarketsList />
 
 				<hr />
