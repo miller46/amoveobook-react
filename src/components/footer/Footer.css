@@ -1,10 +1,10 @@
 .Footer {
-    background: #000;
+    background: #0E0E0E;
     position: absolute;
     width: 100%;
     min-height: 400px;
     color: white;
-    text-align: center;
+    text-align: left;
 }
 
 .Footer a {
@@ -27,7 +27,7 @@
 }
 
 .Brand {
-    width: 33%;
+    width: 45%;
     float: left;
     margin-top: 64px;
 }
@@ -37,15 +37,20 @@
 }
 
 .Links {
-    width: 33%;
+    width: 30%;
     float: left;
     margin-top: 32px
 }
 
 .Info {
-    width: 33%;
+    width: 25%;
     float: left;
     margin-top: 32px
+}
+
+.Legalese {
+    text-align: center;
+    margin-left: -32px !important;
 }
 
 @media (max-width: 800px) {

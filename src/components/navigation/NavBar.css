@@ -1,12 +1,11 @@
 .NavBar {
-    background-color: #000000;
     padding: 8px;
-    color: #FFFFFF;
+    color: #0E0E0E;
     overflow: hidden;
 }
 
 .NavBar a:visited {
-    color: #ffffff;
+    color: #0E0E0E;
 }
 
 .NavBarLeft {
@@ -52,7 +51,7 @@
 .NavNarrow i {
     float: left;
     cursor: pointer;
-    color: #fff;
+    color: #0E0E0E;
     padding: 8px;
 }
 
@@ -78,7 +77,7 @@
 }
 
 .LinkRow, .LinkRowPad {
-    border-top: 1px solid white;
+    border-top: 1px solid #0E0E0E;
     height: 60px;
 }
 

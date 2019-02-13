@@ -1,7 +1,7 @@
 .Logo {
     padding-top: 4px;
     overflow: auto;
-    width: 192px;
+    width: 254px;
 }
 
 .Logo img {
@@ -10,11 +10,18 @@
     margin-right: 8px;
 }
 
+.Light {
+    color: #ffffff !important;
+    font-size: 24px !important;
+    margin-top: 2px !important;
+}
+
 .Logo p {
-    color: #FFEB3B !important;
-    font-size: 24px;
+    color: #0E0E0E;
+    font-size: 32px;
     text-shadow: unset;
     float: left;
+    margin-top: -4px;
 }
 
 .Logo a {

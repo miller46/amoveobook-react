@@ -14,8 +14,13 @@ export default class Footer extends Component {
 		return (
 			<div styleName="Footer">
 				<div styleName="Brand">
-					<Logo/>
-					<small>© 2018 AmoveoBook</small>
+					<Logo lightMode={true} />
+					<div styleName="Legalese">
+						<small>© 2018 AmoveoBook.</small>
+					</div>
+					<div styleName="Legalese">
+						<small>All rights reserved.</small>
+					</div>
 				</div>
 
 				<div styleName="Links">

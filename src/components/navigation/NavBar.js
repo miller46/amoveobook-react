@@ -60,8 +60,8 @@ export default class NavBar extends Component {
 					</div>
 				</div>
 				<div styleName="NavNarrow">
-					<i id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
-					<i style={{display: 'none'}} id="icon-x" className="fas fa-times fa-2x" onClick={this.burgerToggle}></i>
+					<i style={{color: 'black'}} id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+					<i style={{color: 'black', display: 'none'}} id="icon-x" className="fas fa-times fa-2x" onClick={this.burgerToggle}></i>
 					<div styleName="NavBarRight">
 						<Account />
 					</div>
