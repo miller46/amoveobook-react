@@ -3,6 +3,7 @@
     background: #FFFFFF;
     margin: 16px 0;
     text-align: left;
+    max-width: 644px;
 }
 
 .Card:hover {
@@ -21,14 +22,14 @@
 
 .Expires label {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .Question p {
     margin: 8px 0 0 0;
     text-align: left;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     color: #484848;
 }
 
@@ -47,7 +48,7 @@
 
 .LeftPanel {
     float: left;
-    width: 80%;
+    max-width: 450px;
     padding: 16px;
     min-height: 176px;
 }
@@ -71,7 +72,7 @@
 .RightPanel p {
     color: #19BA0C;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 @media (max-width: 680px) {

@@ -30,6 +30,7 @@
     border: 2px solid white;
     border-radius: 4px;
     max-width: 68px;
+    font-weight: 500
 }
 
 .Login:hover {

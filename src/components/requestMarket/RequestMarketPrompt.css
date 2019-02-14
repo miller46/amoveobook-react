@@ -1,0 +1,27 @@
+.Container {
+    float: right;
+    text-align: right;
+    max-width: 280px;
+    margin-top: 84px;
+}
+
+.Button {
+    border: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    background: #0E0E0E;
+    color: #FFFFFF;
+    border-radius: 16px;
+    font-size: 1rem;
+    height: 40px;
+    padding: 0 16px;
+}
+
+.Button:hover {
+    color: #FDD835;
+}
+
+.Container p {
+    color: #707070;
+    margin-top: 16px;
+    line-height: 20px;
+}

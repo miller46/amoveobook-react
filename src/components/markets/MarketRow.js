@@ -108,7 +108,7 @@ export default class MarketRow extends Component {
 					<div styleName="RightPanel">
 						<div>
 							<label>Volume</label>
-							<p>{volume} <small>{tokenUnit}</small></p>
+							<p>{volume} {tokenUnit}</p>
 						</div>
 						<div>
 							<label>{isScalar ? "Current Value" : "Odds"}</label>

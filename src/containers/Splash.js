@@ -4,8 +4,8 @@ import styles from './App.css'
 import WelcomeContainer from "../components/markets/WelcomeContainer";
 import MarketsList from "../components/markets/MarketsList";
 import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
-import RequestMarket from "../components/requestMarket/RequestMarket";
 import CSSModules from "react-css-modules/dist/index";
+import RequestMarketPrompt from "../components/requestMarket/RequestMarketPrompt";
 
 
 @CSSModules(styles)
@@ -21,20 +21,19 @@ export default class Splash extends Component {
 	render() {
 		return (
 			<div styleName="SplashContainer">
-				<WelcomeContainer />
+				<div styleName="TopContainer">
+					<WelcomeContainer />
+
+					<RequestMarketPrompt />
+				</div>
 
 				<MarketsList />
-
-				<hr />
 
 				<ExpiredMarketsList
 					limit={3}
 					seeMore={true}
 				/>
 
-				<hr />
-
-				<RequestMarket />
 			</div>
 		)
 	}
