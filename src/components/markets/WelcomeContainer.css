@@ -1,8 +1,9 @@
 .WelcomeContainer {
     margin-top: 64px;
     margin-bottom: 64px;
-    margin-left: 24px;
+    margin-left: 32px;
     text-align: left;
+    overflow: auto;
 }
 
 .VeoPrice > div {
@@ -26,4 +27,5 @@
 .Welcome {
     font-size: 32px;
     font-weight: 900;
+    text-transform: uppercase;
 }

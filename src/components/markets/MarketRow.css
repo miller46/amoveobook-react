@@ -1,11 +1,7 @@
 .Card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.42);
-    color: white;
-    background: #0E0E0E;
-    margin: 0 auto 16px auto;
-    padding: 16px;
-    max-width: 800px;
-    border-radius: 4px;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, .12), 0 4px 8px 0 rgba(0, 0, 0, .42);
+    background: #FFFFFF;
+    margin: 16px 0;
     text-align: left;
 }
 
@@ -18,27 +14,31 @@
 
 .Expires {
     text-align: left;
+    color: #E25E5E;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
 }
 
-.Question h1 {
-    margin: 0;
+.Expires label {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.Question p {
+    margin: 8px 0 0 0;
     text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #484848;
 }
 
 .Question {
-    min-height: 114px;
+    min-height: 76px;
 }
 
 .Market label {
-    font-size: 1rem;
-    margin-top: 5px;
     margin-bottom: 0;
     font-weight: 700;
-}
-
-.Market p {
-    font-size: 1.4rem;
-    color: #FFEB3B;
 }
 
 .Separator {
@@ -47,9 +47,9 @@
 
 .LeftPanel {
     float: left;
-    width: 75%;
-    border-right: 2px solid white;
-    padding-right: 32px;
+    width: 80%;
+    padding: 16px;
+    min-height: 176px;
 }
 
 .LeftPanel label {
@@ -57,11 +57,22 @@
 }
 
 .RightPanel {
-    width: 25%;
+    width: 130px;
     float: right;
-    padding-left: 32px;
+    padding: 16px;
+    border-left: 2px solid #eeeeee;
 }
 
+.RightPanel label {
+    color: #9D9D9D;
+    font-size: 0.75rem;
+}
+
+.RightPanel p {
+    color: #19BA0C;
+    font-size: 1rem;
+    font-weight: bold;
+}
 
 @media (max-width: 680px) {
     .QuestionCol {

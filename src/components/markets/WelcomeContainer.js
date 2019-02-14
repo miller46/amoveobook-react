@@ -66,7 +66,7 @@ export default class WelcomeContainer extends Component {
 
 		return (
 			<div styleName="WelcomeContainer">
-				<p styleName="Welcome">WELCOME</p>
+				<p styleName="Welcome">Welcome</p>
 
 				<div styleName="VeoPrice">
 					<div>

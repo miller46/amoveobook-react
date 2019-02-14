@@ -1,16 +1,16 @@
 .App {
-  text-align: center;
+
 }
 
 .AppContainer {
-  text-align: center;
+
 }
 
 .SplashContainer {
   background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
   background-position-y: -150px;
-  max-width: 870px;
-  text-align: center;
+  background-size: contain;
+  max-width: 55%;
   overflow: auto;
 }
 

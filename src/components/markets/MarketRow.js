@@ -96,7 +96,7 @@ export default class MarketRow extends Component {
 				<div styleName="Market">
 					<div styleName="LeftPanel">
 						<div styleName="Question">
-							<h1>{market.question}</h1>
+							<p>{market.question}</p>
 						</div>
 						<div  styleName="Expires">
 							<label>Expires</label>
@@ -116,8 +116,7 @@ export default class MarketRow extends Component {
 						</div>
 						<div>
 							<label>Open Bets</label>
-							<p>{openInterest} <small>{tokenUnit}</small>
-							</p>
+							<p>{openInterest} {tokenUnit}</p>
 						</div>
 					</div>
 					<div className="clear"></div>

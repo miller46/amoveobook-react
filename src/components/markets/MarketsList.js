@@ -6,7 +6,6 @@ import {getNetwork} from "../../amoveo3utility";
 import Loading from "../loading/Loading";
 import styles from './MarketsList.css'
 import MarketRow from './MarketRow'
-import SectionLabel from "./SectionLabel";
 
 const mapStateToProps = (state) => {
 	return {
@@ -67,7 +66,7 @@ export default class MarketsList extends Component {
 
 		return (
 			<div styleName="List">
-				<SectionLabel titleText={"Active Markets"} />
+				<p styleName="Title">Active Markets</p>
 
 				{display}
 			</div>
