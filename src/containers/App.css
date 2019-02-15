@@ -31,19 +31,6 @@
   float: right;
 }
 
-.NavDrawerContainer {
-  float: left;
-  height: 100vh;
-  position: relative;
-  z-index: 999;
-  width: 400px;
-  background: #FFFFFF;
-}
-
-.NavDrawer {
-  width: 400px;
-}
-
 .Disabled {
   height: 100%;
   width: 100%;
@@ -52,13 +39,17 @@
   position: absolute;
 }
 
+.NoScroll {
+  overflow: hidden;
+}
+
 .NavDrawerHidden {
   display: none;
 }
 
 :global .slide-appear,
 :global .slide-enter {
-  margin-left: -400px;
+  margin-left: -340px;
   transition: 0.5s ease;
 }
 
@@ -72,7 +63,7 @@
 }
 
 :global .slide-leave.slide-leave-active {
-  margin-left: -400px;
+  margin-left: -340px;
   transition: 0.3s ease;
 }
 
@@ -103,4 +94,3 @@
 
   }
 }
-

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import styles from './NavBar.css'
+import styles from './Drawer.css'
 
 import Logo from './Logo'
 import AmoveoExchangeLink from './AmoveoExchangeLink'
@@ -17,7 +17,6 @@ export default class NavBar extends Component {
 		this.state = {
 			account: this.props.account,
 			loading: this.props.loading,
-			showingDrawer: this.props.showingDrawer || false,
 		}
 
 		if (this.props.onDrawerClick) {
@@ -27,43 +26,40 @@ export default class NavBar extends Component {
 		this.burgerToggle = this.burgerToggle.bind(this);
 	}
 
-
-	componentWillReceiveProps(props) {
-		this.setState({showingDrawer: props.showingDrawer})
-	}
-
 	burgerToggle() {
-		let burger = document.getElementById('icon-burger');
-		if (burger.style.display === 'none') {
-			burger.style.display = 'block';
-		} else {
-			burger.style.display = 'none';
-		}
-
 		if (this.props.onDrawerClick) {
 			this.props.onDrawerClick();
 		}
 	}
 
 	render() {
-		const {showingDrawer} = this.state;
-
-		const burgerDisplay = showingDrawer ? 'none' : '';
-
 		return (
-			<nav styleName="NavBar">
-				<div styleName="NavNarrow">
-					<i style={{color: 'black', display: burgerDisplay}} id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+			<div styleName="NavDrawerContainer">
+				<div styleName="NavDrawer">
+					<div styleName="TopRow">
+						<i id="icon-x" className="fas fa-times fa-2x" onClick={this.burgerToggle}></i>
 
-					<div styleName="NavBarRight">
-						<Account />
 					</div>
 
-					<div style={{display: burgerDisplay}} styleName="NavBarCenter">
-						<Logo />
+					<div>
+						<div styleName="Row">
+							<VeoPrice />
+						</div>
+
+						<div styleName="Row">
+							<AmoveoExchangeLink />
+						</div>
+
+						<div styleName="Row">
+							<LanguagePicker />
+						</div>
+
+						<div styleName="Row">
+							<Help />
+						</div>
 					</div>
 				</div>
-			</nav>
+			</div>
 		)
 	}
 }

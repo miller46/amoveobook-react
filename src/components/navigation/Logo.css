@@ -34,27 +34,17 @@
     }
 }
 
-@media (max-width: 421px) {
+@media (max-width: 517px) {
     .Logo {
         padding-bottom: 8px;
-        width: 234px;
-    }
-
-    .Logo p {
-        font-size: 1.8rem;
-        padding-top: 4px;
-    }
-}
-
-@media (max-width: 401px) {
-    .Logo {
-        padding-bottom: 8px;
-        width: 220px;
+        width: 229px;
+        padding-left: 16px;
+        padding-top: 5px;
     }
 
     .Logo p {
         font-size: 1.6rem;
-        padding-top: 6px;
+        padding-top: 4px;
     }
 }
 

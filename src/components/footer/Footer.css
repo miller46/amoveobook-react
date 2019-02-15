@@ -73,4 +73,11 @@
         margin-top: 32px;
         padding-left: 32px;
     }
+
+}
+
+@media (max-width: 517px) {
+    .Legalese {
+        margin-left: 0 !important;
+    }
 }

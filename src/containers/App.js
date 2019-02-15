@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './App.css'
 import NavBar from '../components/navigation/NavBar'
+import Drawer from '../components/navigation/Drawer'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
@@ -80,6 +81,11 @@ export default class App extends Component {
 
 	showDrawer() {
 		const {showDrawer} = this.state;
+		if (showDrawer) {
+			document.body.style.overflow = "auto";
+		} else {
+			document.body.style.overflow = "hidden";
+		}
 		this.setState({showDrawer: !showDrawer});
 	}
 
@@ -88,8 +94,10 @@ export default class App extends Component {
 		const path = this.props.location.pathname;
 
 		const contentClass = showDrawer ? "Disabled" : ""
+		const bodyClass = showDrawer ? "NoScroll" : ""
+
 		return (
-			<div>
+			<div styleName={bodyClass}>
 				<ReactCSSTransitionGroup
 					transitionName="slide"
 					transitionEnter={true}
@@ -100,11 +108,9 @@ export default class App extends Component {
 					transitionLeaveTimeout={100}>
 					{
 						showDrawer &&
-						<div styleName="NavDrawerContainer">
-							<div styleName="NavDrawer">
-								<p>Draw me like one of your French girls</p>
-							</div>
-						</div>
+						<Drawer
+							onDrawerClick={this.showDrawer}
+						/>
 					}
 				</ReactCSSTransitionGroup>
 
@@ -113,7 +119,10 @@ export default class App extends Component {
 					</div>
 
 					<div>
-						<NavBar onDrawerClick={this.showDrawer} />
+						<NavBar
+							showingDrawer={showDrawer}
+							onDrawerClick={this.showDrawer}
+						/>
 					</div>
 
 					<USWarning />

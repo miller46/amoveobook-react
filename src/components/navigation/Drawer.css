@@ -1,0 +1,39 @@
+.NavDrawerContainer {
+    float: left;
+    height: 100vh;
+    position: relative;
+    z-index: 999;
+    width: 340px;
+    background: #FFFFFF;
+}
+
+.NavDrawer {
+    width: 340px;
+}
+
+.Row {
+    overflow: auto;
+    height: 80px;
+    border-bottom: 2px solid #eee;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.Row a:hover {
+    color: #FDD835;
+    font-weight: bold;
+}
+
+.TopRow {
+    height: 65px;
+    padding: 8px;
+    border-bottom: 2px solid #eee;
+}
+
+i {
+    float: left;
+    cursor: pointer;
+    color: #0E0E0E;
+    padding: 8px;
+}
