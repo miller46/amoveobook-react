@@ -21,19 +21,23 @@ export default class Splash extends Component {
 	render() {
 		return (
 			<div styleName="SplashContainer">
-				<div styleName="TopContainer">
-					<WelcomeContainer />
+				<div styleName="LeftPanel">
+					<div styleName="TopContainer">
+						<WelcomeContainer />
 
-					<RequestMarketPrompt />
+						<RequestMarketPrompt />
+					</div>
+
+					<MarketsList />
+
 				</div>
 
-				<MarketsList />
-
-				<ExpiredMarketsList
-					limit={3}
-					seeMore={true}
-				/>
-
+				<div styleName="RightPanel">
+					<ExpiredMarketsList
+						limit={10}
+						seeMore={true}
+					/>
+				</div>
 			</div>
 		)
 	}

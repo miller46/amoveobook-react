@@ -13,11 +13,20 @@
 }
 
 .SplashContainer {
+  overflow: auto;
+}
+
+.LeftPanel {
   background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
   background-position-y: -150px;
   background-size: contain;
-  max-width: 55%;
+  width: 900px;
   overflow: auto;
+  float: left;
+}
+
+.RightPanel {
+  float: right;
 }
 
 .App-logo {

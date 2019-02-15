@@ -16,16 +16,25 @@ export default class ExpiredMarketsRow extends Component {
 	render() {
 		const {market} = this.state;
 
+		const isFalse = market.resolution === "false"
+		const expiredClass = isFalse ? "ExpiredCol" : "ExpiredFalseCol";
+		const resolutionClass = isFalse ? "ResolutionCol" : "ResolutionFalseCol";
+
 		return (
 			<div styleName="Row">
-				<div styleName="QuestionCol">
-					<p>{market.question}</p>
+				<div styleName="LeftPanel">
+					<div styleName={expiredClass}>
+						<p>{market.end_block}</p>
+					</div>
+					<div styleName={resolutionClass}>
+						<p>{market.resolution}</p>
+					</div>
 				</div>
-				<div styleName="ExpiredCol">
-					<p>{market.end_block}</p>
-				</div>
-				<div styleName="ResolutionCol">
-					<p>{market.resolution}</p>
+
+				<div styleName="RightPanel">
+					<div styleName="QuestionCol">
+						<p>{market.question}</p>
+					</div>
 				</div>
 			</div>
 		)

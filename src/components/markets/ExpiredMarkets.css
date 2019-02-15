@@ -1,9 +1,9 @@
 .List {
-    max-width: 1100px;
+    max-width: 430px;
     margin: auto;
-    padding: 32px;
     margin-bottom: 64px;
     overflow: auto;
+    background: #FFFFFF;
 }
 
 .LoadingPlaceholder {
@@ -12,12 +12,10 @@
 }
 
 .QuestionCol {
-    padding-right: 64px;
-    width: 80%;
     float: left;
     text-align: left;
     display: table;
-    height: 80px;
+    min-height: 60px;
 }
 
 .QuestionCol p {
@@ -26,54 +24,80 @@
 }
 
 .ExpiredCol {
-    width: 10%;
-    float: left;
-    line-height: 80px;
+    color: #19BA0C;
 }
 
 .ResolutionCol {
-    width: 10%;
-    float: left;
-    line-height: 80px;
+    border: 1px solid #19BA0C;
+    color: #19BA0C;
 }
 
-.TableHeader {
-    overflow: auto;
-    border-bottom: 1px solid black;
+.ExpiredFalseCol {
+    color: #E25E5E;
 }
 
-.TableHeader div {
-    float: left;
-    width: 25%;
-    font-weight: bold;
+.ResolutionFalseCol {
+    border: 1px solid #E25E5E;
+    color: #E25E5E;
 }
 
-.TableHeader > div:first-child {
-    text-align: left;
-    width: 80%;
+.ExpiredCol, .ExpiredFalseCol {
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-.TableHeader div {
-    float: left;
-    width: 10%;
-    font-weight: bold;
+.ResolutionCol, .ResolutionFalseCol {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.ExpiredCol, .ResolutionCol, .ExpiredFalseCol, .ResolutionFalseCol {
+    text-transform: capitalize;
+    text-align: center;
+    padding: 4px 16px;
+    border-radius: 16px;
+}
+
+.ExpiredCol > p, .ResolutionCol > p, .ExpiredFalseCol > p, .ResolutionFalseCol > p {
+    height: 16px;
 }
 
 .Row {
     padding-top: 16px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #444;
+    border-bottom: 2px solid #F2F2F2;
     overflow: auto;
     min-height: 8px;
+}
+
+.Title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 32px 0 32px 16px;
+    border-bottom: 2px solid #F2F2F2;
 }
 
 .SeeMore {
     padding-top: 16px;
     padding-bottom: 16px;
     cursor: pointer;
-    text-decoration: underline;
+    font-weight: 500;
     width: 100px;
-    margin: 16px auto;
+    margin: auto;
+}
+
+.LeftPanel {
+    float: left;
+    margin: 0 16px;
+}
+
+.RightPanel {
+    float: right;
+    max-width: 300px;
+    margin-right: 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
 }
 
 @media (max-width: 782px) {

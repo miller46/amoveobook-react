@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import {getExpiredMarkets} from "../../actions";
 import Loading from "../loading/Loading";
-import SectionLabel from "./SectionLabel";
 import styles from './ExpiredMarkets.css'
 import CSSModules from "react-css-modules/dist/index";
 import ExpiredMarketsRow from "./ExpiredMarketRow";
 import PropTypes from 'prop-types';
+import {getNetwork} from "../../amoveo3utility";
 
 const mapStateToProps = (state) => {
 	return {
@@ -46,7 +46,8 @@ export default class ExpiredMarketsList extends Component {
 
 	componentDidMount() {
 		const {limit} = this.state;
-		this.props.getExpiredMarkets({limit: limit});
+		const network = getNetwork(window.amoveo3);
+		this.props.getExpiredMarkets({limit: limit, network: network});
 	}
 
 	render() {
@@ -69,20 +70,9 @@ export default class ExpiredMarketsList extends Component {
 		} else {
 			return (
 				<div styleName="List">
-					<SectionLabel titleText={"Expired Markets"} />
+					<p styleName="Title">Expired Markets</p>
 
 					<div>
-						<div styleName="TableHeader">
-							<div>
-								<p>Market</p>
-							</div>
-							<div>
-								<p>Expired</p>
-							</div>
-							<div>
-								<p>Outcome</p>
-							</div>
-						</div>
 						{
 							expiredMarkets.map(function(market, index) {
 								return (
