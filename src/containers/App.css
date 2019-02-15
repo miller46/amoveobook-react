@@ -20,7 +20,8 @@
   background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
   background-position-y: -150px;
   background-size: contain;
-  width: 900px;
+  width: calc(100% - 430px);
+  min-width: 500px;
   overflow: auto;
   float: left;
 }
@@ -29,31 +30,20 @@
   float: right;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 1144px) {
+  .LeftPanel {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .RightPanel {
+    float: left;
+  }
+
+}
+
+@media (max-width: 1334px) {
+  .LeftPanel {
+
   }
 }
+
