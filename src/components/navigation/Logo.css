@@ -46,3 +46,15 @@
     }
 }
 
+@media (max-width: 401px) {
+    .Logo {
+        padding-bottom: 8px;
+        width: 220px;
+    }
+
+    .Logo p {
+        font-size: 1.6rem;
+        padding-top: 6px;
+    }
+}
+
