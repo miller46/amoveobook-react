@@ -30,3 +30,18 @@
     font-weight: 700;
     text-transform: uppercase;
 }
+
+@media (max-width: 527px) {
+    .VeoPrice {
+        overflow: auto;
+        text-align: center;
+        margin: auto;
+        width: 180px;
+    }
+
+    .WelcomeContainer {
+        text-align: center;
+        float: none;
+        margin: 32px auto;
+    }
+}

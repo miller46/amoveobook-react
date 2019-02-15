@@ -8,7 +8,7 @@
 
 .LoadingPlaceholder {
     text-align: center;
-    margin-top: 64px;
+    margin: 64px auto;
 }
 
 .QuestionCol {
@@ -100,47 +100,12 @@
     font-weight: 500;
 }
 
-@media (max-width: 782px) {
-    .TableHeader > div:first-child {
-        width: 60%;
+@media (max-width: 440px) {
+    .List {
+        width: 100%;
     }
 
-    .TableHeader div {
-        width: 20%;
-    }
-
-    .QuestionCol {
-        width: 60%;
-    }
-
-    .ExpiredCol {
-        width: 20%;
-    }
-
-    .ResolutionCol {
-        width: 20%;
-    }
-}
-
-@media (max-width: 782px) {
-    .TableHeader > div:first-child {
-        width: 50%;
-    }
-
-    .TableHeader div {
-        width: 25%;
-    }
-
-    .QuestionCol {
-        padding-right: 4px;
-        width: 50%;
-    }
-
-    .ExpiredCol {
-        width: 25%;
-    }
-
-    .ResolutionCol {
-        width: 25%;
+    .RightPanel {
+        width: calc(100% - 130px);
     }
 }

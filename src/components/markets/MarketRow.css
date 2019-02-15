@@ -48,9 +48,10 @@
 
 .LeftPanel {
     float: left;
-    max-width: 450px;
+    width: calc(100% - 130px);
     padding: 16px;
     min-height: 176px;
+    border-right: 2px solid #eeeeee;
 }
 
 .LeftPanel label {
@@ -61,7 +62,6 @@
     width: 130px;
     float: right;
     padding: 16px;
-    border-left: 2px solid #eeeeee;
 }
 
 .RightPanel label {
@@ -75,48 +75,20 @@
     font-weight: 500;
 }
 
-@media (max-width: 680px) {
-    .QuestionCol {
-        width: 60%;
-        padding-right: 4px;
-    }
 
-    .ExpiredCol {
-        width: 20%;
-    }
+/* full size at 644px panel width */
+@media (max-width: 471px) {
+    .LeftPanel {
 
-    .ResolutionCol {
-        width: 20%;
     }
 }
 
-@media (max-width: 870px) {
-    .Card {
-        margin-bottom: 16px;
-    }
+/* full size at 644px panel width */
+@media (max-width: 714px) {
 
-    .LeftPanel {
-        width: 100%;
-        border-right: 0;
-        border-bottom: 2px solid white;
-        padding-right: 0;
-        padding-bottom: 16px;
-    }
+}
 
-    .RightPanel {
-        width: 100%;
-        float: left;
-        padding-left: 0;
-    }
+/* full size for card at 450px */
+@media (max-width: 651px) {
 
-    .Market label {
-        margin-top: 12px;
-        margin-right: 4px;
-    }
-
-    .RightPanel > div {
-        float: left;
-        width: 33%;
-        text-align: center;
-    }
 }

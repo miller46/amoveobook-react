@@ -25,3 +25,11 @@
     margin-top: 16px;
     line-height: 20px;
 }
+
+@media (max-width: 527px) {
+    .Container {
+        float: none;
+        text-align: center;
+        margin: auto;
+    }
+}
