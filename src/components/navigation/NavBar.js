@@ -18,6 +18,12 @@ export default class NavBar extends Component {
 			account: this.props.account,
 			loading: this.props.loading,
 		}
+
+		if (this.props.onDrawerClick) {
+			this.onDrawerClick = this.props.onDrawerClick.bind(this)
+		}
+
+		this.burgerToggle = this.burgerToggle.bind(this);
 	}
 
 	burgerToggle() {
@@ -32,6 +38,10 @@ export default class NavBar extends Component {
 			linksEl.style.display = 'block';
 			burger.style.display = 'none';
 			x.style.display = 'block';
+		}
+
+		if (this.props.onDrawerClick) {
+			this.props.onDrawerClick();
 		}
 	}
 

@@ -31,6 +31,51 @@
   float: right;
 }
 
+.NavDrawerContainer {
+  float: left;
+  height: 100vh;
+  position: relative;
+  z-index: 999;
+  width: 400px;
+  background: #FFFFFF;
+}
+
+.NavDrawer {
+  width: 400px;
+}
+
+.Disabled {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .5);
+  overflow: auto;
+  position: absolute;
+}
+
+.NavDrawerHidden {
+  display: none;
+}
+
+:global .slide-appear,
+:global .slide-enter {
+  margin-left: -400px;
+  transition: 0.5s ease;
+}
+
+:global .slide-appear.slide-appear-active,
+:global .slide-enter.slide-enter-active {
+  margin-left: 0px;
+}
+
+:global .slide-leave {
+  margin-left: 0px;
+}
+
+:global .slide-leave.slide-leave-active {
+  margin-left: -400px;
+  transition: 0.3s ease;
+}
+
 @media (max-width: 517px) {
   .LeftPanel {
     width: auto;

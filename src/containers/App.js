@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './App.css'
 import NavBar from '../components/navigation/NavBar'
 import USWarning from '../components/navigation/USWarning'
@@ -44,9 +45,12 @@ export default class App extends Component {
 			ip: this.props.ip,
 			account: this.props.account,
 			channelPending: this.props.channelPending,
+			showDrawer: false,
 		}
 
 		this.accountListener = 0;
+
+		this.showDrawer = this.showDrawer.bind(this)
 	}
 
 	componentWillMount() {
@@ -74,30 +78,60 @@ export default class App extends Component {
 		}
 	}
 
+	showDrawer() {
+		const {showDrawer} = this.state;
+		this.setState({showDrawer: !showDrawer});
+	}
+
 	render() {
+		const {showDrawer} = this.state;
 		const path = this.props.location.pathname;
 
+		const contentClass = showDrawer ? "Disabled" : ""
 		return (
 			<div>
+				<ReactCSSTransitionGroup
+					transitionName="slide"
+					transitionEnter={true}
+					transitionAppear={true}
+					transitionLeave={true}
+					transitionAppearTimeout={0}
+					transitionEnterTimeout={0}
+					transitionLeaveTimeout={100}>
+					{
+						showDrawer &&
+						<div styleName="NavDrawerContainer">
+							<div styleName="NavDrawer">
+								<p>Draw me like one of your French girls</p>
+							</div>
+						</div>
+					}
+				</ReactCSSTransitionGroup>
+
 				<div>
-					<NavBar />
+					<div styleName={contentClass}>
+					</div>
+
+					<div>
+						<NavBar onDrawerClick={this.showDrawer} />
+					</div>
+
+					<USWarning />
+
+					<TestnetWarning />
+
+					<ChannelPending />
+
+					<div styleName="AppContainer">
+						{this.props.children}
+					</div>
+
+					{
+						path.indexOf("/advanced") < 0
+							? <Footer />
+							: <div></div>
+					}
 				</div>
-
-				<USWarning />
-
-				<TestnetWarning />
-
-				<ChannelPending />
-
-				<div styleName="AppContainer">
-					{this.props.children}
-				</div>
-
-				{
-					path.indexOf("/advanced") < 0
-						? <Footer />
-						: <div></div>
-				}
 				
 			</div>
 		)
