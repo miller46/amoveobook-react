@@ -104,6 +104,12 @@
     }
 }
 
+@media (max-width: 420px) {
+    .NavBarCenter {
+        width: auto;
+    }
+}
+
 @media (max-width: 517px) {
     .NavBarCenter {
         width: auto;

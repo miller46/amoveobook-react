@@ -18,7 +18,7 @@
 
 .Logo p {
     color: #0E0E0E;
-    font-size: 32px;
+    font-size: 2rem;
     text-shadow: unset;
     float: left;
     margin-top: -4px;
@@ -33,3 +33,16 @@
         padding-bottom: 8px;
     }
 }
+
+@media (max-width: 421px) {
+    .Logo {
+        padding-bottom: 8px;
+        width: 234px;
+    }
+
+    .Logo p {
+        font-size: 1.8rem;
+        padding-top: 4px;
+    }
+}
+
