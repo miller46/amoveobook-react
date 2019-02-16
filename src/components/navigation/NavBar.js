@@ -49,9 +49,10 @@ export default class NavBar extends Component {
 		const {showingDrawer} = this.state;
 
 		const burgerDisplay = showingDrawer ? 'none' : '';
+		const navbarOverflow = showingDrawer ? 'auto' : '';
 
 		return (
-			<nav styleName="NavBar">
+			<nav styleName="NavBar" style={{overflow: navbarOverflow}}>
 				<div styleName="NavNarrow">
 					<i style={{color: 'black', display: burgerDisplay}} id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
 
