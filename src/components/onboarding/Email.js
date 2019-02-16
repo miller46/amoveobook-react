@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './Email.css'
-import SectionLabel from "../markets/SectionLabel";
 
 import Loading from "../loading/Loading";
 import {saveEmail} from '../../network'
 import {getIp, setAccount} from "../../actions";
 import {connect} from "react-redux";
+
+import {EMAIL_URL, LOCK_URL} from "../../assets";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -125,31 +126,34 @@ export default class Email extends Component {
 		} else {
 			return (
 				<div styleName="Container">
-					<SectionLabel titleText="Please Enter Your Email"/>
+					<div styleName="EmailContainer">
+						<img src={EMAIL_URL} />
+					</div>
 
-					<div styleName="Form">
-						<div styleName="InputText">
-							<input
-								type="text"
-								value={email}
-								onChange={this.handleChange.bind(this)}/>
-						</div>
+					<p styleName="Title">Please Enter Your Email</p>
 
-						<div>
-							<p>You will be prompted to sign a message using your wallet</p>
-						</div>
+					<div>
+						<p>You will be prompted to sign a message using your wallet</p>
+					</div>
 
-						<div styleName="Button">
-							<button
-								onClick={() => this.signAndSaveEmail()}
-							>
-								Sign
-							</button>
-						</div>
+					<div styleName="InputText">
+						<input
+							type="text"
+							value={email}
+							onChange={this.handleChange.bind(this)}/>
+					</div>
 
-						<div styleName="Error">
-							{error}
-						</div>
+					<div>
+						<button
+							styleName="Button"
+							onClick={() => this.signAndSaveEmail()}
+						>
+							Sign
+						</button>
+					</div>
+
+					<div styleName="Error">
+						{error}
 					</div>
 				</div>
 			)

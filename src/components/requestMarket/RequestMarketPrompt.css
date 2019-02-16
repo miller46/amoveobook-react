@@ -5,6 +5,10 @@
     margin-top: 84px;
 }
 
+.Explainer > div {
+    margin-bottom: 32px;
+}
+
 .Button {
     border: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);

@@ -1,10 +1,26 @@
 .Container {
-    text-align: center;
+
+}
+
+.EmailContainer {
+    background: #FCEA31;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
     margin: auto;
-    max-width: 600px;
-    background: #f3f3f3;
-    padding: 32px;
-    border-radius: 4px;
+}
+
+.EmailContainer img {
+    width: 44px;
+    padding-top: 24px;
+}
+
+.Title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #707070;
+    margin-top: 16px;
 }
 
 .Form {
@@ -23,7 +39,7 @@
 }
 
 .InputText {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 }
 
 .InputText input {
@@ -31,41 +47,21 @@
     height: 40px;
     margin: 16px;
     padding: 0 16px;
+    border: 1px solid #707070;
 }
 
 .Button {
-    margin: 16px 16px 16px 0;
-}
-
-.Button button {
+    border: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    background: #0E0E0E;
+    color: #FFFFFF;
+    border-radius: 16px;
+    font-size: 1rem;
     height: 40px;
-    color: #fff;
-    background-color: #5cb85c;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 0 12px;
+    padding: 0 16px;
+    width: 160px;
 }
 
-.Button button:hover {
-    background-color: #419641;
-    border-color: #398439;
-}
-
-@media (max-width: 424px) {
-    .InputText {
-        float: none;
-    }
-
-    .Button {
-        float: none;
-    }
-}
-
-@media (max-width: 424px) {
-    .InputText input {
-        width: 200px;
-    }
+.Button:hover {
+    color: #FDD835;
 }

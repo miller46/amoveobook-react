@@ -3,9 +3,7 @@ import CSSModules from 'react-css-modules'
 import styles from './Channel.css'
 import PropTypes from 'prop-types';
 
-import {createChannel} from '../../network'
 import {api} from '../../config'
-import SectionLabel from "../markets/SectionLabel";
 import {connect} from "react-redux";
 import {setChannelPending} from "../../actions";
 
@@ -93,17 +91,16 @@ export default class Channel extends Component {
 
 		return (
 			<div>
-				<SectionLabel
-					titleText="New Channel"
-				/>
-
 				<div>
+					<p styleName="Title">New Channel</p>
+
 					<div styleName="TopContainer">
 						<div styleName="Explainer">
-							<p>You will need to open a payment channel to bet.</p>
+							<p>You will need to open a payment channel to place bets.</p>
 
-							<div styleName="Button">
+							<div styleName="ButtonContainer">
 								<button
+									styleName="Button"
 									onClick={() => this.openPrompt()}
 								>
 									Make Channel
@@ -130,7 +127,7 @@ export default class Channel extends Component {
 
 							<p>A channel is similar to opening up a tab. You lock up some VEO for some time period and you can spend or bet that VEO inside the channel and sync up with the blockchain later.</p>
 							<p>Channels let you do secure, off-chain transactions that are much faster and cheaper than doing every transaction directly on-chain.</p>
-							<p>You can read more about channels <a href="" target="_blank">here</a>.</p>
+							<p>You can read more about channels <a href="/FAQ#channel" target="_blank">here</a>.</p>
 
 						</div>
 					</div>

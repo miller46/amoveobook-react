@@ -38,7 +38,6 @@ export default class NavBar extends Component {
 				<div styleName="NavDrawer">
 					<div styleName="TopRow">
 						<i id="icon-x" className="fas fa-times fa-2x" onClick={this.burgerToggle}></i>
-
 					</div>
 
 					<div>
