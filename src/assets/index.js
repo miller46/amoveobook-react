@@ -2,3 +2,5 @@ export const LOGO_URL = "https://res.cloudinary.com/klowdstore/image/upload/v155
 export const LOGO_URL_LIGHT = "https://res.cloudinary.com/klowdstore/image/upload/v1547363016/amoveo_logo_lf8wdb.png"
 export const EXTENSION_GUIDE_URL = "https://res.cloudinary.com/klowdstore/image/upload/v1547366136/extension_uwurrf.png"
 export const SPLASH_BACKGROUND = "https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png"
+export const AMOVEO3_LOGO_URL = "https://res.cloudinary.com/klowdstore/image/upload/v1550268704/icon-128_ou4mkj.png"
+export const LOCK_URL = "https://res.cloudinary.com/klowdstore/image/upload/v1550270090/lock_syy8yg.png"

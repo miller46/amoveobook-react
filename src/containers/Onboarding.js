@@ -135,11 +135,13 @@ export default class Onboarding extends Component {
 
 		return (
 			<div styleName="Onboarding">
-				<div styleName="Close" onClick={() => this.advanceToSplash()}>
-					<p>Close</p>
-				</div>
-				<div>
-					{body}
+				<div styleName="Popup">
+					<div styleName="Close" onClick={() => this.advanceToSplash()}>
+						<p>x</p>
+					</div>
+					<div>
+						{body}
+					</div>
 				</div>
 			</div>
 		)

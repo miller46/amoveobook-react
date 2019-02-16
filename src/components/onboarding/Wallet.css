@@ -3,32 +3,25 @@
 }
 
 .Wallet img {
-    max-width: 100%;
-    padding: 0 32px;
+    height: 64px;
+    width: 64px;
 }
 
-.LeftPanel {
-    float: left;
-    width: 50%;
-}
-
-.RightPanel {
-    float: right;
-    width: 50%;
-    text-align: center;
-    margin-top: 8%;
+.Title {
     font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 16px;
+    text-transform: uppercase;
 }
 
-@media (max-width: 800px) {
-    .LeftPanel {
-        float: left;
-        width: 100%;
-    }
+.Body {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    line-height: 24px;
+    padding: 0 16px;
+}
 
-    .RightPanel {
-        float: left;
-        width: 100%;
-        margin-top: 16px;
-    }
+.Wallet a {
+    color: #1CBB0F;
+    font-weight: 700;
 }

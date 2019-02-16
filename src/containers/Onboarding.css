@@ -1,21 +1,32 @@
 .Close {
     cursor: pointer;
-    text-decoration: underline;
-    padding: 8px;
-    width: 60px;
+    width: 40px;
+    height: 40px;
     float: right;
+    color: white;
+    background: black;
+    border-radius: 100%;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: -12px;
+    margin-right: -12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
 }
 
 .Onboarding {
+    background: rgba(0, 0, 0, 0.5);
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
+
+.Popup {
     background: #f3f3f3;
-    border-radius: 4px;
-    margin: 32px;
+    margin: auto;
     padding: 32px;
     margin-bottom: 256px;
-    display: inline-block;
+    width: 400px;
+    text-align: center;
+    position: relative;
 }
-
-.Onboarding > div {
-    clear: both;
-}
-

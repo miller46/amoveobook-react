@@ -12,7 +12,7 @@ export default class Help extends Component {
 	render() {
 		return (
 			<div styleName="Help" >
-				<a href="/help.html" target="_blank">Help</a>
+				<a href="/FAQ" target="_blank">Help</a>
 			</div>
 		)
 	}

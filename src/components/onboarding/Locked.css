@@ -1,10 +1,35 @@
 .Locked {
-    text-align: center;
-    width: 400px;
+
 }
 
-@media (max-width: 532px) {
-    .Locked {
-        width: auto;
-    }
+.LockContainer {
+    background: #FCEA31;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.Locked img {
+    width: 44px;
+    padding-top: 19px;
+}
+
+.Title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 16px;
+    text-transform: uppercase;
+}
+
+.Body {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    line-height: 24px;
+    padding: 0 16px;
+}
+
+.Locked a {
+    color: #1CBB0F;
+    font-weight: 700;
 }
