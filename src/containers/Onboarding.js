@@ -11,6 +11,7 @@ import {getAccount, getIp} from "../actions";
 import {connect} from "react-redux";
 import {api} from "../config";
 import {hasChannel} from "../amoveo3utility";
+import RequestMarket from "../components/requestMarket/RequestMarket";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -45,6 +46,7 @@ export default class Onboarding extends Component {
 			finishedEmail: false,
 			channel: false,
 			account: this.props.account,
+			showMarketRequest: this.props.showMarketRequest,
 			noWallet: noWallet,
 			unlocked: unlocked,
 		}
@@ -53,6 +55,10 @@ export default class Onboarding extends Component {
 
 		this.advanceToChannels = this.advanceToChannels.bind(this);
 		this.advanceToSplash = this.advanceToSplash.bind(this);
+
+		if (this.props.onClose) {
+			this.onClose = this.props.onClose.bind(this)
+		}
 	}
 
 	componentWillMount() {
@@ -104,15 +110,22 @@ export default class Onboarding extends Component {
 			this.context.router.push("/")
 
 			clearInterval(this.listener);
+
+			this.props.onClose();
 		// }
 	}
 
 	render() {
-		const {finishedEmail, channel, noWallet, unlocked} = this.state;
+		const {finishedEmail, channel, noWallet, unlocked, showMarketRequest} = this.state;
 		const {account} = this.props;
 
 		let body;
-		if (noWallet) {
+		if (showMarketRequest) {
+			body =
+				<RequestMarket
+
+				/>
+		} else if (noWallet) {
 			body =
 				<Wallet
 					onAdvance={this.advanceToChannels}

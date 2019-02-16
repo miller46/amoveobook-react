@@ -77,16 +77,16 @@ export default class RequestMarket extends Component {
 						/>
 					</div>
 
-					<div styleName="Button">
-						<button onClick={() => this.sendRequest()}>Send</button>
-					</div>
+					<button
+						styleName="Button"
+						onClick={() => this.sendRequest()}>Send</button>
 				</div>
 			</div>
 		}
 
 		return (
 			<div styleName="Container">
-				<SectionLabel titleText="Request Market"/>
+				<p styleName="Title">Request Market</p>
 
 				<div>
 					{body}

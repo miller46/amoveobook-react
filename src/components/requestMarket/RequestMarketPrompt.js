@@ -7,10 +7,16 @@ export default class RequestMarketPrompt extends Component {
 
 	constructor(props) {
 		super(props);
+
+		if (this.props.onRequestClick) {
+			this.onRequestClick = this.props.onRequestClick.bind(this)
+		}
 	}
 
 	showRequestMarketDialog() {
-
+		if (this.props.onRequestClick) {
+			this.props.onRequestClick();
+		}
 	}
 
 	render() {

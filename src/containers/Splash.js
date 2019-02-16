@@ -7,6 +7,7 @@ import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 import CSSModules from "react-css-modules/dist/index";
 import RequestMarketPrompt from "../components/requestMarket/RequestMarketPrompt";
 import Onboarding from "./Onboarding";
+import RequestMarket from "../components/requestMarket/RequestMarket";
 
 
 @CSSModules(styles)
@@ -16,25 +17,43 @@ export default class Splash extends Component {
 		super(props);
 		this.state = {
 			ipDisabled: false,
+			showMarketRequest: false,
 		}
+
+		this.hideRequestMarket = this.hideRequestMarket.bind(this)
+		this.showRequestMarket = this.showRequestMarket.bind(this)
+	}
+
+	showRequestMarket() {
+		this.setState({showMarketRequest: true})
+	}
+
+	hideRequestMarket() {
+		this.setState({showMarketRequest: false})
 	}
 
 	render() {
+		const {showMarketRequest} = this.state;
 		const onboarding = localStorage.getItem("onboarding") === "true";
 
 		return (
 			<div styleName="SplashContainer">
 
 				{
-					onboarding &&
-					<Onboarding />
+					(onboarding || showMarketRequest) &&
+					<Onboarding
+						showMarketRequest={showMarketRequest}
+						onClose={this.hideRequestMarket}
+					/>
 				}
 
 				<div styleName="LeftPanel">
 					<div styleName="TopContainer">
 						<WelcomeContainer />
 
-						<RequestMarketPrompt />
+						<RequestMarketPrompt
+							onRequestClick={this.showRequestMarket}
+						/>
 					</div>
 
 					<MarketsList />
