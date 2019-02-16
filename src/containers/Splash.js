@@ -6,6 +6,7 @@ import MarketsList from "../components/markets/MarketsList";
 import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 import CSSModules from "react-css-modules/dist/index";
 import RequestMarketPrompt from "../components/requestMarket/RequestMarketPrompt";
+import Onboarding from "./Onboarding";
 
 
 @CSSModules(styles)
@@ -19,8 +20,16 @@ export default class Splash extends Component {
 	}
 
 	render() {
+		const onboarding = localStorage.getItem("onboarding") === "true";
+
 		return (
 			<div styleName="SplashContainer">
+
+				{
+					onboarding &&
+					<Onboarding />
+				}
+
 				<div styleName="LeftPanel">
 					<div styleName="TopContainer">
 						<WelcomeContainer />

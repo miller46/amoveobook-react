@@ -26,13 +26,7 @@ export default class AppRouter extends Component {
 		const agreedUs = localStorage.getItem("agreedUS") === "true";
 		const isNotUs = localStorage.getItem("isNotUS") === "true";
 
-		const onboarding = localStorage.getItem("onboarding") === "true";
-
-		if (onboarding) {
-			return (
-				<Onboarding />
-			)
-		} else if (agreedUs || isNotUs) {
+		if (agreedUs || isNotUs) {
 			return (
 				<Splash />
 			)
