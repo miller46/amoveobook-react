@@ -424,26 +424,32 @@ export default class PlaceOrder extends Component {
 
 		return (
 			<div>
-				<div styleName={buySellStyleName}>
-					<div className="left" styleName={buyStyleName} onClick={() => {if (selectedBuySell === "sell") this.toggleBuySell()}}>
-						<p>Buy Shares</p>
-					</div>
-					<div className="right" styleName={sellStyleName} onClick={() => {if (selectedBuySell === "buy") this.toggleBuySell()}}>
-						<p>Sell Shares</p>
-					</div>
-				</div>
-
 				<div styleName="OrderContainer">
-					<div styleName="LongShortToggle">
-						<div className="left" styleName={longStyleName} onClick={() => {if (selectedSide === "short") this.toggleLongShort()}}>
-							<p>Long</p>
+					<div styleName="Title">
+						<p>Place Order</p>
+					</div>
+
+					<div styleName={buySellStyleName}>
+						<div className="left" styleName={buyStyleName} onClick={() => {if (selectedBuySell === "sell") this.toggleBuySell()}}>
+							<p>Buy Shares</p>
 						</div>
-						<div className="right" styleName={shortStyleName} onClick={() => {if (selectedSide === "long") this.toggleLongShort()}}>
-							<p>Short</p>
+						<div className="right" styleName={sellStyleName} onClick={() => {if (selectedBuySell === "buy") this.toggleBuySell()}}>
+							<p>Sell Shares</p>
 						</div>
 					</div>
 
-					{form}
+					<div>
+						<div styleName="LongShortToggle">
+							<div className="left" styleName={longStyleName} onClick={() => {if (selectedSide === "short") this.toggleLongShort()}}>
+								<p>Long</p>
+							</div>
+							<div className="right" styleName={shortStyleName} onClick={() => {if (selectedSide === "long") this.toggleLongShort()}}>
+								<p>Short</p>
+							</div>
+						</div>
+
+						{form}
+					</div>
 				</div>
 			</div>
 		)

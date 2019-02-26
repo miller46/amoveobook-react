@@ -193,7 +193,6 @@ export default class Details extends Component {
 				<div styleName="PanelRight">
 					<ActiveMarketsList
 						limit={10}
-						seeMore={true}
 					/>
 				</div>
 			</div>

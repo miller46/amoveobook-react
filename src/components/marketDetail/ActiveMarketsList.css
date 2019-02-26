@@ -1,0 +1,112 @@
+.List {
+    max-width: 430px;
+    margin: auto;
+    margin-bottom: 64px;
+    overflow: auto;
+    background: #FFFFFF;
+    float: right;
+}
+
+.LoadingPlaceholder {
+    text-align: center;
+    margin: 64px auto;
+}
+
+.QuestionCol {
+    float: left;
+    text-align: left;
+    display: table;
+    min-height: 60px;
+}
+
+.QuestionCol p {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.ExpiredCol {
+    color: #19BA0C;
+}
+
+.ResolutionCol {
+    border: 1px solid #19BA0C;
+    color: #19BA0C;
+}
+
+.ExpiredFalseCol {
+    color: #E25E5E;
+}
+
+.ResolutionFalseCol {
+    border: 1px solid #E25E5E;
+    color: #E25E5E;
+}
+
+.ExpiredCol, .ExpiredFalseCol {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.ResolutionCol, .ResolutionFalseCol {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.ExpiredCol, .ResolutionCol, .ExpiredFalseCol, .ResolutionFalseCol {
+    text-transform: capitalize;
+    text-align: center;
+    padding: 4px 16px;
+    border-radius: 16px;
+}
+
+.ExpiredCol > p, .ResolutionCol > p, .ExpiredFalseCol > p, .ResolutionFalseCol > p {
+    height: 16px;
+}
+
+.Row {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #F2F2F2;
+    overflow: auto;
+    min-height: 8px;
+}
+
+.Title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 32px 0 32px 16px;
+    border-bottom: 2px solid #F2F2F2;
+}
+
+.SeeMore {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    width: 100px;
+    margin: auto;
+}
+
+.LeftPanel {
+    float: left;
+    margin: 0 16px;
+}
+
+.RightPanel {
+    float: right;
+    width: 300px;
+    margin-right: 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+@media (max-width: 440px) {
+    .List {
+        width: 100%;
+    }
+
+    .RightPanel {
+        width: calc(100% - 130px);
+    }
+}

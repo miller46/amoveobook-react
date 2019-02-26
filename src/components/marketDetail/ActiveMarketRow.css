@@ -1,0 +1,93 @@
+.Card {
+    background: #FFFFFF;
+    text-align: left;
+    max-width: 644px;
+}
+
+.Card:hover {
+    cursor: pointer;
+}
+
+.Market {
+    border-bottom: 2px solid #eeeeee;
+}
+
+.Expires {
+    text-align: left;
+    color: #E25E5E;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+}
+
+.Expires label {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.Question p {
+    margin: 8px 0 0 0;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #484848;
+}
+
+.Question {
+    min-height: 76px;
+}
+
+.Market label {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.Separator {
+
+}
+
+.LeftPanel {
+    float: left;
+    width: calc(100% - 130px);
+    padding: 16px;
+    min-height: 176px;
+    border-right: 2px solid #eeeeee;
+}
+
+.LeftPanel label {
+    margin-top: 16px;
+}
+
+.RightPanel {
+    width: 130px;
+    float: right;
+    padding: 16px;
+}
+
+.RightPanel label {
+    color: #9D9D9D;
+    font-size: 0.75rem;
+}
+
+.RightPanel p {
+    color: #19BA0C;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+/* full size at 644px panel width */
+@media (max-width: 471px) {
+    .LeftPanel {
+
+    }
+}
+
+/* full size at 644px panel width */
+@media (max-width: 714px) {
+
+}
+
+/* full size for card at 450px */
+@media (max-width: 651px) {
+
+}

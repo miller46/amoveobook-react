@@ -1,20 +1,20 @@
 .DetailsContainer {
     overflow: auto;
-    margin-top: 64px;
     margin-bottom: 256px;
-    padding-left: 32px;
-    padding-right: 32px;
-
+    width: 100%;
 }
 
 .PanelLeft {
-    width: 50%;
+    padding-left: 32px;
+    width: calc(100% - 430px);
     float: left;
     padding-right: 32px;
+    background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
+    background-position-y: -150px;
+    background-size: contain;
 }
 
 .PanelRight {
-    width: 50%;
     float: right;
 }
 

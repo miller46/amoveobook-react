@@ -3,7 +3,7 @@
 }
 
 .AppContainer {
-
+  overflow: auto;
 }
 
 .TopContainer {

@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import {getExpiredMarkets} from "../../actions";
+import {getActiveMarkets} from "../../actions";
 import Loading from "../loading/Loading";
-import styles from './ExpiredMarkets.css'
+import styles from './ActiveMarketsList.css'
 import CSSModules from "react-css-modules/dist/index";
-import ExpiredMarketsRow from "./ExpiredMarketRow";
+import ActiveMarketRow from "./ActiveMarketRow";
 import PropTypes from 'prop-types';
 import {getNetwork} from "../../amoveo3utility";
 
 const mapStateToProps = (state) => {
 	return {
-		error: state.default.error.expiredMarkets,
-		loading: state.default.loading.expiredMarkets,
-		expiredMarkets: state.default.expiredMarkets,
+		error: state.default.error.activeMarkets,
+		loading: state.default.loading.activeMarkets,
+		activeMarkets: state.default.activeMarkets,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getExpiredMarkets: (options) => {
-			dispatch(getExpiredMarkets(options));
+		getActiveMarkets: (options) => {
+			dispatch(getActiveMarkets(options));
 		},
 	};
 };
@@ -36,7 +36,7 @@ export default class ExpiredMarketsList extends Component {
 		super(props);
 		this.state = {
 			limit: this.props.limit || 20,
-			seeMore: this.props.seeMore
+			seeMore: this.props.seeMore || false,
 		}
 	}
 
@@ -47,14 +47,12 @@ export default class ExpiredMarketsList extends Component {
 	componentDidMount() {
 		const {limit} = this.state;
 		const network = getNetwork(window.amoveo3);
-		this.props.getExpiredMarkets({limit: limit, network: network});
+		this.props.getActiveMarkets({network: network});
 	}
 
 	render() {
 		const {seeMore} = this.state;
-		const {expiredMarkets, loading} = this.props;
-
-		let markets;
+		const {activeMarkets, loading} = this.props;
 
 		let seeMoreLink = <div></div>
 		if (seeMore) {
@@ -72,13 +70,13 @@ export default class ExpiredMarketsList extends Component {
 		} else {
 			return (
 				<div styleName="List">
-					<p styleName="Title">Expired Markets</p>
+					<p styleName="Title">Active Markets</p>
 
 					<div>
 						{
-							expiredMarkets.map(function(market, index) {
+							activeMarkets.map(function(market, index) {
 								return (
-									<ExpiredMarketsRow
+									<ActiveMarketRow
 										key={index}
 										market={market}
 									/>

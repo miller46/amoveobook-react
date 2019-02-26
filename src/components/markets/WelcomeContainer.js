@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules'
-
 import styles2 from './WelcomeContainer.css'
 import { getVeoPrices, setCurrency, getCurrency } from '../../actions/index';
-
 import {currencies} from '../../config'
 import {LOGO_URL} from "../../assets";
 
