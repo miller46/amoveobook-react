@@ -19,10 +19,10 @@ export const getVeoPrices = () => {
 			const btcRubPrice = json["RUB"]
 			const lastVeoBtcPrice = json["last"]
 			dispatch(getVeoSuccess({
-				usd: btcUsdPrice,
-				eur: btcEuroPrice,
-				cny: btcCnyPrice,
-				rub: btcRubPrice,
+				USD: btcUsdPrice,
+				EUR: btcEuroPrice,
+				CNY: btcCnyPrice,
+				RUB: btcRubPrice,
 				last: lastVeoBtcPrice,
 			}));
 		})

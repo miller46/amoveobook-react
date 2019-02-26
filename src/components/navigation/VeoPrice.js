@@ -57,7 +57,7 @@ export default class VeoPrice extends Component {
 
 	render() {
 		const {showing} = this.state;
-		const currencyId = this.props.currencyId || "usd"
+		const currencyId = this.props.currencyId || "USD"
 		const selectedCurrency = currencies[currencyId]
 
 		let unselected = <div styleName="Hidden"></div>

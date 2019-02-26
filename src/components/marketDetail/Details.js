@@ -12,6 +12,7 @@ import GoToAdvancedView from "./GoToAdvancedView";
 import PlaceOrder from "../placeOrder/PlaceOrder";
 import YourOrders from "./YourOrders";
 import MarketDetailCard from "./MarketDetailCard";
+import ActiveMarketsList from "./ActiveMarketsList";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -52,8 +53,10 @@ export default class Details extends Component {
 	constructor(props) {
 		super(props);
 
+		const oid = this.props.params.oid;
+
 		this.state = {
-			oid: this.props.params.oid,
+			oid: oid,
 			account: this.props.account,
 			marketDetail: this.props.marketDetail,
 			height: this.props.height,
@@ -64,11 +67,20 @@ export default class Details extends Component {
 			selectedOrderType: "limit",
 			hideAdvanced: false,
 			updateOrders: false,
+			location: oid,
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)
 		this.updatePrice = this.updatePrice.bind(this)
 		this.onOrderSubmit = this.onOrderSubmit.bind(this)
+	}
+
+	componentWillReceiveProps(props) {
+		const {oid} = this.state;
+		const location = props.location.pathname.replace("/", "");
+		if (encodeURIComponent(oid) !== location) {
+			window.location.reload();
+		}
 	}
 
 	componentDidMount() {
@@ -150,9 +162,20 @@ export default class Details extends Component {
 						height={height}
 					/>
 
-					<YourOrders
+					<PlaceOrder
+						onAmountUpdate={this.updateAmount}
+						onPriceUpdate={this.updatePrice}
+						onOrderSubmit={this.onOrderSubmit}
+						bestPrice={bestPrice}
+						marketType={marketType}
+						upperBound={upperBound}
+						lowerBound={lowerBound}
 						oid={oid}
-						update={updateOrders}
+					/>
+
+					<Calculator
+						amount={amount}
+						price={price}
 						marketType={marketType}
 						upperBound={upperBound}
 						lowerBound={lowerBound}
@@ -168,26 +191,10 @@ export default class Details extends Component {
 				</div>
 
 				<div styleName="PanelRight">
-					<div>
-						<PlaceOrder
-							onAmountUpdate={this.updateAmount}
-							onPriceUpdate={this.updatePrice}
-							onOrderSubmit={this.onOrderSubmit}
-							bestPrice={bestPrice}
-							marketType={marketType}
-							upperBound={upperBound}
-							lowerBound={lowerBound}
-							oid={oid}
-						/>
-
-						<Calculator
-							amount={amount}
-							price={price}
-							marketType={marketType}
-							upperBound={upperBound}
-							lowerBound={lowerBound}
-						/>
-					</div>
+					<ActiveMarketsList
+						limit={10}
+						seeMore={true}
+					/>
 				</div>
 			</div>
 		)

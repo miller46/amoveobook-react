@@ -1,17 +1,17 @@
 export const currencies = {
-	"usd": {
+	"USD": {
 		displayName: "US Dollar",
 		symbol: "$",
 	},
-	"rub": {
+	"RUB": {
 		displayName: "рубль",
 		symbol: "₽",
 	},
-	"cny": {
+	"CNY": {
 		displayName: "人民币",
 		symbol: "¥",
 	},
-	"eur": {
+	"EUR": {
 		displayName: "Euro",
 		symbol: "€",
 	},

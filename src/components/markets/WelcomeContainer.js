@@ -50,7 +50,7 @@ export default class WelcomeContainer extends Component {
 
 	render() {
 		const {loading, veoPrices, error} = this.props;
-		const currencyId = this.props.currencyId || "usd"
+		const currencyId = this.props.currencyId || "USD"
 		const selectedCurrency = currencies[currencyId]
 
 		const veoPrice = veoPrices[currencyId] * veoPrices.last;

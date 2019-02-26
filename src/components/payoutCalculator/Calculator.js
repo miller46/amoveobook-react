@@ -70,7 +70,7 @@ export default class Calculator extends Component {
 		const {amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
 
 		const {veoPrices} = this.props;
-		const currencyId = this.props.currencyId || "usd"
+		const currencyId = this.props.currencyId || "USD"
 		const currency = currencies[currencyId]
 
 		const veoPrice = veoPrices[currencyId] * veoPrices.last;
