@@ -91,6 +91,7 @@
 
   .RightPanel {
     float: left;
+    width: 100%;
   }
 
 }
