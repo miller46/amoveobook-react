@@ -71,10 +71,16 @@
   .LeftPanel {
     width: auto;
     min-width: auto;
+    background-size: auto;
   }
 
   .RightPanel {
     float: left;
+  }
+
+  .TopContainer {
+    margin-left: 16px;
+    margin-right: 16px;
   }
 }
 

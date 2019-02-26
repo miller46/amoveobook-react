@@ -100,7 +100,7 @@ export default class Account extends Component {
 		} else {
 			return (
 				<div styleName="Login" onClick={() => this.showOnboarding()}>
-					<p>Login</p>
+					<p>Log In</p>
 				</div>
 			)
 		}

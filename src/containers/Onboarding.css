@@ -18,9 +18,9 @@
 .Onboarding {
     background: rgba(0, 0, 0, 0.8);
     padding-top: 128px;
-    padding-bottom: 128px;
     position: absolute;
     width: 100%;
+    height: 100vh;
 }
 
 .Popup {

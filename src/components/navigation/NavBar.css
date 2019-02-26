@@ -113,5 +113,8 @@
     .NavBarCenter {
         width: auto;
     }
-}
 
+    .NavNarrow i {
+        margin-right: 60px;
+    }
+}

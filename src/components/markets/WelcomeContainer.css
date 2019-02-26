@@ -40,8 +40,6 @@
     }
 
     .WelcomeContainer {
-        text-align: center;
-        float: none;
-        margin: 32px auto;
+        margin: 16px 0 16px 0;
     }
 }

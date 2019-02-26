@@ -36,15 +36,22 @@
 
 @media (max-width: 517px) {
     .Logo {
-        padding-bottom: 8px;
-        width: 229px;
-        padding-left: 16px;
-        padding-top: 5px;
+        width: auto;
+    }
+
+    .Logo img {
+        margin-right: 0;
+    }
+
+    .Logo a {
+        overflow: auto;
+        margin: auto;
+        width: 42px;
     }
 
     .Logo p {
         font-size: 1.6rem;
         padding-top: 4px;
+        display: none;
     }
 }
-

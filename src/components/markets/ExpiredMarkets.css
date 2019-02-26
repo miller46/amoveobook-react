@@ -94,7 +94,7 @@
 
 .RightPanel {
     float: right;
-    max-width: 300px;
+    width: 300px;
     margin-right: 16px;
     font-size: 0.75rem;
     font-weight: 500;

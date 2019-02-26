@@ -17,3 +17,10 @@
     text-align: center;
     margin-top: 64px;
 }
+
+@media (max-width: 517px) {
+    .List {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

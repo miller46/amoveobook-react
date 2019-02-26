@@ -113,11 +113,15 @@ export default class Onboarding extends Component {
 
 			this.props.onClose();
 		// }
+
+		document.body.style.overflow = "auto";
 	}
 
 	render() {
 		const {finishedEmail, channel, noWallet, unlocked, showMarketRequest} = this.state;
 		const {account} = this.props;
+
+		document.body.style.overflow = "hidden";
 
 		let body;
 		if (showMarketRequest) {

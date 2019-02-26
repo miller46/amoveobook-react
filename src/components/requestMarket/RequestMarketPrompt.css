@@ -32,8 +32,9 @@
 
 @media (max-width: 527px) {
     .Container {
-        float: none;
-        text-align: center;
+        float: left;
+        text-align: left;
         margin: auto;
+        margin-right: 32px;
     }
 }
