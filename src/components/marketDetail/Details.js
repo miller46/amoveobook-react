@@ -13,6 +13,7 @@ import PlaceOrder from "../placeOrder/PlaceOrder";
 import YourOrders from "./YourOrders";
 import MarketDetailCard from "./MarketDetailCard";
 import ActiveMarketsList from "./ActiveMarketsList";
+import ChannelPending from "../transaction/ChannelPending";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -157,6 +158,8 @@ export default class Details extends Component {
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
+					<ChannelPending />
+
 					<MarketDetailCard
 						market={market}
 						height={height}

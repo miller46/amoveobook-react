@@ -129,8 +129,6 @@ export default class App extends Component {
 
 					<TestnetWarning />
 
-					<ChannelPending />
-
 					<div styleName="AppContainer">
 						{this.props.children}
 					</div>

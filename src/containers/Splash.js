@@ -7,7 +7,7 @@ import ExpiredMarketsList from "../components/markets/ExpiredMarketsList";
 import CSSModules from "react-css-modules/dist/index";
 import RequestMarketPrompt from "../components/requestMarket/RequestMarketPrompt";
 import Onboarding from "./Onboarding";
-import RequestMarket from "../components/requestMarket/RequestMarket";
+import ChannelPending from "../components/transaction/ChannelPending";
 
 
 @CSSModules(styles)
@@ -48,7 +48,10 @@ export default class Splash extends Component {
 				}
 
 				<div styleName="LeftPanel">
+
 					<div styleName="TopContainer">
+						<ChannelPending />
+
 						<WelcomeContainer />
 
 						<RequestMarketPrompt

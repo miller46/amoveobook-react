@@ -12,7 +12,7 @@ export const getCurrency = () => {
 		if (!localStorage) {
 			dispatch(getCurrencyFailure("LocalStorage not found"));
 		} else {
-			const currencyId = localStorage.getItem('selectedCurrencyId') || 'usd';
+			const currencyId = localStorage.getItem('selectedCurrencyId') || 'USD';
 			dispatch(getCurrencySuccess(currencyId));
 		}
 	};
