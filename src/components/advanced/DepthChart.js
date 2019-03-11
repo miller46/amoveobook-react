@@ -26,7 +26,7 @@ export default class DepthChart extends Component {
 
 		return {
 			chart: {
-				backgroundColor: '#0E0E0E',
+				backgroundColor: '#FFFFFF',
 				type: 'area',
 				height: '312px',
 			},
@@ -45,7 +45,7 @@ export default class DepthChart extends Component {
 			xAxis: {
 				title: {
 					text: marketType === "scalar" ? "Price" : 'Price per Share (VEO)',
-					color: '#000000'
+					color: '#FFFFFF'
 				},
 				min: minX,
 				max: maxX,
@@ -56,12 +56,12 @@ export default class DepthChart extends Component {
 			yAxis: {
 				title: {
 					text: 'Volume (VEO)',
-					color: '#000000'
+					color: '#FFFFFF'
 				},
 				opposite: true,
 				min: minY,
 				max: maxY,
-				gridLineColor: 'rgb(255, 255, 255, 0.2)',
+				gridLineColor: 'rgb(0, 0, 0, 0.2)',
 				labels: {
 					useHTML: true,
 					formatter: function () {

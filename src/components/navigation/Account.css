@@ -27,7 +27,6 @@
 .Login {
     cursor: pointer;
     padding: 8px 12px;
-    border-radius: 4px;
     max-width: 76px;
     font-weight: 500
 }

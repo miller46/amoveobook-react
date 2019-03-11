@@ -25,7 +25,7 @@ export default class PriceChart extends Component {
 
 		return {
 			chart: {
-				backgroundColor: '#0E0E0E'
+				backgroundColor: '#FFFFFF'
 			},
 			exporting: {
 				enabled: false
@@ -57,7 +57,7 @@ export default class PriceChart extends Component {
 				max: 100,
 				height: '60%',
 				lineWidth: 1,
-				gridLineColor: 'rgb(255, 255, 255, 0.2)',
+				gridLineColor: 'rgb(0, 0, 0, 0.2)',
 				resize: {
 					enabled: true
 				},
@@ -75,7 +75,7 @@ export default class PriceChart extends Component {
 				height: '35%',
 				offset: 0,
 				lineWidth: 1,
-				gridLineColor: 'rgb(255, 255, 255, 0.2)',
+				gridLineColor: 'rgb(0, 0, 0, 0.2)',
 				lineColor: 'transparent',
 				tickColor: 'transparent',
 			}],
@@ -99,8 +99,8 @@ export default class PriceChart extends Component {
 			},
 			plotOptions: {
 				candlestick: {
-					color: '#0E0E0E',
-					upColor: '#0E0E0E',
+					color: '#FFFFFF',
+					upColor: '#FFFFFF',
 					upLineColor: '#5cb85c',
 					lineColor: '#dc3545'
 				},

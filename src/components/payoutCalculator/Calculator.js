@@ -42,7 +42,6 @@ export default class Calculator extends Component {
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
 			sliderValue: 50,
-			darkMode: this.props.darkMode,
 		}
 
 		this.handleSliderChange = this.handleSliderChange.bind(this)
@@ -170,12 +169,10 @@ export default class Calculator extends Component {
 				</div>
 		}
 
-		const calculatorClass = darkMode ? "DarkCalculator" : "Calculator";
-
 		return (
-			<div styleName={calculatorClass}>
+			<div styleName="Calculator">
 				<div styleName="Title">
-					<p>Place Order</p>
+					<p>Profit Calculator</p>
 				</div>
 
 				{tableBody}

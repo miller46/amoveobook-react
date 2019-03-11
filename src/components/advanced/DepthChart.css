@@ -3,11 +3,10 @@
 }
 
 .DepthChartBlankState {
-    color: rgba(176, 188, 204, .75);
-    background-color: #0E0E0E;
+    background-color: #ffffff;
     padding: 8px;
 }
 
 :global(.AxisLabels) {
-    background-color: #0E0E0E;
+    background-color: #ffffff
 }

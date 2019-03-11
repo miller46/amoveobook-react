@@ -5,21 +5,17 @@
 .OrderBookContainer::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #444;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .OrderBookHeader {
     overflow: auto;
-    color: rgba(176, 188, 204, .75);
     font-size: 0.9rem;
 }
 
 .NoOrders {
     margin-top: 8px;
     margin-bottom: 8px;
-    color: white;
-    color: rgba(255, 255, 255, 0.75);
     font-size: 0.75rem;
 }
 
@@ -43,7 +39,7 @@
 }
 
 .Amount {
-    color: white !important;
+
 }
 
 .BuyRow {
@@ -62,7 +58,7 @@
 }
 
 .BuyRow:hover, .SellRow:hover {
-    background: #444444;
+    background: #F2F2F2;
 }
 
 .BuyRow > div {

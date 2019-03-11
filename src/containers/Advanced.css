@@ -1,7 +1,7 @@
 .AdvancedContainer {
     padding: 32px;
     overflow: auto;
-    background: #444;
+    background: #F2F2F2;
     display: flex;
     flex-wrap: wrap;
     min-height: 100vh;
@@ -42,39 +42,39 @@
 
 .PriceChartContainer {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
-    border-radius: 4px;
-    border: 1px solid #0E0E0E;
+    border: 1px solid #FFFFFF;
     margin-bottom: 32px;
+    background: white;
 }
 
 .DepthChartContainer {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
-    border-radius: 4px;
-    border: 1px solid #0E0E0E;
+    border: 1px solid #FFFFFF;
     margin-bottom: 32px;
+    background: white;
 }
 
 .OrderBookContainer {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
-    border-radius: 4px;
-    border: 1px solid #0E0E0E;
+    border: 1px solid #FFFFFF;
     margin-bottom: 32px;
-    background: rgba(0,0,0,0.6);
+    background: white;
 }
 
 .OrderHistoryContainer {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
-    border-radius: 4px;
-    border: 1px solid #0E0E0E;
+    border: 1px solid #FFFFFF;
     margin-bottom: 32px;
-    background: rgba(0, 0, 0, .6);
+    background: white;
 }
 
 .PanelTitle {
-    background: #0E0E0E;
-    color: white;
-    font-weight: 500;
-    line-height: 44px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
 @media (min-width: 1275px) and (max-width: 1475px) {
