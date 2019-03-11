@@ -66,3 +66,68 @@ export function getDisplayOdds(prices) {
 
 	return odds;
 }
+
+export function download(data, filename, type) {
+	var file = new Blob([data], {type: type});
+	if (window.navigator.msSaveOrOpenBlob) // IE10+
+	{
+		window.navigator.msSaveOrOpenBlob(file, filename);
+	} else { // Others
+		var a = document.createElement("a"),
+			url = URL.createObjectURL(file);
+		a.href = url;
+		a.download = filename;
+		document.body.appendChild(a);
+		a.click();
+		setTimeout(function () {
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+		}, 0);
+	}
+}
+
+export function ssToInternal(ess) {
+	let ss = [];
+	for (let i = 1; i < ess.length; i++) {
+		if (JSON.stringify(ess[i][2]) === JSON.stringify([-6, -6])) {
+			ess[i][2] = [-6];
+			ess[i][3] = [-6];
+		}
+		ss = ss.concat([newSS(stringToArray(atob(ess[i][1])), ess[i][2], ess[i][3])]);
+	}
+	return ss;
+}
+
+function newSS(code, prove, meta) {
+	if (meta === undefined) {
+		meta = 0;
+	}
+	return {"code": code, "prove": prove, "meta": meta};
+}
+
+
+export function stringToArray(x) {
+	let a = new Uint8Array(x.length);
+	for (let i = 0; i < x.length; i++) {
+		a[i] = x.charCodeAt(i);
+	}
+	return Array.from(a);
+}
+
+export function intToArray(i, size) {
+	let a = [];
+	for (let b = 0; b < size; b++) {
+		a.push(((i % 256) + 256) % 256);
+		i = Math.floor(i / 256);
+	}
+	return a.reverse();
+}
+
+export function arrayToString(x) {
+	let a = "";
+	for (let i = 0; i < x.length; i++) {
+		a += String.fromCharCode(x[i]);
+	}
+	return a;
+}
+

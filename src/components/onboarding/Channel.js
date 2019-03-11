@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {api} from '../../config'
 import {connect} from "react-redux";
 import {setChannelPending} from "../../actions";
+import {CHANNEL_PENDING, CHANNEL_PROGRESS} from '../../constants'
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -75,8 +76,8 @@ export default class Channel extends Component {
 					// 	if (error) {
 					// 		console.error("Error saving channel")
 					// 	} else {
-							localStorage.setItem("channelProgress", 1);
-							localStorage.setItem("channelPending", true);
+							localStorage.setItem(CHANNEL_PROGRESS, 1);
+							localStorage.setItem(CHANNEL_PENDING, true);
 							instance.props.setChannelPending(true);
 						// }
 

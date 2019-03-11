@@ -4,7 +4,7 @@ import style from './Calculator.css'
 import {connect} from "react-redux";
 
 import { getVeoPrices, getCurrency } from '../../actions/index';
-import SectionLabel from "../markets/SectionLabel";
+import SectionLabel from "../common/SectionLabel";
 import {currencies} from '../../config'
 import {roundOff} from '../../utility'
 
@@ -42,6 +42,7 @@ export default class Calculator extends Component {
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
 			sliderValue: 50,
+			darkMode: this.props.darkMode,
 		}
 
 		this.handleSliderChange = this.handleSliderChange.bind(this)
@@ -67,7 +68,7 @@ export default class Calculator extends Component {
 	}
 
 	render() {
-		const {amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
+		const {darkMode, amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
 
 		const {veoPrices} = this.props;
 		const currencyId = this.props.currencyId || "USD"
@@ -169,10 +170,12 @@ export default class Calculator extends Component {
 				</div>
 		}
 
+		const calculatorClass = darkMode ? "DarkCalculator" : "Calculator";
+
 		return (
-			<div styleName="Calculator">
-				<div>
-					{titleOverride ? <p styleName="PanelTitle">Payout Calculator</p> : <SectionLabel titleText="Payout Calculator"/>}
+			<div styleName={calculatorClass}>
+				<div styleName="Title">
+					<p>Place Order</p>
 				</div>
 
 				{tableBody}

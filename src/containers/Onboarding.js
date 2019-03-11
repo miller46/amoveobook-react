@@ -55,6 +55,7 @@ export default class Onboarding extends Component {
 
 		this.advanceToChannels = this.advanceToChannels.bind(this);
 		this.advanceToSplash = this.advanceToSplash.bind(this);
+		this.close = this.close.bind(this);
 
 		if (this.props.onClose) {
 			this.onClose = this.props.onClose.bind(this)
@@ -115,6 +116,23 @@ export default class Onboarding extends Component {
 		// }
 
 		document.body.style.overflow = "auto";
+
+		window.location.reload();
+	}
+
+	close() {
+		this.setState({
+			channel: true,
+		})
+
+		localStorage.setItem("onboarding", false);
+		this.context.router.push("/")
+
+		clearInterval(this.listener);
+
+		this.props.onClose();
+
+		document.body.style.overflow = "auto";
 	}
 
 	render() {
@@ -153,7 +171,7 @@ export default class Onboarding extends Component {
 		return (
 			<div styleName="Onboarding">
 				<div styleName="Popup">
-					<div styleName="Close" onClick={() => this.advanceToSplash()}>
+					<div styleName="Close" onClick={() => this.close()}>
 						<p>x</p>
 					</div>
 					<div>

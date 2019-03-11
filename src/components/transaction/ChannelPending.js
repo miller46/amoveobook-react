@@ -4,6 +4,8 @@ import style from './ChannelPending.css'
 import {api} from "../../config";
 import {getNetwork} from "../../amoveo3utility";
 
+import {CHANNEL_PENDING, CHANNEL_PROGRESS} from '../../constants'
+
 @CSSModules(style)
 export default class ChannelPending extends Component {
 
@@ -13,13 +15,13 @@ export default class ChannelPending extends Component {
 		this.channelCheck = 0;
 		this.countDown = 0;
 
-		const channelPending = localStorage.getItem("channelPending") === "true";
+		const channelPending = localStorage.getItem(CHANNEL_PENDING) === "true";
 		if (channelPending) {
 			this.beginCountdown();
 		}
 
 		this.state = {
-			progress: parseInt(localStorage.getItem("channelProgress")) || 1,
+			progress: parseInt(localStorage.getItem(CHANNEL_PROGRESS)) || 1,
 			duration: 420,
 			showPending: channelPending,
 			showConfirmation: false,
@@ -58,8 +60,8 @@ export default class ChannelPending extends Component {
 				}
 
 				if (!txPending) {
-					localStorage.setItem("channelProgress", 0);
-					localStorage.setItem("channelPending", false);
+					localStorage.setItem(CHANNEL_PROGRESS, 0);
+					localStorage.setItem(CHANNEL_PENDING, false);
 					instance.setState({showPending: false, showConfirmation: showPending});
 					clearInterval(instance.channelCheck);
 					clearInterval(instance.countDown);
@@ -79,7 +81,7 @@ export default class ChannelPending extends Component {
 		instance.countdown = setInterval(function() {
 			const {progress} = instance.state;
 			if (progress < 410) {
-				localStorage.setItem("channelProgress", progress + 1);
+				localStorage.setItem(CHANNEL_PROGRESS, progress + 1);
 				instance.setState({progress: progress + 1})
 			}
 		}, 1000)
@@ -99,7 +101,9 @@ export default class ChannelPending extends Component {
 		if (showPending) {
 			return (
 				<div styleName="ChannelPending">
-					<p>Channel Pending... (this may take a few minutes)</p>
+					<p>Channel Pending...</p>
+					<p>(this may take a few minutes)</p>
+					<p>&nbsp;</p>
 					<div className="progress">
 						<div
 							style={{width: (100 * progress / duration) + "%"}}

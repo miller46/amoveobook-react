@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './YourOrders.css'
-import SectionLabel from "../markets/SectionLabel";
+import SectionLabel from "../common/SectionLabel";
 
 import {tokenDecimals, priceDecimals, api} from '../../config'
 import {connect} from "react-redux";

@@ -182,6 +182,7 @@ export default class Details extends Component {
 						marketType={marketType}
 						upperBound={upperBound}
 						lowerBound={lowerBound}
+						darkMode={false}
 					/>
 
 					{

@@ -142,7 +142,7 @@ export default class PlaceOrder extends Component {
 		if (isMarketOrder) {
 			orderPrice = bestPrice;
 		} else {
-			orderPrice = price;
+			orderPrice = parseFloat(price);
 		}
 
 		orderPrice = parseFloat(orderPrice.toFixed(6));

@@ -56,6 +56,16 @@ export default class Account extends Component {
 		this.setState({showing: false})
 	}
 
+	goToOrders() {
+		this.context.router.push("/orders")
+		this.closeDropdown();
+	}
+
+	goToChannels() {
+		this.context.router.push("/channels")
+		this.closeDropdown();
+	}
+
 	render() {
 		const {showing} = this.state;
 		const {account, loading} = this.props;
@@ -71,6 +81,9 @@ export default class Account extends Component {
 			if (showing) {
 				dropdown = <ClickOutHandler onClickOut={this.closeDropdown}>
 					<div>
+						<div styleName="DropdownRow">
+							<p onClick={() => this.goToOrders()}>My Orders</p>
+						</div>
 						<div styleName="DropdownRow">
 							<p><a href={"https://veoscan.io/account/" + account.address} target="_blank"> {account.address.substring(0, 8) + "..."}</a></p>
 						</div>

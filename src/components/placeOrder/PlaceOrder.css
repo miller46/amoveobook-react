@@ -127,7 +127,7 @@
 }
 
 .OrderForm input {
-    width: 400px;
+    width: 100%;
     height: 40px;
     padding: 0 16px;
     border: 1px solid #707070;
@@ -165,10 +165,11 @@
     margin: 0 auto 16px auto;
     padding: 16px 32px;
     text-align: left;
+    max-width: 464px;
 }
 
 .OrderContainer > div {
-    width: 400px;
+    width: calc(100% - 32px);
     margin-left: auto;
     margin-right: auto;
 }
@@ -209,7 +210,8 @@
 }
 
 .PriceSlider input {
-    border-bottom: 0 !important;
+    border: 0 !important;
+    padding: 0;
 }
 
 .ConfirmContainer {
@@ -242,6 +244,15 @@
 }
 
 @media (max-width: 510px) {
+
+    .OrderForm input {
+        width: 300px;
+    }
+
+    .OrderContainer > div {
+        width: 300px;
+    }
+
     .OrderForm {
         width: auto;
     }

@@ -18,10 +18,9 @@
     float: right;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 964px) {
     .PanelLeft {
         width: 100%;
-        padding-right: 0px;
         padding-bottom: 32px;
     }
 

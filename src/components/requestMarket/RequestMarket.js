@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SectionLabel from "../markets/SectionLabel";
+import SectionLabel from "../common/SectionLabel";
 import CSSModules from "react-css-modules/dist/index";
 import styles from './RequestMarket.css'
 import {connect} from "react-redux";
