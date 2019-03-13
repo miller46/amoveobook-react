@@ -56,7 +56,7 @@ export default class YourChannels extends Component {
 		const me = themSpk[1];
 		const cid = spk[6];
 		const expiration = cd[7];
-		const channelData = {"me": me, "them": themSpk, "ssme": ss, "ssthem": ss, "cid": cid, "expiration": expiration, "serverPubkey": me[2]};
+		const channelData = {"me": me, "them": themSpk, "ssme": ss, "ssthem": ss, "cid": cid, "expiration": expiration, "serverPubKey": me[2]};
 
 		download(JSON.stringify(channelData), "channel_" + new Date() + ".txt", "text/plain");
 	}
