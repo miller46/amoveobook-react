@@ -115,7 +115,9 @@ export default class App extends Component {
 				</ReactCSSTransitionGroup>
 
 				<div>
-					<div styleName={contentClass}>
+					<div styleName={contentClass}
+						onClick={() => this.showDrawer()}
+					>
 					</div>
 
 					<div>
