@@ -14,6 +14,7 @@ import YourOrders from "./YourOrders";
 import MarketDetailCard from "./MarketDetailCard";
 import ActiveMarketsList from "./ActiveMarketsList";
 import ChannelPending from "../transaction/ChannelPending";
+import {getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../../utility";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -155,6 +156,15 @@ export default class Details extends Component {
 			}
 		}
 
+		let buys = [];
+		let sells = [];
+		let prices = [];
+
+		if (marketDetail && market) {
+			buys = marketDetail ? priceAmount(marketDetail.buys) : [];
+			sells = marketDetail ? priceAmount(marketDetail.sells) : [];
+		}
+
 		return (
 			<div styleName="DetailsContainer">
 				<div styleName="PanelLeft">
@@ -170,6 +180,8 @@ export default class Details extends Component {
 						onPriceUpdate={this.updatePrice}
 						onOrderSubmit={this.onOrderSubmit}
 						bestPrice={bestPrice}
+						buys={buys}
+						sells={sells}
 						marketType={marketType}
 						upperBound={upperBound}
 						lowerBound={lowerBound}

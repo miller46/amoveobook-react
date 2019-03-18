@@ -1,27 +1,50 @@
-var network = require('../controller/network-controller.js');
-var formatUtility = require('./format-utility.js');
-var cryptoUtility = require('./crypto-utility.js');
+import {api} from "../config";
 
-export function requestProof(topHeader, tree, key, callback) {
-	var topHeaderHash = cryptoUtility.hash(formatUtility.serializeHeader(topHeader));
-	network.send(["proof", btoa(tree), key, btoa(formatUtility.arrayToString(topHeaderHash))], function(error, proof) {
-		if (error) {
-			return callback(error, 0);
-		} else {
-			var val = 0;
-			try {
-				val = verify(topHeader, key, proof);
-				return callback(undefined, val);
-			} catch(err) {
-				console.error(err);
-				return callback(err, 0);
-			}
+const formatUtility = require('./format-utility.js');
+const cryptoUtility = require('./crypto-utility.js');
+
+export function requestProof(network, topHeader, tree, key, callback) {
+	const topHeaderHash = cryptoUtility.hash(formatUtility.serializeHeader(topHeader));
+	// network.send(["proof", btoa(tree), key, btoa(formatUtility.arrayToString(topHeaderHash))], function(error, proof) {
+	// 	if (error) {
+	// 		return callback(error, 0);
+	// 	} else {
+	// 		var val = 0;
+	// 		try {
+	// 			val = verify(topHeader, key, proof);
+	// 			return callback(undefined, val);
+	// 		} catch(err) {
+	// 			console.error(err);
+	// 			return callback(err, 0);
+	// 		}
+	// 	}
+	// });
+
+	fetch(api[network].nodeUrl,
+		{
+			method: 'POST',
+			body: JSON.stringify(["proof", btoa(tree), key, btoa(formatUtility.arrayToString(topHeaderHash))])
 		}
+	)
+	.then(function (response) {
+		return response.json();
+	})
+	.then(function (json) {
+		let val = 0;
+		try {
+			val = verify(topHeader, key, json[1]);
+			return callback(undefined, val);
+		} catch(err) {
+			console.error(err);
+			return callback(err, 0);
+		}
+	}).catch(error => {
+		return callback(error, 0);
 	});
 }
 
 function hashMember(hash, members) {
-	for (var i = 0; i < 6; i++) {
+	for (let i = 0; i < 6; i++) {
 		var h2 = members.slice(32*i, 32*(i+1));
 		var b = checkEqual(hash, h2);
 		if (b) {
@@ -31,24 +54,26 @@ function hashMember(hash, members) {
 	return false;
 }
 function checkEqual(a, check_b) {
-	for (var i = 0; i < a.length; i++) {
+	for (let i = 0; i < a.length; i++) {
 		if (a[i] !== check_b[i]) {
 			return false
 		}
 	}
 	return true;
 }
+
 function linkHash(l) {
 	var h = [];
-	for (var i = 1; i < l.length; i++) {
+	for (let i = 1; i < l.length; i++) {
 		var x = formatUtility.stringToArray(atob(l[i]));
 		h = x.concat(h);
 	}
 	return cryptoUtility.hash(h);
 }
+
 function chainLinks(chain) {
 	var out = true;
-	for (var i = 1; i < chain.length; i++) {
+	for (let i = 1; i < chain.length; i++) {
 		var parent = chain[i-1];
 		var child = chain[i];
 		var lh = linkHash(child);
@@ -59,17 +84,19 @@ function chainLinks(chain) {
 	}
 	return true;
 }
+
 function chainLinksArrayMember(parent, h) {
-	for (var i = 1; i < parent.length; i++) {
-		var x = parent[i];
+	for (let i = 1; i < parent.length; i++) {
+		const x = parent[i];
 		var p = formatUtility.stringToArray(atob(x));
 		var b = checkEqual(p, h);
 		if (b) { return true; }
 	}
 	return false;
 }
+
 function leafHash(v, trie_key) {
-	var serialized =
+	const serialized =
 		serializeKey(v, trie_key).concat(
 			serialize(v, trie_key));
 	return cryptoUtility.hash(serialized);

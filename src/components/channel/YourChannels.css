@@ -6,12 +6,23 @@
 }
 
 .ChannelRow {
-
+    overflow: auto;
 }
 
 .ChannelHeader {
     width: 33%;
     float: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.BetsContainer {
+    margin-top: 32px;
+}
+
+.BetsTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .Export {

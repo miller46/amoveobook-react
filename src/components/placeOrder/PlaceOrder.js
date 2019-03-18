@@ -54,6 +54,8 @@ export default class PlaceOrder extends Component {
 
 		this.state = {
 			bestPrice: this.props.bestPrice,
+			buy: this.props.buy,
+			sell: this.props.sell,
 			account: this.props.account,
 			marketType: this.props.marketType,
 			loading: this.props.loading,

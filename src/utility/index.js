@@ -1,6 +1,5 @@
 import {api, priceDecimals, tokenDecimals} from "../config";
 
-
 export function getDisplayExpires(endBlock, height) {
 	let expires = new Date();
 	const diff = endBlock - height;
@@ -40,6 +39,14 @@ export function getVolume(orders) {
 	}
 
 	return volume / tokenDecimals;
+}
+
+export function sumBets(bets) {
+	let totalVolume = 0;
+	for (let i = 1; i < bets.length; i++) {
+		totalVolume += bets[i][2];
+	}
+	return totalVolume;
 }
 
 export function sumAmounts(orders) {

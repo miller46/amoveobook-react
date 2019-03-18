@@ -1,7 +1,8 @@
 .Orders {
+    padding: 32px;
+    margin: auto;
     text-align: center;
-    margin-top: 64px;
-    margin-bottom: 64px;
+    min-height: 400px;
 }
 
 .OrderRow {
@@ -21,7 +22,6 @@
 }
 
 .OrderRowBlank {
-    border-top: 1px solid black;
     line-height: 60px;
     height: 60px;
     font-size: 0.9rem;
@@ -42,7 +42,6 @@
 
 .OrderHeader, .OrderHeaderSpacer {
     overflow: auto;
-    border-bottom: 1px solid black;
 }
 
 .OrderHeaderSpacer {

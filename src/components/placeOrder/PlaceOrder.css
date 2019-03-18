@@ -243,6 +243,11 @@
     margin-bottom: 16px;
 }
 
+.CenterLoading {
+    width: 64px;
+    margin: auto;
+}
+
 @media (max-width: 510px) {
 
     .OrderForm input {
