@@ -99,15 +99,21 @@ export default class YourOrders extends Component {
 
 		let orders = [];
 		if (channelData) {
-			if (oid) {
-				orders = channelData.betsByMarket[oid];
-			} else {
+			if (!oid) {
 				orders = channelData.sortedBets;
+			} else {
+				orders = channelData.betsByMarket[oid];
 			}
 		}
 
 		const orderType = "Buy";
-		const headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
+		let headerSpacer;
+		if (!oid) {
+			headerSpacer = orders.length > 5 ? "OrderHeaderSpacer5": "OrderHeader5";
+		} else {
+			headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
+		}
+
 		let display;
 		if (!account) {
 			display = <div styleName="OrderContainer">
@@ -130,6 +136,9 @@ export default class YourOrders extends Component {
 		} else {
 			display = <div styleName="OrderContainer">
 				<div styleName={headerSpacer}>
+					{
+						!oid ? <div>Market</div> : <blank></blank>
+					}
 					<div>
 						<p>Side</p>
 					</div>
@@ -160,16 +169,20 @@ export default class YourOrders extends Component {
 
 							price = parseFloat(price.toFixed(2))
 
+							const orderRowClass = !oid ? "OrderRow5" : "OrderRow"
 							return (
-								<div styleName="OrderRow" key={index}>
+								<div styleName={orderRowClass} key={index}>
+									{
+										!oid ? <div styleName="MarketColumn">{row.market}</div> : <blank></blank>
+									}
 									<div styleName={row.side === "true" ? "Long" : "Short"}>
 										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
-										{price}
+										{price / priceDecimals}
 									</div>
 									<div>
-										{roundOff(row.amount, 6)}
+										{roundOff(row.amount / tokenDecimals, 6)}
 									</div>
 									<div>
 										{

@@ -54,7 +54,7 @@ export const getChannelData = (network, address, topHeader) => {
 							const market = bet[3][2];
 							const amount = bet[2];
 							const price = bet[4][2];
-							const side = bet[4][1] === 1;
+							const side = bet[4][1] === 1 ? "true" : "false";
 							const meta = betsMeta[i];
 							const cancelable = JSON.stringify(meta.code) === JSON.stringify([0,0,0,0,4])
 							sortedBets.push(

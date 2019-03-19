@@ -5,16 +5,23 @@
     min-height: 400px;
 }
 
-.OrderRow {
+.OrderRow, .OrderRow5 {
     border-bottom: 1px solid black;
     line-height: 60px;
     height: 60px;
     font-size: 0.9rem;
 }
 
-.OrderRow div {
+.OrderRow div, .OrderRow5 div {
     float: left;
+}
+
+.OrderRow div {
     width: 25%;
+}
+
+.OrderRow5 div {
+    width: 20%;
 }
 
 .OrderRow button {
@@ -40,11 +47,11 @@
     background: #f3f3f3;
 }
 
-.OrderHeader, .OrderHeaderSpacer {
+.OrderHeader, .OrderHeaderSpacer, .OrderHeader5, .OrderHeaderSpacer5 {
     overflow: auto;
 }
 
-.OrderHeaderSpacer {
+.OrderHeaderSpacer, .OrderHeaderSpacer5 {
     padding-right: 14px;
 }
 
@@ -54,10 +61,22 @@
     font-weight: bold;
 }
 
-.OrderHeader div {
+.OrderHeader div, .OrderHeader5 div {
     float: left;
-    width: 25%;
     font-weight: bold;
+}
+
+.OrderHeader div{
+    width: 25%;
+}
+
+.OrderHeader5 div {
+    width: 20%;
+}
+
+.MarketColumn {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .Error {
