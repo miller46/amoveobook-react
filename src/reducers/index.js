@@ -38,7 +38,12 @@ import {
 	SET_ACCOUNT_SUCCESS,
 	SET_CHANNEL_PENDING_SUCCESS,
 	SET_CHANNEL_PENDING_FAILURE,
+	GET_CHANNEL_DATA_SUCCESS,
+	GET_CHANNEL_DATA_FAILURE,
+	GET_CHANNEL_DATA_STARTED
 } from '../actions/types';
+import {getNetwork} from "../amoveo3utility";
+import {getChannelData} from "../actions";
 
 const initialState = {
 	loading: {
@@ -51,6 +56,7 @@ const initialState = {
 		requestMarket: false,
 		ip: false,
 		account: false,
+		channelData: false,
 	},
 	veoPrices: {"USD": 3495.38, "EUR": 3053.4, "CNY": 23900, "RUB": 246738.38, "last": 0.05},
 	activeMarkets: [],
@@ -59,6 +65,7 @@ const initialState = {
 	height: 45315,
 	ip: null,
 	account: null,
+	channelData: null,
 	requestMarket: false,
 	channelPending: false,
 	marketBlacklist: [
@@ -77,8 +84,18 @@ const initialState = {
 		channelPending: null,
 		ip: null,
 		account: null,
+		channelData: null,
 	}
 };
+
+const amoveo3 = window.amoveo3;
+if (amoveo3) {
+	const address = amoveo3.coinbase;
+	const network = getNetwork(amoveo3);
+	const topHeader = amoveo3.topHeader;
+
+	getChannelData(network, address, topHeader)
+}
 
 export default function getVeoPriceReducer(state = initialState, action) {
 	switch (action.type) {
@@ -528,6 +545,43 @@ export default function getVeoPriceReducer(state = initialState, action) {
 				error: {
 					...state.error,
 					channelPending: action.payload.error
+				}
+			};
+		case GET_CHANNEL_DATA_STARTED:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					channelData: true
+				},
+				error: {
+					...state.error,
+					channelData: null
+				},
+			};
+		case GET_CHANNEL_DATA_SUCCESS:
+			return {
+				...state,
+				channelData: action.payload.channelData,
+				loading: {
+					...state.loading,
+					channelData: false
+				},
+				error: {
+					...state.error,
+					channelData: null
+				},
+			};
+		case GET_CHANNEL_DATA_FAILURE:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					channelData: false
+				},
+				error: {
+					...state.error,
+					channelData: action.payload.error
 				}
 			};
 		default:

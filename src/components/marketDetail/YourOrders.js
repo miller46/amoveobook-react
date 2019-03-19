@@ -6,14 +6,28 @@ import SectionLabel from "../common/SectionLabel";
 import {tokenDecimals, priceDecimals, api} from '../../config'
 import {connect} from "react-redux";
 import {roundOff} from "../../utility";
+import {getChannelData, getMarket} from "../../actions";
+import {getNetwork} from "../../amoveo3utility";
+import Loading from "../loading/Loading";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		account: state.default.account,
+		channelData: state.default.channelData,
+		channelError: state.default.error.channelData,
+		channelLoading: state.default.loading.channelData,
 	};
 };
 
-@connect(mapStateToProps, null)
+const mapDispatchToProps = dispatch => {
+	return {
+		getChannelData: (network, address, topHeader) => {
+			dispatch(getChannelData(network, address, topHeader));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class YourOrders extends Component {
 
@@ -34,59 +48,15 @@ export default class YourOrders extends Component {
 	}
 
 	componentDidMount() {
-		const instance = this;
-		let lastOrderLength = 0;
-
-		if (this.listener === 0) {
-			this.listener = setInterval(function () {
-				const orders = instance.getOrders();
-				if (lastOrderLength !== orders.length) {
-					lastOrderLength = orders.length;
-					instance.setState({orders: orders})
-				}
-			}, 500)
-		}
-	}
-
-	getOrders() {
-		const {oid} = this.state;
-		const orders = []
+		const {channelLoading, channelData} = this.props;
 		const amoveo3 = window.amoveo3;
-		if (amoveo3 && amoveo3.channels && amoveo3.channels.length > 0) {
-			const channels = amoveo3.channels;
-			for (let i = 0; i < channels.length; i++) {
-				let channel = channels[i];
-				const channelInfo = channel.me;
-				if (channelInfo && channelInfo[1] === amoveo3.coinbase) {
-					const bets = channel.me[3];
-					for (let j = 1; j < bets.length; j++) {
-						const bet = bets[j];
-						if (bet[3][2] === oid) {
-							const amount = bet[2] / tokenDecimals;
-							const price = bet[4][2] / priceDecimals;
-							const side = bet[4][1] === 1 ? "true" : "false";
+		if (!channelLoading && !channelData && amoveo3) {
+			const address = amoveo3.coinbase;
+			const network = getNetwork(amoveo3);
+			const topHeader = amoveo3.topHeader;
 
-							const betData = channel.ssme[j - 1];
-							let cancelable = false;
-							if (betData && JSON.stringify(betData.code) === JSON.stringify([0, 0, 0, 0, 4])) {
-								cancelable = true;
-							}
-
-							const order = {
-								amount: amount,
-								price: price,
-								side: side,
-								index: j - 1,
-								cancelable: cancelable
-							};
-							orders.push(order);
-						}
-					}
-				}
-			}
+			this.props.getChannelData(network, address, topHeader)
 		}
-
-		return orders;
 	}
 
 	componentWillReceiveProps(props) {
@@ -122,10 +92,19 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {orders, error, marketType, upperBound, lowerBound} = this.state;
-		const {account} = this.props;
+		const {oid, error, marketType, upperBound, lowerBound} = this.state;
+		const {account, channelData, channelLoading, channelError} = this.props;
 
 		const isScalar = marketType === "scalar";
+
+		let orders = [];
+		if (channelData) {
+			if (oid) {
+				orders = channelData.betsByMarket[oid];
+			} else {
+				orders = channelData.sortedBets;
+			}
+		}
 
 		const orderType = "Buy";
 		const headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
@@ -135,6 +114,12 @@ export default class YourOrders extends Component {
 				<div styleName="OrderRowBlank">
 					<p>Log in to view orders</p>
 				</div>
+			</div>
+		} else if (channelLoading) {
+			display = <div styleName="OrderContainer">
+				<Loading
+					lightMode={true}
+				/>
 			</div>
 		} else if (orders.length === 0) {
 			display = <div styleName="OrderContainer">
