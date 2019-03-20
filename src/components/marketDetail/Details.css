@@ -1,30 +1,55 @@
 .DetailsContainer {
     overflow: auto;
     margin-bottom: 256px;
-    width: 100%;
-}
-
-.PanelLeft {
     padding-left: 32px;
-    width: calc(100% - 430px);
-    float: left;
+    width: 100%;
     padding-right: 32px;
     background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
     background-position-y: -150px;
     background-size: contain;
 }
 
+.TopPanel {
+    width: 100%;
+}
+
+.PanelLeft {
+    float: left;
+    width: 50%;
+    padding-right: 16px;
+}
+
 .PanelRight {
     float: right;
+    width: 50%;
+    padding-left: 16px;
+}
+
+.DetailCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    background: white;
+    margin: 0 auto 32px auto;
+    padding: 16px 32px;
+    text-align: left;
+}
+
+.CardTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
 }
 
 @media (max-width: 964px) {
     .PanelLeft {
         width: 100%;
         padding-bottom: 32px;
+        padding-right: 0px;
     }
 
     .PanelRight {
         width: 100%;
+        padding-left: 0px;
     }
 }

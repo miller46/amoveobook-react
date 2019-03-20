@@ -41,6 +41,7 @@ export default class YourOrders extends Component {
 			marketType: this.props.marketType,
 			upperBound: this.props.upperBound,
 			lowerBound: this.props.lowerBound,
+			hideTitle: this.props.hideTitle === true,
 			orders: [],
 		}
 
@@ -92,7 +93,7 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {oid, error, marketType, upperBound, lowerBound} = this.state;
+		const {oid, error, marketType, upperBound, lowerBound, hideTitle} = this.state;
 		const {account, channelData, channelLoading, channelError} = this.props;
 
 		const isScalar = marketType === "scalar";
@@ -101,17 +102,20 @@ export default class YourOrders extends Component {
 		if (channelData) {
 			if (!oid) {
 				orders = channelData.sortedBets;
-			} else {
+			} else if (oid in channelData.betsByMarket) {
 				orders = channelData.betsByMarket[oid];
 			}
 		}
 
 		const orderType = "Buy";
 		let headerSpacer;
+		let ordersClass;
 		if (!oid) {
 			headerSpacer = orders.length > 5 ? "OrderHeaderSpacer5": "OrderHeader5";
+			ordersClass = orders.length > 5 ? "OrderRows5": "OrderRows";
 		} else {
 			headerSpacer = orders.length > 5 ? "OrderHeaderSpacer": "OrderHeader";
+			ordersClass = orders.length > 5 ? "OrderRows5": "OrderRows";
 		}
 
 		let display;
@@ -153,7 +157,7 @@ export default class YourOrders extends Component {
 					</div>
 				</div>
 
-				<div styleName="OrderRows">
+				<div styleName={ordersClass}>
 					{
 						orders.map(function(row, index) {
 							let price;
@@ -204,13 +208,21 @@ export default class YourOrders extends Component {
 
 		return (
 			<div styleName="Orders">
-				<SectionLabel
-					titleText="Your Orders"
-				/>
+				{
+					hideTitle
+						? <div></div>
+						: <SectionLabel
+							titleText="Your Orders"
+						/>
+				}
 
-				<div styleName="Error">
-					{error}
-				</div>
+				{
+					error
+						? <div styleName="Error">
+						{error}
+					</div>
+						: <div></div>
+				}
 
 				{display}
 			</div>

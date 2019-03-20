@@ -10,11 +10,13 @@ import {getNetwork} from '../../amoveo3utility'
 import Calculator from "../payoutCalculator/Calculator";
 import GoToAdvancedView from "./GoToAdvancedView";
 import PlaceOrder from "../placeOrder/PlaceOrder";
+import PriceChart from "../advanced/PriceChart";
 import YourOrders from "./YourOrders";
 import MarketDetailCard from "./MarketDetailCard";
 import ActiveMarketsList from "./ActiveMarketsList";
 import ChannelPending from "../transaction/ChannelPending";
 import {getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../../utility";
+import {priceDecimals, tokenDecimals} from "../../config";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -86,25 +88,11 @@ export default class Details extends Component {
 	}
 
 	componentDidMount() {
-		const {oid, marketDetail, height, activeMarkets, bestPrice} = this.state;
+		const {oid, marketDetail} = this.state;
 
-		if (!height) {
-			if (window.amoveo3) {
-				this.props.getHeight(window.amoveo3.network);
-			}
-		}
-
+		const network = getNetwork(window.amoveo3);
 		if (!marketDetail) {
-			if (window.amoveo3) {
-				this.props.getMarket(window.amoveo3.network, oid);
-			}
-		}
-
-		if (activeMarkets.length === 0) {
-			const network = getNetwork(window.amoveo3);
-			this.props.getActiveMarkets({network: network});
-		} else {
-			const i = 0;
+			this.props.getMarket(network, oid);
 		}
 	}
 
@@ -148,53 +136,54 @@ export default class Details extends Component {
 			lowerBound = market.lower_bound
 		}
 
-		let hasChannel = false;
-		const amoveo3 = window.amoveo3;
-		if (amoveo3) {
-			if (amoveo3.channels && amoveo3.channels.length > 0) {
-				hasChannel = true;
-			}
-		}
-
 		let buys = [];
 		let sells = [];
 		let prices = [];
 
 		if (marketDetail && market) {
+			prices = marketDetail.matchedOrders;
 			buys = marketDetail ? priceAmount(marketDetail.buys) : [];
 			sells = marketDetail ? priceAmount(marketDetail.sells) : [];
 		}
 
 		return (
 			<div styleName="DetailsContainer">
-				<div styleName="PanelLeft">
+				<div styleName="TopPanel">
 					<ChannelPending />
 
 					<MarketDetailCard
 						market={market}
 						height={height}
+						prices={prices}
 					/>
+				</div>
 
-					<PlaceOrder
-						onAmountUpdate={this.updateAmount}
-						onPriceUpdate={this.updatePrice}
-						onOrderSubmit={this.onOrderSubmit}
-						bestPrice={bestPrice}
-						buys={buys}
-						sells={sells}
-						marketType={marketType}
-						upperBound={upperBound}
-						lowerBound={lowerBound}
-						oid={oid}
-					/>
+				<div styleName="PanelLeft">
+					<div>
+						<PlaceOrder
+							onAmountUpdate={this.updateAmount}
+							onPriceUpdate={this.updatePrice}
+							onOrderSubmit={this.onOrderSubmit}
+							bestPrice={bestPrice}
+							price={price}
+							buys={buys}
+							sells={sells}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+							oid={oid}
+						/>
+					</div>
 
-					<Calculator
-						amount={amount}
-						price={price}
-						marketType={marketType}
-						upperBound={upperBound}
-						lowerBound={lowerBound}
-					/>
+					<div>
+						<Calculator
+							amount={amount}
+							price={price}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+						/>
+					</div>
 
 					{
 						hideAdvanced
@@ -206,10 +195,26 @@ export default class Details extends Component {
 				</div>
 
 				<div styleName="PanelRight">
-					<ActiveMarketsList
-						limit={10}
-					/>
+					<div styleName="DetailCard">
+						<PriceChart
+							prices={prices}
+							oid={oid}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+						/>
+					</div>
+
+					<div styleName="DetailCard">
+						<p styleName="CardTitle">Your Orders</p>
+
+						<YourOrders
+							oid={oid}
+							hideTitle={true}
+						/>
+					</div>
 				</div>
+
 			</div>
 		)
 	}

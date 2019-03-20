@@ -88,15 +88,6 @@ const initialState = {
 	}
 };
 
-const amoveo3 = window.amoveo3;
-if (amoveo3) {
-	const address = amoveo3.coinbase;
-	const network = getNetwork(amoveo3);
-	const topHeader = amoveo3.topHeader;
-
-	getChannelData(network, address, topHeader)
-}
-
 export default function getVeoPriceReducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_VEO_PRICE_STARTED:

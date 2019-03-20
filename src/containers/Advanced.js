@@ -47,6 +47,7 @@ export default class Advanced extends Component {
 
 	constructor(props) {
 		super(props);
+
 		const oid = this.props.params.oid;
 		const marketDetail = this.props.params.marketDetail;
 		const height = this.props.height;
@@ -66,19 +67,8 @@ export default class Advanced extends Component {
 		}
 
 		const network = getNetwork(window.amoveo3);
-		if (window.amoveo3) {
-			if (!height) {
-				this.props.getHeight(network);
-			}
-		}
-
 		if (!marketDetail) {
 			this.props.getMarket(network, oid);
-		}
-
-		if (activeMarkets.length === 0) {
-			const network = getNetwork(window.amoveo3);
-			this.props.getActiveMarkets({network: network});
 		}
 
 		this.updateAmount = this.updateAmount.bind(this)

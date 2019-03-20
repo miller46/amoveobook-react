@@ -1,12 +1,10 @@
 .Orders {
-    padding: 32px;
     margin: auto;
     text-align: center;
-    min-height: 400px;
 }
 
 .OrderRow, .OrderRow5 {
-    border-bottom: 1px solid black;
+    border-top: 1px solid black;
     line-height: 60px;
     height: 60px;
     font-size: 0.9rem;
@@ -38,12 +36,12 @@
 
 }
 
-.OrderRows {
+.OrderRows5 {
     max-height: 300px;
     overflow-y: scroll;
 }
 
-.OrderRows > div:nth-child(even) {
+.OrderRows > div:nth-child(even), .OrderRows5 > div:nth-child(even) {
     background: #f3f3f3;
 }
 

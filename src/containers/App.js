@@ -7,9 +7,10 @@ import Drawer from '../components/navigation/Drawer'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
-import {getAccount, getIp, getChannelPending} from "../actions";
+import {getAccount, getIp, getChannelPending, getChannelData, getHeight, getActiveMarkets} from "../actions";
 import {connect} from "react-redux";
 import ChannelPending from "../components/transaction/ChannelPending";
+import {getNetwork} from "../amoveo3utility";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -27,11 +28,20 @@ const mapDispatchToProps = dispatch => {
 		getIp: () => {
 			dispatch(getIp());
 		},
+		getHeight: (network) => {
+			dispatch(getHeight(network));
+		},
+		getActiveMarkets: (options) => {
+			dispatch(getActiveMarkets(options));
+		},
 		getAccount: (address) => {
 			dispatch(getAccount(address));
 		},
 		getChannelPending: () => {
 			dispatch(getChannelPending());
+		},
+		getChannelData: (network, address, topHeader) => {
+			dispatch(getChannelData(network, address, topHeader));
 		},
 	};
 };
@@ -49,33 +59,28 @@ export default class App extends Component {
 			showDrawer: false,
 		}
 
-		this.accountListener = 0;
-
 		this.showDrawer = this.showDrawer.bind(this)
 	}
 
 	componentWillMount() {
-		const instance = this;
-
-		const {ip, account} = this.state;
-
+		const {ip} = this.state;
 		const hasChecked = localStorage.getItem("hasCheckedIp");
 		if (hasChecked !== "true" && !ip) {
 			this.props.getIp()
 		}
+	}
 
-		if (this.accountListener === 0) {
-			this.accountListener = setInterval(function () {
-				const amoveo3 = window.amoveo3;
-				if (amoveo3) {
-					const address = amoveo3.coinbase;
-					if (address && !account) {
+	componentDidMount() {
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			const address = amoveo3.coinbase;
+			const network = getNetwork(amoveo3);
+			const topHeader = amoveo3.topHeader;
 
-						instance.props.getAccount(address);
-						clearInterval(instance.accountListener)
-					}
-				}
-			}, 500)
+			this.props.getHeight(network);
+			this.props.getActiveMarkets({network: network});
+			this.props.getAccount(address);
+			this.props.getChannelData(network, address, topHeader)
 		}
 	}
 

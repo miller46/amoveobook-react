@@ -250,7 +250,7 @@ export default class PlaceOrder extends Component {
 	handleSliderChange(e) {
 		const newValue = e.target.value;
 		const newPrice = newValue / 100;
-		this.setState({sliderValue: newValue, price: newValue / 100});
+		this.setState({sliderValue: newPrice * 100, price: newPrice});
 
 		if (this.props.onPriceUpdate) {
 			this.props.onPriceUpdate(newPrice);

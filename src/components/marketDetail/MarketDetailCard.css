@@ -7,3 +7,37 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+
+.Left {
+    float: left;
+}
+
+.Right {
+    float: right;
+    text-align: right;
+}
+
+.Trading {
+    overflow: auto;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 400px;
+    margin-top: 8px;
+}
+
+.TradingFigure {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.Expires {
+    font-size: 0.8rem;
+}
+
+.Profit {
+    color: #5cb85c
+}
+
+.Loss {
+    color: #dc3545
+}

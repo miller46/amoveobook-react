@@ -16,6 +16,8 @@ import RequestMarket from "../components/requestMarket/RequestMarket";
 const mapStateToProps = (state, ownProps) => {
 	return {
 		account: state.default.account,
+		channelData: state.default.channelData,
+		channelLoading: state.default.loading.channelData,
 	};
 };
 
@@ -63,19 +65,21 @@ export default class Onboarding extends Component {
 	}
 
 	componentWillMount() {
+		const {channelData} = this.props;
+
 		const instance = this;
 		let lastWallet, lastUnlocked;
 
 		const amoveo3 = window.amoveo3;
-		if (hasChannel(amoveo3)) {
+		if (channelData) {
 			instance.advanceToSplash();
 		} else {
 			this.listener = setInterval(function() {
 				const noWallet = !amoveo3;
 				const unlocked = amoveo3 && !amoveo3.isLocked;
-				const channelExists = hasChannel(amoveo3);
 
-				if (channelExists) {
+				const a = instance.props.channelData;
+				if (instance.props.channelData) {
 					instance.advanceToSplash();
 				} else if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
 					lastWallet = noWallet;
@@ -88,6 +92,11 @@ export default class Onboarding extends Component {
 				}
 			}, 500)
 		}
+	}
+
+	hasChannel() {
+		const {channelData, channelLoading} = this.props;
+		return channelData;
 	}
 
 	advanceToChannels() {
