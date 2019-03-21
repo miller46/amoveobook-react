@@ -70,12 +70,12 @@ export default class YourOrders extends Component {
 		if (amoveo3) {
 			amoveo3.currentProvider.send(
 				{
-						type: "cancel",
-						index: order.index,
-						ip: api[amoveo3.network].nodeUrl,
-						price: order.price,
-						amount: order.amount,
-						side: order.side
+					type: "cancel",
+					index: order.index,
+					ip: api[amoveo3.network].nodeUrl,
+					price: order.price,
+					amount: order.amount,
+					side: order.side
 				}, function (error, result) {
 					if (error) {
 						instance.setState({

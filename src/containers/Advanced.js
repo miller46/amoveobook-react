@@ -15,6 +15,7 @@ import Loading from "../components/loading/Loading";
 import {priceDecimals, tokenDecimals} from "../config";
 import {getDisplayOdds, sumAmounts, getVolume, priceAmount} from "../utility";
 import {getNetwork} from "../amoveo3utility";
+import YourOrders from "../components/marketDetail/YourOrders";
 
 const mapStateToProps = (state, ownProps) => {
 	const {oid} = ownProps.params;
@@ -256,6 +257,17 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+							/>
+						</div>
+
+						<div styleName="YourOrdersContainer">
+							<div styleName="PanelTitle">
+								<p>Your Orders</p>
+							</div>
+
+							<YourOrders
+								oid={oid}
+								hideTitle={true}
 							/>
 						</div>
 					</div>

@@ -68,6 +68,14 @@
     background: white;
 }
 
+.YourOrdersContainer {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .42);
+    border: 1px solid #FFFFFF;
+    margin-bottom: 32px;
+    background: white;
+    padding: 0 32px;
+}
+
 .PanelTitle {
     font-size: 1rem;
     font-weight: 700;

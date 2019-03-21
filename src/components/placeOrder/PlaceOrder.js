@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import style from './PlaceOrder.css'
 import {connect} from "react-redux";
-import {getAccount} from "../../actions";
+import {getAccount, getChannelData} from "../../actions";
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading'
 import {api} from "../../config";
-import {hasChannel} from "../../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		account: state.default.account,
 		loading: state.default.loading.account,
+		channelData: state.default.channelData,
 	};
 };
 
@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		getAccount: (address) => {
 			dispatch(getAccount(address));
+		},
+		getChannelData: (network, address, topHeader) => {
+			dispatch(getChannelData(network, address, topHeader));
 		},
 	};
 };
@@ -162,7 +165,7 @@ export default class PlaceOrder extends Component {
 				}, function(error, result) {
 					if (error) {
 						instance.setState({
-							confirmError: "The request to cancel was rejected"
+							confirmError: "The request was cancelled"
 						})
 					} else {
 						if (instance.props.onOrderSubmit) {
@@ -263,7 +266,7 @@ export default class PlaceOrder extends Component {
 	}
 
 	render() {
-		const {account, loading} = this.props;
+		const {account, channelData, loading} = this.props;
 
 		const {sliderValue, marketType, upperBound, lowerBound, selectedOrderType, selectedBuySell, price, amount, bestPrice,
 			selectedSide, userShares, amountError, priceError, confirmError} = this.state;
@@ -303,9 +306,6 @@ export default class PlaceOrder extends Component {
 			</div>
 		}
 
-		const amoveo3 = window.amoveo3;
-		const channelExists = hasChannel(amoveo3);
-
 		const total = price * amount > 0 ? price * amount : 0;
 
 		let priceLabelText;
@@ -320,7 +320,7 @@ export default class PlaceOrder extends Component {
 			button = <div styleName="OrderFormLocked">
 				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</button>
 			</div>
-		} else if (!channelExists) {
+		} else if (!channelData) {
 			button = <div styleName="OrderFormLocked">
 				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>open a channel</span> to place a bet.</button>
 			</div>
