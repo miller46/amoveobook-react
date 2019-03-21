@@ -185,7 +185,7 @@ export default class PlaceOrder extends Component {
 		let {maxOrderSize} = this.state;
 
 		let amount = parseFloat(e.target.value);
-		if (isNaN(amount) && amount < 0) {
+		if (isNaN(amount) || amount < 0) {
 			amount = 0;
 		}
 

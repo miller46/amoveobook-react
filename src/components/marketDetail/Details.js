@@ -166,6 +166,7 @@ export default class Details extends Component {
 							onOrderSubmit={this.onOrderSubmit}
 							bestPrice={bestPrice}
 							price={price}
+							amount={amount}
 							buys={buys}
 							sells={sells}
 							marketType={marketType}
