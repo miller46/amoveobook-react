@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import {getHeight, getMarket, getActiveMarkets} from "../actions";
+import {getHeight, getMarket, getActiveMarkets, getChannelData} from "../actions";
 import {connect} from "react-redux";
 import styles from './Advanced.css'
 
@@ -39,6 +39,9 @@ const mapDispatchToProps = dispatch => {
 		getActiveMarkets: (options) => {
 			dispatch(getActiveMarkets(options));
 		},
+		getChannelData: (network, address, topHeader) => {
+			dispatch(getChannelData(network, address, topHeader));
+		},
 	};
 };
 
@@ -75,10 +78,35 @@ export default class Advanced extends Component {
 		this.updateAmount = this.updateAmount.bind(this)
 		this.updatePrice = this.updatePrice.bind(this)
 		this.onRowSelect = this.onRowSelect.bind(this)
+		this.onOrderSubmit = this.onOrderSubmit.bind(this)
+		this.onCancel = this.onCancel.bind(this)
 	}
 
 	componentWillMount() {
 
+	}
+
+	onOrderSubmit() {
+		//TODO
+		// clear form
+		// save wallet state in API - WBN
+		//
+		this.updateOrders();
+	}
+
+	onCancel() {
+		this.updateOrders();
+	}
+
+	updateOrders() {
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			const address = amoveo3.coinbase;
+			const network = getNetwork(amoveo3);
+			const topHeader = amoveo3.topHeader;
+
+			this.props.getChannelData(network, address, topHeader)
+		}
 	}
 
 	updatePrice(price) {
@@ -187,6 +215,7 @@ export default class Advanced extends Component {
 								lowerBound={lowerBound}
 								onAmountUpdate={this.updateAmount}
 								onPriceUpdate={this.updatePrice}
+								onOrderSubmit={this.onOrderSubmit}
 								price={price}
 								amount={amount}
 								selectedSide={selectedSide}
@@ -268,6 +297,7 @@ export default class Advanced extends Component {
 							<YourOrders
 								oid={oid}
 								hideTitle={true}
+								onCancel={this.onCancel}
 							/>
 						</div>
 					</div>
