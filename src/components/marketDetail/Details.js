@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
-import {getHeight, getMarket, getActiveMarkets, getAccount} from "../../actions";
+import {getHeight, getMarket, getActiveMarkets, getAccount, getChannelData} from "../../actions";
 import {connect} from "react-redux";
 import styles from './Details.css'
 import styles2 from '../markets/MarketRow.css'
@@ -43,6 +43,9 @@ const mapDispatchToProps = dispatch => {
 		getAccount: (address) => {
 			dispatch(getAccount(address));
 		},
+		getChannelData: (network, address, topHeader) => {
+			dispatch(getChannelData(network, address, topHeader));
+		},
 	};
 };
 
@@ -77,6 +80,7 @@ export default class Details extends Component {
 		this.updateAmount = this.updateAmount.bind(this)
 		this.updatePrice = this.updatePrice.bind(this)
 		this.onOrderSubmit = this.onOrderSubmit.bind(this)
+		this.onCancel = this.onCancel.bind(this)
 	}
 
 	componentWillReceiveProps(props) {
@@ -99,11 +103,24 @@ export default class Details extends Component {
 	onOrderSubmit() {
 		//TODO
 		// clear form
-		// refresh YourOrders component (it just reads from channels inside wallet)
 		// save wallet state in API - WBN
 		//
+		this.updateOrders();
+	}
 
-		this.setState({updateOrders: true});
+	onCancel() {
+		this.updateOrders();
+	}
+
+	updateOrders() {
+		const amoveo3 = window.amoveo3;
+		if (amoveo3) {
+			const address = amoveo3.coinbase;
+			const network = getNetwork(amoveo3);
+			const topHeader = amoveo3.topHeader;
+
+			this.props.getChannelData(network, address, topHeader)
+		}
 	}
 
 	updatePrice(price) {
@@ -211,7 +228,8 @@ export default class Details extends Component {
 
 						<YourOrders
 							oid={oid}
-							hideTitle={true}
+							hideTitle={true}s
+							onCancel={this.onCancel}
 						/>
 					</div>
 				</div>

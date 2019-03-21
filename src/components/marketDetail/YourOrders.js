@@ -46,6 +46,11 @@ export default class YourOrders extends Component {
 		}
 
 		this.listener = 0;
+
+		if (this.props.onCancel) {
+			this.onCancel = this.props.onCancel.bind(this)
+		}
+
 	}
 
 	componentDidMount() {
@@ -82,6 +87,9 @@ export default class YourOrders extends Component {
 							error: "The request to cancel was rejected"
 						})
 					} else {
+						if (instance.props.onCancel) {
+							instance.props.onCancel();
+						}
 						instance.setState({
 							error: ""
 						})

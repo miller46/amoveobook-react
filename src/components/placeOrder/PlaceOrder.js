@@ -170,11 +170,10 @@ export default class PlaceOrder extends Component {
 					} else {
 						if (instance.props.onOrderSubmit) {
 							instance.props.onOrderSubmit();
-						} else {
-							instance.setState({
-								confirmError: ""
-							})
 						}
+						instance.setState({
+							confirmError: ""
+						})
 					}
 				}
 			);
