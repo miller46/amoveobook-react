@@ -62,6 +62,7 @@ export const getChannelData = (network, address, topHeader) => {
 								const cancelable = JSON.stringify(meta.code) === JSON.stringify([0, 0, 0, 0, 4])
 								sortedBets.push(
 									{
+										index: i,
 										market: market,
 										amount: amount,
 										price: price,
@@ -71,6 +72,7 @@ export const getChannelData = (network, address, topHeader) => {
 								)
 
 								const marketBet = {
+									index: i,
 									amount: amount,
 									price: price,
 									side: side,
