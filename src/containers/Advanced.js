@@ -148,6 +148,8 @@ export default class Advanced extends Component {
 		let buys = [];
 		let sells = [];
 		let prices = [];
+		let currencyPrefix = ""
+		let currencySuffix = ""
 
 		if (marketDetails && market) {
 			prices = marketDetails.matchedOrders;
@@ -194,6 +196,8 @@ export default class Advanced extends Component {
 			const marketType = market.market_type;
 			const upperBound = market.upper_bound;
 			const lowerBound = market.lower_bound;
+			const currencyPrefix = market.currency_prefix
+			const currencySuffix = market.currency_suffix
 
 			return (
 				<div styleName="AdvancedContainer">
@@ -213,6 +217,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 								onAmountUpdate={this.updateAmount}
 								onPriceUpdate={this.updatePrice}
 								onOrderSubmit={this.onOrderSubmit}
@@ -230,6 +236,8 @@ export default class Advanced extends Component {
 							marketType={marketType}
 							upperBound={upperBound}
 							lowerBound={lowerBound}
+							currencyPrefix={currencyPrefix}
+							currencySuffix={currencySuffix}
 						/>
 					</div>
 

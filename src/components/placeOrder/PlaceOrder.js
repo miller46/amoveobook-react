@@ -64,6 +64,8 @@ export default class PlaceOrder extends Component {
 			loading: this.props.loading,
 			upperBound: this.props.upperBound || 0,
 			lowerBound: this.props.lowerBound || 0,
+			currencyPrefix: this.props.currencyPrefix || "",
+			currencySuffix: this.props.currencySuffix || "",
 			oid: this.props.oid,
 			selectedOrderType: selectedOrderType,
 			selectedBuySell: selectedBuySell,
@@ -268,7 +270,7 @@ export default class PlaceOrder extends Component {
 		const {account, channelData, loading} = this.props;
 
 		const {sliderValue, marketType, upperBound, lowerBound, selectedOrderType, selectedBuySell, price, amount, bestPrice,
-			selectedSide, userShares, amountError, priceError, confirmError} = this.state;
+			selectedSide, userShares, amountError, priceError, confirmError, currencyPrefix, currencySuffix} = this.state;
 
 		const isMarketOrder = selectedOrderType === "market";
 		const marketStyleName = isMarketOrder ? "OrderTypeSelectedToggle" : "OrderTypeToggle"

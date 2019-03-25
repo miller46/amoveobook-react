@@ -147,10 +147,14 @@ export default class Details extends Component {
 		let marketType = ""
 		let upperBound = 0
 		let lowerBound = 0
+		let currencyPrefix = ""
+		let currencySuffix = ""
 		if (market) {
 			marketType = market.market_type
 			upperBound = market.upper_bound
 			lowerBound = market.lower_bound
+			currencyPrefix = market.currency_prefix
+			currencySuffix = market.currency_suffix
 		}
 
 		let buys = [];
@@ -189,6 +193,8 @@ export default class Details extends Component {
 							marketType={marketType}
 							upperBound={upperBound}
 							lowerBound={lowerBound}
+							currencyPrefix={currencyPrefix}
+							currencySuffix={currencySuffix}
 							oid={oid}
 						/>
 					</div>
@@ -200,6 +206,8 @@ export default class Details extends Component {
 							marketType={marketType}
 							upperBound={upperBound}
 							lowerBound={lowerBound}
+							currencyPrefix={currencyPrefix}
+							currencySuffix={currencySuffix}
 						/>
 					</div>
 

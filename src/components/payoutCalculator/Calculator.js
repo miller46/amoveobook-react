@@ -41,6 +41,8 @@ export default class Calculator extends Component {
 			titleOverride: this.props.titleOverride || false,
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
+			currencyPrefix: this.props.currencyPrefix || "",
+			currencySuffix: this.props.currencySuffix || "",
 			sliderValue: 50,
 		}
 
@@ -48,16 +50,18 @@ export default class Calculator extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setProps(props.amount, props.price, props.marketType, props.upperBound, props.lowerBound)
+		this.setProps(props.amount, props.price, props.marketType, props.upperBound, props.lowerBound, props.currencyPrefix, props.currencySuffix)
 	}
 
-	setProps(amount, price, marketType, upperBound, lowerBound) {
+	setProps(amount, price, marketType, upperBound, lowerBound, currencyPrefix, currencySuffix) {
 		this.setState({
 			amount: parseFloat(amount),
 			price: parseFloat(price),
 			marketType: marketType,
 			upperBound: parseFloat(upperBound),
 			lowerBound: parseFloat(lowerBound),
+			currencyPrefix: currencyPrefix,
+			currencySuffix: currencySuffix,
 		})
 	}
 
@@ -67,7 +71,7 @@ export default class Calculator extends Component {
 	}
 
 	render() {
-		const {darkMode, amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
+		const {darkMode, amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride, currencyPrefix, currencySuffix} = this.state;
 
 		const {veoPrices} = this.props;
 		const currencyId = this.props.currencyId || "USD"
@@ -118,7 +122,7 @@ export default class Calculator extends Component {
 						</div>
 
 						<div styleName="TargetPrice">
-							<p>{targetPrice}</p>
+							<p>{currencyPrefix}{targetPrice}{currencySuffix}</p>
 						</div>
 
 						<div>
@@ -133,7 +137,7 @@ export default class Calculator extends Component {
 						</div>
 
 						<div>
-							<span className="left">{lowerBound}</span><span className="right">{upperBound}</span>
+							<span className="left">{currencyPrefix}{lowerBound}{currencySuffix}</span><span className="right">{currencyPrefix}{upperBound}{currencySuffix}</span>
 						</div>
 					</div>
 

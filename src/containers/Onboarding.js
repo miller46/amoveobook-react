@@ -137,7 +137,7 @@ export default class Onboarding extends Component {
 		})
 
 		localStorage.setItem("onboarding", false);
-		
+
 		const {pathname} = this.props.location;
 		this.context.router.push(pathname)
 
