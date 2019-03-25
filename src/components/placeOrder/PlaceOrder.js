@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {getAccount, getChannelData} from "../../actions";
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading'
-import {api} from "../../config";
+import {api, tokenDecimals, priceDecimals} from "../../config";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -38,27 +38,23 @@ export default class PlaceOrder extends Component {
 
 	DEFAULT_PRICE = 0.5;
 
+	DEFAULT_AMOUNT = 1;
+
+	DEFAULT_ORDER_TYPE = "limit";
+
+	DEFAULT_BUY_SELL = "buy";
+
+	DEFAULT_ORDER_SIDE = "long";
+
 	constructor(props) {
 		super(props);
 
-		const bestPrice = this.props.bestPrice
-		let selectedOrderType = "market"
-		let selectedBuySell = "buy"
-		let selectedSide = "long"
-		let amount = 1
-		let price = 0
-
-		if (bestPrice === 0) {
-			price = this.DEFAULT_PRICE;
-			selectedOrderType = "limit";
-		} else {
-			price = bestPrice;
-		}
+		const defaultPrice = this.DEFAULT_PRICE;
+		const defaultAmount = this.DEFAULT_AMOUNT;
 
 		this.state = {
-			bestPrice: this.props.bestPrice,
-			buy: this.props.buy,
-			sell: this.props.sell,
+			buys: this.props.buys,
+			sells: this.props.sells,
 			account: this.props.account,
 			marketType: this.props.marketType,
 			loading: this.props.loading,
@@ -67,14 +63,14 @@ export default class PlaceOrder extends Component {
 			currencyPrefix: this.props.currencyPrefix || "",
 			currencySuffix: this.props.currencySuffix || "",
 			oid: this.props.oid,
-			selectedOrderType: selectedOrderType,
-			selectedBuySell: selectedBuySell,
-			selectedSide: selectedSide,
+			selectedOrderType: this.DEFAULT_ORDER_TYPE,
+			selectedBuySell: this.DEFAULT_BUY_SELL,
+			selectedSide: this.DEFAULT_ORDER_SIDE,
 			amountError: "",
 			priceError: "",
 			confirmError: "",
-			price: price,
-			amount: amount,
+			price: defaultPrice,
+			amount: defaultAmount,
 			userShares: 0,
 			maxOrderSize: this.MAX_ORDER_SIZE,
 			sliderValue: this.DEFAULT_PRICE * 100,
@@ -95,11 +91,11 @@ export default class PlaceOrder extends Component {
 		this.handleSliderChange = this.handleSliderChange.bind(this)
 
 		if (this.props.onPriceUpdate) {
-			this.props.onPriceUpdate(price);
+			this.props.onPriceUpdate(defaultPrice);
 		}
 
 		if (this.props.onAmountUpdate) {
-			this.props.onAmountUpdate(amount);
+			this.props.onAmountUpdate(defaultAmount);
 		}
 	}
 
@@ -108,6 +104,8 @@ export default class PlaceOrder extends Component {
 		this.setState({
 			bestPrice: props.bestPrice,
 			marketType: props.marketType,
+			buys: props.buys,
+			sells: props.sells,
 			account: props.account,
 			upperBound: props.upperBound,
 			lowerBound: props.lowerBound,
@@ -266,6 +264,28 @@ export default class PlaceOrder extends Component {
 		this.context.router.push("/")
 	}
 
+	getBestBuyPrice() {
+		const {buys} = this.state;
+		let lowestBuy = null
+		if (buys.length > 0) {
+			const buy = buys[0];
+			lowestBuy = [buy[0] / priceDecimals, buy[1] / tokenDecimals]
+		}
+
+		return lowestBuy;
+	}
+
+	getBestSellPrice() {
+		const {sells} = this.state;
+		let lowestSell = null;
+		if (sells.length > 0) {
+			const sell = sells[0];
+			lowestSell = [sell[0] / priceDecimals, sell[1] / tokenDecimals]
+		}
+
+		return lowestSell;
+	}
+
 	render() {
 		const {account, channelData, loading} = this.props;
 
@@ -283,6 +303,14 @@ export default class PlaceOrder extends Component {
 		const isBuy = selectedBuySell === "buy";
 		const buyStyleName = isBuy ? "BuySellSelectedToggle" : ""
 		const sellStyleName = isBuy ? "" : "BuySellSelectedToggle"
+
+		if (isLong) {
+			let bestSellPrice = this.getBestSellPrice()
+			console.log(bestSellPrice);
+		} else {
+			let bestBuyPrice = this.getBestBuyPrice()
+			console.log(bestBuyPrice);
+		}
 
 		const buySellStyleName = userShares > 0 ? "BuySellToggle" : "Hidden";
 

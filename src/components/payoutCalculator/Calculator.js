@@ -74,7 +74,10 @@ export default class Calculator extends Component {
 		const {darkMode, amount, price, sliderValue, marketType, upperBound, lowerBound, titleOverride} = this.state;
 		let  {currencyPrefix, currencySuffix} = this.state;
 
-		currencyPrefix = currencyPrefix.replace("EUR", "€")
+		if (currencyPrefix) {
+			currencyPrefix = currencyPrefix.replace("EUR", "€")
+		}
+
 		const {veoPrices} = this.props;
 		const currencyId = this.props.currencyId || "USD"
 		const currency = currencies[currencyId]
