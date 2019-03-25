@@ -8,6 +8,7 @@ import AppRouter from "./containers/AppRouter";
 import FAQ from "./containers/FAQ";
 import Orders from "./containers/Orders";
 import Channels from "./containers/Channels";
+import Oracles from "./containers/Oracles";
 import ExpiredMarketsContainer from "./containers/ExpiredMarketsContainer";
 
 
@@ -17,6 +18,7 @@ const routes = (
       <Route path='/orders' component={Orders} />
       <Route path='/channels' component={Channels} />
       <Route path='/FAQ' component={FAQ} />
+      <Route path='/oracles' component={Oracles} />
 	  <Route path='/expiredMarkets' component={ExpiredMarketsContainer} />
 	  <Route path='/advanced/:oid' component={Advanced} />
       <Route path='/:oid' component={Details} />
