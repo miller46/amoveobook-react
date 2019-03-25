@@ -37,7 +37,7 @@
   background: rgba(0, 0, 0, .5);
   overflow: auto;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
 }
 
 .NoScroll {

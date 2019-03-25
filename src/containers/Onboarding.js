@@ -51,6 +51,7 @@ export default class Onboarding extends Component {
 			showMarketRequest: this.props.showMarketRequest,
 			noWallet: noWallet,
 			unlocked: unlocked,
+			location: this.props.location,
 		}
 
 		this.listener = 0;
@@ -78,7 +79,6 @@ export default class Onboarding extends Component {
 				const noWallet = !amoveo3;
 				const unlocked = amoveo3 && !amoveo3.isLocked;
 
-				const a = instance.props.channelData;
 				if (instance.props.channelData) {
 					instance.advanceToSplash();
 				} else if (lastWallet !== noWallet || lastUnlocked !== unlocked) {
@@ -96,7 +96,7 @@ export default class Onboarding extends Component {
 
 	hasChannel() {
 		const {channelData, channelLoading} = this.props;
-		return channelData;
+		return channelData !== undefined;
 	}
 
 	advanceToChannels() {
@@ -104,29 +104,31 @@ export default class Onboarding extends Component {
 			finishedEmail: true,
 		})
 
-		const channelExists = hasChannel(window.amoveo3);
+		const channelExists = this.hasChannel()
 		if (channelExists) {
 			this.advanceToSplash();
 		}
 	}
 
 	advanceToSplash() {
-		const {account} = this.props;
-		// if (account) {
-			this.setState({
-				channel: true,
-			})
-			localStorage.setItem("onboarding", false);
-			this.context.router.push("/")
+		this.setState({
+			channel: true,
+		})
 
-			clearInterval(this.listener);
+		localStorage.setItem("onboarding", false);
 
+		const {pathname} = this.props.location;
+		this.context.router.push(pathname)
+
+		clearInterval(this.listener);
+
+		if (this.props.onClose) {
 			this.props.onClose();
-		// }
+		}
 
 		document.body.style.overflow = "auto";
 
-		window.location.reload();
+		// window.location.reload();
 	}
 
 	close() {
@@ -139,7 +141,9 @@ export default class Onboarding extends Component {
 
 		clearInterval(this.listener);
 
-		this.props.onClose();
+		if (this.props.onClose) {
+			this.props.onClose();
+		}
 
 		document.body.style.overflow = "auto";
 	}

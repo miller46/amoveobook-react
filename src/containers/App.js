@@ -7,6 +7,7 @@ import Drawer from '../components/navigation/Drawer'
 import USWarning from '../components/navigation/USWarning'
 import TestnetWarning from "../components/navigation/TestnetWarning";
 import Footer from "../components/footer/Footer";
+import Onboarding from "./Onboarding";
 import {getAccount, getIp, getChannelPending, getChannelData, getHeight, getActiveMarkets} from "../actions";
 import {connect} from "react-redux";
 import ChannelPending from "../components/transaction/ChannelPending";
@@ -101,8 +102,17 @@ export default class App extends Component {
 		const contentClass = showDrawer ? "Disabled" : ""
 		const bodyClass = showDrawer ? "NoScroll" : ""
 
+		const onboarding = localStorage.getItem("onboarding") === "true";
+
 		return (
 			<div styleName={bodyClass}>
+				{
+					(onboarding) &&
+					<Onboarding
+						location={this.props.location}
+					/>
+				}
+
 				<ReactCSSTransitionGroup
 					transitionName="slide"
 					transitionEnter={true}
@@ -127,6 +137,7 @@ export default class App extends Component {
 
 					<div>
 						<NavBar
+							location={this.props.location}
 							showingDrawer={showDrawer}
 							onDrawerClick={this.showDrawer}
 						/>

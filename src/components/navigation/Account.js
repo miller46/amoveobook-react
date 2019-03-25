@@ -38,6 +38,7 @@ export default class Account extends Component {
 			account: this.props.account,
 			loading: this.props.loading,
 			showing: false,
+			location: props.location,
 		}
 
 		this.closeDropdown = this.closeDropdown.bind(this);
@@ -45,7 +46,8 @@ export default class Account extends Component {
 
 	showOnboarding() {
 		localStorage.setItem("onboarding", true);
-		this.context.router.push("/")
+		const {pathname} = this.props.location;
+		this.context.router.push(pathname)
 	}
 
 	openDropdown() {

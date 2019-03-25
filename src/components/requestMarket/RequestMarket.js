@@ -49,8 +49,26 @@ export default class RequestMarket extends Component {
 		});
 	}
 
+	close() {
+		this.setState({
+			channel: true,
+		})
+
+		localStorage.setItem("onboarding", false);
+
+		clearInterval(this.listener);
+
+		if (this.props.onClose) {
+			this.props.onClose();
+		}
+
+		document.body.style.overflow = "auto";
+	}
+
 	render() {
 		const {loading, completed} = this.props;
+
+		document.body.style.overflow = "hidden";
 
 		let body;
 		if (loading) {
@@ -84,14 +102,19 @@ export default class RequestMarket extends Component {
 			</div>
 		}
 
-		return (
-			<div styleName="Container">
-				<p styleName="Title">Request Market</p>
+		return <div styleName="Onboarding">
+			<div styleName="Popup">
+				<div styleName="Close" onClick={() => this.close()}>
+					<p>x</p>
+				</div>
+				<div styleName="Container">
+					<p styleName="Title">Request Market</p>
 
-				<div>
-					{body}
+					<div>
+						{body}
+					</div>
 				</div>
 			</div>
-		)
+		</div>
 	}
 }

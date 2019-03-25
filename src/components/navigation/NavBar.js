@@ -17,6 +17,7 @@ export default class NavBar extends Component {
 		this.state = {
 			account: this.props.account,
 			loading: this.props.loading,
+			location: this.props.location,
 			showingDrawer: this.props.showingDrawer || false,
 		}
 
@@ -57,7 +58,9 @@ export default class NavBar extends Component {
 					<i style={{color: 'black', display: burgerDisplay}} id="icon-burger" className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
 
 					<div styleName="NavBarRight">
-						<Account />
+						<Account
+							location={location}
+						/>
 					</div>
 
 					<div style={{display: burgerDisplay}} styleName="NavBarCenter">

@@ -8,6 +8,7 @@ import CSSModules from "react-css-modules/dist/index";
 import RequestMarketPrompt from "../components/requestMarket/RequestMarketPrompt";
 import Onboarding from "./Onboarding";
 import ChannelPending from "../components/transaction/ChannelPending";
+import RequestMarket from "../components/requestMarket/RequestMarket";
 
 
 @CSSModules(styles)
@@ -34,14 +35,13 @@ export default class Splash extends Component {
 
 	render() {
 		const {showMarketRequest} = this.state;
-		const onboarding = localStorage.getItem("onboarding") === "true";
 
 		return (
 			<div styleName="SplashContainer">
 
 				{
-					(onboarding || showMarketRequest) &&
-					<Onboarding
+					(showMarketRequest) &&
+					<RequestMarket
 						showMarketRequest={showMarketRequest}
 						onClose={this.hideRequestMarket}
 					/>
