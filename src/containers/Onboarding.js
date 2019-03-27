@@ -128,7 +128,7 @@ export default class Onboarding extends Component {
 
 		document.body.style.overflow = "auto";
 
-		// window.location.reload();
+		window.location.reload();
 	}
 
 	close() {

@@ -196,8 +196,9 @@
 }
 
 .OrderForm button:disabled {
-    background-color: rgba(65, 150, 65, 0.75);
-    border-color: #398439;
+    color: #d3d3d3;
+    background-color: #777;
+    border-color: #777;
 }
 
 .PriceSlider {

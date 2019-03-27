@@ -13,15 +13,17 @@ export default class MarketDetailCard extends Component {
 			market: this.props.market,
 			height: this.props.height,
 			prices: this.props.prices,
+			currencyPrefix: this.props.currencyPrefix || "",
+			currencySuffix: this.props.currencySuffix || "",
 		}
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({market: props.market, height: props.height})
+		this.setState({market: props.market, height: props.height, currencyPrefix: props.currencyPrefix, currencySuffix: props.currencySuffix})
 	}
 
 	render() {
-		const {market, height, prices} = this.state;
+		const {market, height, prices, currencyPrefix, currencySuffix} = this.state;
 
 		let question = "--"
 		if (market) {
@@ -79,8 +81,8 @@ export default class MarketDetailCard extends Component {
 
 				<div styleName="Trading">
 					<div styleName="Left">
-						<p>High: <span styleName="TradingFigure">{high}</span></p>
-						<p>Low: <span styleName="TradingFigure">{low}</span></p>
+						<p>High: <span styleName="TradingFigure">{currencyPrefix}{high}{currencySuffix}</span></p>
+						<p>Low: <span styleName="TradingFigure">{currencyPrefix}{low}{currencySuffix}</span></p>
 					</div>
 					<div styleName="Right">
 						<p>Volume: <span styleName="TradingFigure">{totalVolume} VEO</span></p>

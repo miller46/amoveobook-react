@@ -148,6 +148,9 @@ export default class Advanced extends Component {
 		let buys = [];
 		let sells = [];
 		let prices = [];
+		let marketType = ""
+		let upperBound = 0
+		let lowerBound = 0
 		let currencyPrefix = ""
 		let currencySuffix = ""
 
@@ -158,6 +161,15 @@ export default class Advanced extends Component {
 
 			volume = getVolume(marketDetails.matchedOrders).toFixed(2);
 			openInterest = ((sumAmounts(buys) + sumAmounts(sells)) / tokenDecimals).toFixed(2);
+
+			marketType = market.market_type
+			upperBound = market.upper_bound
+			lowerBound = market.lower_bound
+			currencySuffix = market.currency_suffix
+
+			if (market.currency_prefix) {
+				currencyPrefix = market.currency_prefix.replace("EUR", "€")
+			}
 
 			odds = getDisplayOdds(marketDetails.matchedOrders);
 			if (odds === 0) {
@@ -193,12 +205,6 @@ export default class Advanced extends Component {
 				</div>
 			)
 		} else {
-			const marketType = market.market_type;
-			const upperBound = market.upper_bound;
-			const lowerBound = market.lower_bound;
-			const currencyPrefix = market.currency_prefix
-			const currencySuffix = market.currency_suffix
-
 			return (
 				<div styleName="AdvancedContainer">
 					<div styleName="LeftPanel">
@@ -208,6 +214,8 @@ export default class Advanced extends Component {
 								marketDetail={marketDetails}
 								height={height}
 								prices={prices}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 
@@ -217,6 +225,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								buys={buys}
+								sells={sells}
 								currencyPrefix={currencyPrefix}
 								currencySuffix={currencySuffix}
 								onAmountUpdate={this.updateAmount}

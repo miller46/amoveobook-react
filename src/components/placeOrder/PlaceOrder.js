@@ -109,7 +109,7 @@ export default class PlaceOrder extends Component {
 			account: props.account,
 			upperBound: props.upperBound,
 			lowerBound: props.lowerBound,
-			amount: props.amount || this.state.amount,
+			amount: props.amount,
 			price: price,
 			selectedSide: props.selectedSide || this.state.selectedSide,
 			sliderValue: price * 100,
@@ -182,14 +182,13 @@ export default class PlaceOrder extends Component {
 
 	handleAmountChange(e) {
 		let {maxOrderSize} = this.state;
-
 		let amount = parseFloat(e.target.value);
-		if (isNaN(amount) || amount < 0) {
-			amount = 0;
-		}
 
 		let amountError = ""
-		if (amount > maxOrderSize) {
+
+		if (isNaN(amount) || amount <= 0) {
+			amountError = "Amount must be greater than 0"
+		} else if (amount > maxOrderSize) {
 			amountError = "Max order size is " + maxOrderSize
 			amount = maxOrderSize
 		}
@@ -375,7 +374,7 @@ export default class PlaceOrder extends Component {
 					<div styleName="OrderFormInput">
 						<input
 							type="number"
-							value={amount >= 0 ? amount : ''}
+							value={amount}
 							onChange={this.handleAmountChange.bind(this)}
 						/>
 					</div>
@@ -436,13 +435,7 @@ export default class PlaceOrder extends Component {
 
 				<div styleName="ConfirmContainer">
 					<div styleName="ConfirmLeft">
-						<p>Share Value</p>
-					</div>
-					<div styleName="ConfirmRight">
-						<p>{(price * 100).toFixed(2)} VEO</p>
-					</div>
-					<div styleName="ConfirmLeft">
-						<p>Total</p>
+						<p>Total Paid</p>
 					</div>
 					<div styleName="ConfirmRight">
 						<p>{total.toFixed(4)} VEO</p>

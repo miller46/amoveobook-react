@@ -153,8 +153,11 @@ export default class Details extends Component {
 			marketType = market.market_type
 			upperBound = market.upper_bound
 			lowerBound = market.lower_bound
-			currencyPrefix = market.currency_prefix
 			currencySuffix = market.currency_suffix
+
+			if (market.currency_prefix) {
+				currencyPrefix = market.currency_prefix.replace("EUR", "€")
+			}
 		}
 
 		let buys = [];
@@ -176,6 +179,8 @@ export default class Details extends Component {
 						market={market}
 						height={height}
 						prices={prices}
+						currencyPrefix={currencyPrefix}
+						currencySuffix={currencySuffix}
 					/>
 				</div>
 
