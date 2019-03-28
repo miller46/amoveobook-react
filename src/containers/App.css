@@ -17,6 +17,11 @@
   overflow: auto;
 }
 
+.LoadingContainer {
+  text-align: center;
+  margin: 64px auto;
+}
+
 .LeftPanel {
   background: url('https://res.cloudinary.com/klowdstore/image/upload/v1550097457/background-circles_kbtxw6.png') no-repeat;
   background-position-y: -150px;

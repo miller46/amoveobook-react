@@ -28,7 +28,7 @@
     margin-right: 32px;
     flex: 1;
     max-width: 800px;
-    min-width: 500px;
+    min-width: 460px;
 }
 
 .RightPanel {
@@ -122,8 +122,8 @@
 
 @media (min-width: 916px) and (max-width: 1023px) {
     .LeftPanel {
-        max-width: 320px;
-        min-width: 260px;
+        max-width: 360px;
+        min-width: 360px;
     }
 
     .MiddlePanel {

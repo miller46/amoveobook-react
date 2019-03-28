@@ -21,6 +21,7 @@ export default class Adblock extends Component {
 	goToSplash() {
 		const {notUsSelected} = this.state;
 		localStorage.setItem("isNotUS", notUsSelected);
+		localStorage.setItem("agreedUS", !notUsSelected);
 		this.context.router.push("/")
 	}
 

@@ -6,6 +6,7 @@ import {getAccount, getChannelData} from "../../actions";
 import PropTypes from 'prop-types';
 import Loading from '../loading/Loading'
 import {api, tokenDecimals, priceDecimals} from "../../config";
+import {getNetwork} from "../../amoveo3utility";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -151,11 +152,6 @@ export default class PlaceOrder extends Component {
 		}
 
 		orderPrice = parseFloat(orderPrice.toFixed(6));
-
-		const isLong = selectedSide === "long";
-		if (!isLong) {
-			orderPrice = parseFloat((1 - orderPrice).toFixed(4))
-		}
 
 		const amoveo3 = window.amoveo3;
 		if (amoveo3) {
@@ -344,7 +340,18 @@ export default class PlaceOrder extends Component {
 		}
 
 		let button = <div></div>
-		if (!account) {
+
+		const showWarning =
+			localStorage.getItem("agreedUS") === "true"
+			|| localStorage.getItem("isNotUS") !== "true" ;
+
+		const isTestnet = getNetwork(window.amoveo3) === "testnet";
+
+		if (showWarning && !isTestnet) {
+			button = <div styleName="OrderFormLocked">
+				<button>Not yet available for US customers</button>
+			</div>
+		} else if (!account)  {
 			button = <div styleName="OrderFormLocked">
 				<button>You must <span styleName="Underlined" onClick={() => this.goToLogin()}>log in</span> to place a bet.</button>
 			</div>

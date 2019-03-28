@@ -1,11 +1,33 @@
 import React, { Component } from "react";
+import styles from './App.css'
 
 import Splash from "./Splash";
 import Loading from "../components/loading/Loading";
 import UsCustomers from "../components/disclaimers/UsCustomers";
 import Adblock from "../components/disclaimers/Adblock";
 import Onboarding from "./Onboarding";
+import {getAccount, getActiveMarkets, getChannelData, getChannelPending, getHeight, getIp} from "../actions";
+import {connect} from "react-redux";
+import CSSModules from "react-css-modules/dist/index";
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		ip: state.default.ip,
+		ipLoading: state.default.loading.ip,
+		ipError: state.default.error.ip,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		getIp: () => {
+			dispatch(getIp());
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
+@CSSModules(styles)
 export default class AppRouter extends Component {
 
 	constructor(props) {
@@ -32,7 +54,9 @@ export default class AppRouter extends Component {
 			)
 		} else if (ipLoading) {
 			return (
-				<Loading lightMode={true} />
+				<div styleName="LoadingContainer">
+					<Loading lightMode={true} />
+				</div>
 			)
 		} else if (ipError) {
 			return (

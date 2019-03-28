@@ -188,6 +188,7 @@
     height: 40px;
     padding: 0 16px;
     margin-bottom: 6px;
+    line-height: 16px;
 }
 
 .OrderForm button:hover {

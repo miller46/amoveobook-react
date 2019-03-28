@@ -15,7 +15,7 @@ export default class Warning extends Component {
 			localStorage.getItem("agreedUS") === "true"
 			|| localStorage.getItem("isNotUS") !== "true" ;
 
-		const isTestnet = getNetwork(window.amoveo3);
+		const isTestnet = getNetwork(window.amoveo3) === "testnet";
 
 		if (showWarning && !isTestnet) {
 			return (
