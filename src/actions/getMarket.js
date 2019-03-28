@@ -32,7 +32,7 @@ export const getMarket = (network, oid) => {
 				let expires = 0
 				let question = ""
 
-				if (details.length > 1) {
+				if (details.length > 1 && details[1].length > 1) {
 					expires = details[1][6];
 					buys = details[1][3];
 					sells = details[1][4];

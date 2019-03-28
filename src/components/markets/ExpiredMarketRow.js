@@ -17,8 +17,8 @@ export default class ExpiredMarketsRow extends Component {
 		const {market} = this.state;
 
 		const isFalse = market.resolution === "false"
-		const expiredClass = isFalse ? "ExpiredCol" : "ExpiredFalseCol";
-		const resolutionClass = isFalse ? "ResolutionCol" : "ResolutionFalseCol";
+		const expiredClass = isFalse ?  "ExpiredFalseCol" : "ExpiredCol";
+		const resolutionClass = isFalse ? "ResolutionFalseCol" : "ResolutionCol";
 
 		return (
 			<div styleName="Row">

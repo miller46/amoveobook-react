@@ -154,7 +154,7 @@ export default class PlaceOrder extends Component {
 
 		const isLong = selectedSide === "long";
 		if (!isLong) {
-			orderPrice = 1 - orderPrice
+			orderPrice = parseFloat((1 - orderPrice).toFixed(4))
 		}
 
 		const amoveo3 = window.amoveo3;
@@ -363,7 +363,9 @@ export default class PlaceOrder extends Component {
 		let form = <div></div>
 		if (loading) {
 			form = <div styleName="OrderForm">
-				<Loading lightMode={true} />
+				<div styleName="LoadingContainer">
+					<Loading lightMode={true} />
+				</div>
 			</div>
 		} else {
 			form = <div styleName="OrderForm">
@@ -434,6 +436,21 @@ export default class PlaceOrder extends Component {
 				</div>
 
 				<div styleName="ConfirmContainer">
+					{
+						isScalarMarket
+							?
+							<div>
+								<div styleName="ConfirmLeft">
+									<p>Share Price</p>
+								</div>
+								<div styleName="ConfirmRight">
+									<p>{(total).toFixed(4)} VEO</p>
+								</div>
+							</div>
+						:
+							<div>
+							</div>
+					}
 					<div styleName="ConfirmLeft">
 						<p>Total Paid</p>
 					</div>

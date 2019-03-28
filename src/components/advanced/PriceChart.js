@@ -159,12 +159,12 @@ export default class PriceChart extends Component {
 			} else {
 				// fallback beginning of bets
 				const firstPrice = prices[0];
-				begin = Date.parse(firstPrice.timestamp) - utcOffset - 1
+				begin = Date.parse(firstPrice.create_date) - utcOffset - 1
 			}
 
 			// back stop for first order anyway
 			const firstPrice = prices[0];
-			const firstOrderDate = Date.parse(firstPrice.timestamp) - utcOffset - 1
+			const firstOrderDate = Date.parse(firstPrice.create_date) - utcOffset - 1
 			if (begin < firstOrderDate) {
 				begin = firstOrderDate
 			}
@@ -199,7 +199,7 @@ export default class PriceChart extends Component {
 
 				for (let lastIndex = 0; lastIndex < prices.length; lastIndex++) {
 					const order = prices[lastIndex];
-					const orderDate = Date.parse(order.timestamp) - utcOffset
+					const orderDate = Date.parse(order.create_date) - utcOffset
 
 					if (orderDate >= date && date + interval > orderDate) {
 

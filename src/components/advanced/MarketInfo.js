@@ -58,8 +58,8 @@ export default class MarketInfo extends Component {
 			const amount = order.buy_amount / tokenDecimals;
 			totalVolume = totalVolume + amount;
 
-			const orderDate = Date.parse(order.timestamp) - utcOffset
-			if (orderDate <= now - hours24) {
+			const orderDate = Date.parse(order.create_date) - utcOffset
+			if (orderDate >= now - hours24) {
 				volumeLast24 = volumeLast24 + amount;
 			}
 		}

@@ -2,15 +2,36 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './MarketDetailCard.css'
 import {priceDecimals, tokenDecimals} from "../../config";
+import {getAccount, getActiveMarkets, getChannelData, getHeight, getMarket} from "../../actions";
+import {connect} from "react-redux";
 
+const mapStateToProps = (state, ownProps) => {
+	const oid = ownProps.oid;
+	return {
+		activeMarkets: state.default.activeMarkets,
+		marketDetail: state.default.marketDetails[oid],
+	};
+};
 
+const mapDispatchToProps = dispatch => {
+	return {
+		getMarket: (network, oid) => {
+			dispatch(getMarket(network, oid));
+		},
+		getActiveMarkets: (options) => {
+			dispatch(getActiveMarkets(options));
+		},
+	};
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 @CSSModules(styles)
 export default class MarketDetailCard extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			market: this.props.market,
+			oid: this.props.oid,
 			height: this.props.height,
 			prices: this.props.prices,
 			currencyPrefix: this.props.currencyPrefix || "",
@@ -19,15 +40,31 @@ export default class MarketDetailCard extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({market: props.market, height: props.height, currencyPrefix: props.currencyPrefix, currencySuffix: props.currencySuffix})
+		this.setState({oid: props.oid, height: props.height, currencyPrefix: props.currencyPrefix, currencySuffix: props.currencySuffix})
 	}
 
 	render() {
-		const {market, height, prices, currencyPrefix, currencySuffix} = this.state;
+		const {oid, height, currencyPrefix, currencySuffix} = this.state;
+
+		const {activeMarkets, marketDetail} = this.props;
+
+		let market;
+		for (let i = 0; i < activeMarkets.length; i++) {
+			let activeMarket = activeMarkets[i];
+			if (activeMarket.oid === oid) {
+				market = activeMarket;
+				break;
+			}
+		}
 
 		let question = "--"
 		if (market) {
 			question = market.question;
+		}
+
+		let prices = [];
+		if (marketDetail) {
+			prices = marketDetail.matchedOrders;
 		}
 
 		let low = 999999999999;
@@ -35,7 +72,7 @@ export default class MarketDetailCard extends Component {
 		let totalVolume = 0;
 		let volumeLast24 = 0;
 
-		const utcOffset = 6 * 60 * 60 * 1000;
+		const utcOffset = 5 * 60 * 60 * 1000;
 		const hours24 = 24 * 60 * 60 * 1000;
 		const now = Date.parse(new Date());
 
@@ -55,8 +92,8 @@ export default class MarketDetailCard extends Component {
 			const amount = order.buy_amount / tokenDecimals;
 			totalVolume = totalVolume + amount;
 
-			const orderDate = Date.parse(order.timestamp) - utcOffset
-			if (orderDate <= now - hours24) {
+			const orderDate = Date.parse(order.create_date) - utcOffset
+			if (orderDate >= now - hours24) {
 				volumeLast24 = volumeLast24 + amount;
 			}
 		}
@@ -70,6 +107,8 @@ export default class MarketDetailCard extends Component {
 		const sign = change > 0 ? "+" : "-";
 		const changeClass = change > 0 ? "Profit" : "Loss";
 
+		low = low.toFixed(2);
+		high = high.toFixed(2);
 		totalVolume = totalVolume.toFixed(2);
 		volumeLast24 = volumeLast24.toFixed(2);
 

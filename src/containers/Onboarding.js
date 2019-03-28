@@ -96,7 +96,7 @@ export default class Onboarding extends Component {
 
 	hasChannel() {
 		const {channelData, channelLoading} = this.props;
-		return channelData !== undefined;
+		return channelData !== null;
 	}
 
 	advanceToChannels() {
@@ -128,7 +128,9 @@ export default class Onboarding extends Component {
 
 		document.body.style.overflow = "auto";
 
-		window.location.reload();
+		setTimeout(function() {
+			window.location.reload();
+		}, 300)
 	}
 
 	close() {

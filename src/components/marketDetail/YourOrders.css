@@ -1,6 +1,7 @@
 .Orders {
     margin: auto;
     text-align: center;
+    padding-bottom: 16px;
 }
 
 .OrderRow, .OrderRow5 {

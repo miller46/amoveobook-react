@@ -92,11 +92,15 @@ export default class Details extends Component {
 	}
 
 	componentDidMount() {
-		const {oid, marketDetail} = this.state;
+		const {oid, marketDetail, activeMarkets} = this.state;
 
 		const network = getNetwork(window.amoveo3);
 		if (!marketDetail) {
 			this.props.getMarket(network, oid);
+		}
+
+		if (!activeMarkets) {
+			this.props.getActiveMarkets({network: network});
 		}
 	}
 
@@ -166,8 +170,8 @@ export default class Details extends Component {
 
 		if (marketDetail && market) {
 			prices = marketDetail.matchedOrders;
-			buys = marketDetail ? priceAmount(marketDetail.buys) : [];
-			sells = marketDetail ? priceAmount(marketDetail.sells) : [];
+			buys = marketDetail.buys ? priceAmount(marketDetail.buys) : [];
+			sells = marketDetail.sells ? priceAmount(marketDetail.sells) : [];
 		}
 
 		return (
@@ -176,7 +180,7 @@ export default class Details extends Component {
 					<ChannelPending />
 
 					<MarketDetailCard
-						market={market}
+						oid={oid}
 						height={height}
 						prices={prices}
 						currencyPrefix={currencyPrefix}

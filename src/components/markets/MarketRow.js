@@ -66,6 +66,8 @@ export default class MarketRow extends Component {
 		const isScalar = market.market_type === "scalar";
 		const upperBound = market.upper_bound;
 		const lowerBound = market.lower_bound;
+		const currencyPrefix = market.currency_prefix ? market.currency_prefix.replace("EUR", "€") : "";
+		const currencySuffix = market.currency_suffix;
 
 		let volume = "--"
 		let openInterest = "--"
@@ -83,7 +85,7 @@ export default class MarketRow extends Component {
 					if (marketDetails.matchedOrders.length > 0) {
 						const price = marketDetails.matchedOrders[0].price / priceDecimals
 						const value = price * (upperBound - lowerBound);
-						odds = parseFloat(value.toFixed(2));
+						odds = value.toFixed(2);
 					}
 				} else {
 					odds = getDisplayOdds(marketDetails.matchedOrders);
@@ -112,7 +114,7 @@ export default class MarketRow extends Component {
 						</div>
 						<div>
 							<label>{isScalar ? "Current Value" : "Odds"}</label>
-							<p>{odds}{isScalar ? "" : "%"}</p>
+							<p>{currencyPrefix}{odds}{currencySuffix}{isScalar ? "" : "%"}</p>
 						</div>
 						<div>
 							<label>Open Bets</label>

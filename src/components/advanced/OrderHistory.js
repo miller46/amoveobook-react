@@ -57,7 +57,7 @@ export default class OrderHistory extends Component {
 										{price}
 									</div>
 									<div>
-										{order.timestamp}
+										{order.create_date}
 									</div>
 								</div>
 							)

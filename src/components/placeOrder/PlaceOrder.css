@@ -201,6 +201,11 @@
     border-color: #777;
 }
 
+.LoadingContainer {
+    text-align: center;
+    margin: auto;
+}
+
 .PriceSlider {
 
 }

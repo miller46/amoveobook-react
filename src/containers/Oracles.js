@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './Orders.css'
 
-import {api} from "../config";
+import {api, priceDecimals} from "../config";
 import {getNetwork} from "../amoveo3utility";
 
 @CSSModules(styles)
@@ -11,9 +11,7 @@ export default class Orders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			oracles: {
-
-			}
+			oracles: {}
 		}
 	}
 
@@ -50,12 +48,19 @@ export default class Orders extends Component {
 					.then(function (data) {
 						const {oracles} = instance.state;
 						const oracleData = data[1];
+						console.log(JSON.stringify(oracleData))
 						oracles[oid] = oracleData
 						instance.setState({
 							oracles: oracles
 						})
+					})
+					.catch(err => {
+						console.log(err);
 					});
 				}
+			})
+			.catch(err => {
+				console.log(err);
 			});
 		}
 	}
@@ -69,7 +74,26 @@ export default class Orders extends Component {
 				{
 					keys.map(function (key, index) {
 						const oracle = oracles[key][1];
+
 						if (oracle) {
+							const exposure = oracle[1]
+							const price = oracle[2] / priceDecimals
+							const buys = oracle[3]
+							const sells = oracle[4]
+							const ratio = oracle[5] / priceDecimals
+							const expires = oracle[6]
+							const period = oracle[7]
+							const height = oracle[8]
+							const data = oracle[9]
+							const type = data[0]
+
+							let lowerBound = ""
+							let upperBound = ""
+							if (type === "scalar") {
+								lowerBound = data[1]
+								upperBound = data[2]
+							}
+
 							return (
 								<div
 									key={index}
@@ -79,13 +103,13 @@ export default class Orders extends Component {
 											<p>{key}</p>
 										</div>
 										<div>
-											<p>{oracle[9][0]}</p>
+											<p>{type}</p>
 										</div>
 										<div>
-											<p>{oracle[9][1]}</p>
+											<p>{lowerBound}</p>
 										</div>
 										<div>
-											<p>{oracle[9][2]}</p>
+											<p>{upperBound}</p>
 										</div>
 									</div>
 								</div>
