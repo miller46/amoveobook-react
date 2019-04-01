@@ -41,6 +41,8 @@ export default class YourOrders extends Component {
 			marketType: this.props.marketType,
 			upperBound: this.props.upperBound,
 			lowerBound: this.props.lowerBound,
+			currencyPrefix: this.props.currencyPrefix,
+			currencySuffix: this.props.currencySuffix,
 			hideTitle: this.props.hideTitle === true,
 			orders: [],
 		}
@@ -66,7 +68,7 @@ export default class YourOrders extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({update: props.update, marketType: props.marketType, upperBound: props.upperBound, lowerBound: props.lowerBound})
+		this.setState({update: props.update, marketType: props.marketType, upperBound: props.upperBound, lowerBound: props.lowerBound, currencyPrefix: props.currencyPrefix, currencySuffix: props.currencySuffix})
 	}
 
 	cancel(order) {
@@ -101,7 +103,7 @@ export default class YourOrders extends Component {
 
 	render() {
 		const instance = this;
-		const {oid, error, marketType, upperBound, lowerBound, hideTitle} = this.state;
+		const {oid, error, marketType, upperBound, lowerBound, hideTitle, currencyPrefix, currencySuffix} = this.state;
 		const {account, channelData, channelLoading, channelError} = this.props;
 
 		const isScalar = marketType === "scalar";
@@ -171,9 +173,9 @@ export default class YourOrders extends Component {
 							let price;
 							if (isScalar) {
 								if (row.side === "true") {
-									price = (upperBound - lowerBound) * row.price
+									price = (upperBound - lowerBound) * (row.price / priceDecimals)
 								} else {
-									price = (upperBound - lowerBound) * (1 - row.price)
+									price = (upperBound - lowerBound) * (1 - (row.price / priceDecimals))
 								}
 							} else {
 								price = row.price;
@@ -191,7 +193,7 @@ export default class YourOrders extends Component {
 										{row.side === "true" ? orderType + " " + "Long" : orderType + " " + "Short"}
 									</div>
 									<div>
-										{price / priceDecimals}
+										{currencyPrefix}{price}{currencySuffix}
 									</div>
 									<div>
 										{roundOff(row.amount / tokenDecimals, 6)}

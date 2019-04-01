@@ -259,6 +259,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 
@@ -273,6 +275,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 					</div>
@@ -290,6 +294,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 
@@ -304,6 +310,8 @@ export default class Advanced extends Component {
 								marketType={marketType}
 								upperBound={upperBound}
 								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 
@@ -316,6 +324,11 @@ export default class Advanced extends Component {
 								oid={oid}
 								hideTitle={true}
 								onCancel={this.onCancel}
+								marketType={marketType}
+								upperBound={upperBound}
+								lowerBound={lowerBound}
+								currencyPrefix={currencyPrefix}
+								currencySuffix={currencySuffix}
 							/>
 						</div>
 					</div>

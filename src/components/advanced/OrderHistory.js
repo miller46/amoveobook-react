@@ -13,11 +13,13 @@ export default class OrderHistory extends Component {
 			marketType: this.props.marketType,
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
+			currencyPrefix: this.props.currencyPrefix,
+			currencySuffix: this.props.currencySuffix,
 		}
 	}
 
 	render() {
-		const {prices, marketType, upperBound, lowerBound} = this.state;
+		const {prices, marketType, upperBound, lowerBound, currencyPrefix, currencySuffix} = this.state;
 
 		let display;
 		if (prices.length === 0) {
@@ -54,7 +56,7 @@ export default class OrderHistory extends Component {
 										{order.buy_amount / tokenDecimals}
 									</div>
 									<div>
-										{price}
+										{currencyPrefix}{price}{currencySuffix}
 									</div>
 									<div>
 										{order.create_date}

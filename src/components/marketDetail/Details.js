@@ -237,6 +237,8 @@ export default class Details extends Component {
 							marketType={marketType}
 							upperBound={upperBound}
 							lowerBound={lowerBound}
+							currencyPrefix={currencyPrefix}
+							currencySuffix={currencySuffix}
 						/>
 					</div>
 
@@ -247,6 +249,11 @@ export default class Details extends Component {
 							oid={oid}
 							hideTitle={true}s
 							onCancel={this.onCancel}
+							marketType={marketType}
+							upperBound={upperBound}
+							lowerBound={lowerBound}
+							currencyPrefix={currencyPrefix}
+							currencySuffix={currencySuffix}
 						/>
 					</div>
 				</div>
