@@ -14,6 +14,8 @@ export default class OrderBook extends Component {
 			marketType: this.props.marketType,
 			upperBound: parseFloat(this.props.upperBound),
 			lowerBound: parseFloat(this.props.lowerBound),
+			currencyPrefix: this.props.currencyPrefix,
+			currencySuffix: this.props.currencySuffix,
 		}
 
 		if (this.props.onSelectRow) {
@@ -37,7 +39,7 @@ export default class OrderBook extends Component {
 	render() {
 		const instance = this;
 
-		let {buys, sells, marketType, upperBound, lowerBound} = this.state;
+		let {buys, sells, marketType, upperBound, lowerBound, currencyPrefix, currencySuffix} = this.state;
 
 		let sortedBuys = [];
 		let sortedSells = [];
@@ -114,7 +116,7 @@ export default class OrderBook extends Component {
 												{amount}
 											</div>
 											<div>
-												{displayPrice}
+												{currencyPrefix}{displayPrice}{currencySuffix}
 											</div>
 										</div>
 									)
@@ -148,7 +150,7 @@ export default class OrderBook extends Component {
 												{amount}
 											</div>
 											<div>
-												{displayPrice}
+												{currencyPrefix}{displayPrice}{currencySuffix}
 											</div>
 										</div>
 									)
