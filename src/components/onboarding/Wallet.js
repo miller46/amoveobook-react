@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import CSSModules from 'react-css-modules'
 import styles from './Wallet.css'
 import {AMOVEO3_LOGO_URL} from "../../assets";
+import {firefoxWalletUrl, chromeWalletUrl} from "../../config";
+
 
 
 @CSSModules(styles)
@@ -13,7 +15,7 @@ export default class Wallet extends Component {
 
 	render() {
 		const isFirefox = typeof InstallTrigger !== 'undefined';
-		const url = isFirefox ? "https://addons.mozilla.org/en-US/firefox/addon/amoveo-wallet/" : "https://github.com/johnnycash77/amoveo3-wallet"
+		const url = isFirefox ? firefoxWalletUrl : chromeWalletUrl
 
 		return (
 			<div styleName="Wallet">
